@@ -35,7 +35,7 @@ install:
 
 test: 
 	clear 
-	python tests/TestControllerDefault.py
+	python tests/testControllerDefault.py
 	
 clean: 	
 	clear
