@@ -17,7 +17,7 @@ Additional Install Notes:
 - If asked about mail server, select No Config
 
 To clean the application: run make clean with the make file out of the directory. 
-To test the application : run make test
+\nTo test the application : run make test
 
 
 Download Files
