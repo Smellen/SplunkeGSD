@@ -1,4 +1,3 @@
-
 default: 
 	echo "Please run: \n1.  make build \n2.  make install \n3.  make test \n4.  make clean"
 
@@ -36,7 +35,7 @@ install:
 
 test: 
 	clear 
-	python TestControllerDefault.py
+	python tests/TestControllerDefault.py
 	
 clean: 	
 	clear
