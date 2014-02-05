@@ -11,7 +11,6 @@ build:
 	sudo apt-get -y install apache2
 	sudo apt-get -y install libapache2-mod-wsgi
 	sudo apt-get -y install libapache2-mod-proxy-html
-	wget http://web2py.googlecode.com/hg/scripts/setup-web2py-ubuntu.sh
 	chmod +x setup-web2py-ubuntu.sh
 	sudo ./setup-web2py-ubuntu.sh
 	sudo git clone https://github.com/Smellen/SplunkeGSD
@@ -27,7 +26,6 @@ install:
 	sudo apt-get -y install apache2
 	sudo apt-get -y install libapache2-mod-wsgi
 	sudo apt-get -y install libapache2-mod-proxy-html
-	wget http://web2py.googlecode.com/hg/scripts/setup-web2py-ubuntu.sh
 	chmod +x setup-web2py-ubuntu.sh
 	sudo ./setup-web2py-ubuntu.sh
 	sudo git clone https://github.com/Smellen/SplunkeGSD
