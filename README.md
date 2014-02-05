@@ -6,6 +6,10 @@ GSD sim game
 Once installed, the application can be reached at 
 localhost:80/SplunkeGSD
 
+We are using the python web framework "Web2Py" - http://web2py.com/ 
+
+The installation installs this framework during installation. 
+
 Installation Instructions
 =========================
 
