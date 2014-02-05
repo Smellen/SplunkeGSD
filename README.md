@@ -25,7 +25,7 @@ Download Files
 The application is also able to be downloaded using a tar file at each release, these are located in Downloads. 
 
 
-Realease 1
+Release 1
 ===========
 
 Implemented: 
