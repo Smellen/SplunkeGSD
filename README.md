@@ -15,6 +15,7 @@ Additional Install Notes:
 - The application will install in /home/www-data which it creates itself 
 - In order to not write over any files that might already be there, select [N]one if asked to replace, this will use the files that are there. 
 - If asked about mail server, select No Config
+
 To clean the application: run make clean with the make file out of the directory. 
 To test the application : run make test
 
