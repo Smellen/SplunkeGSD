@@ -4,7 +4,7 @@ SplunkeGSD
 GSD sim game
 
 Once installed, the application can be reached at 
-localhost:80/SplunkeGSD
+https://localhost/SplunkeGSD
 
 We are using the python web framework "Web2Py" - http://web2py.com/ 
 
@@ -31,12 +31,15 @@ Download Files
 The application is also able to be downloaded using a tar file at each release, these are located in Downloads. 
 
 
-Release 1
+Release 0
 ===========
 Released: 05/02/14
 
 Implemented: 
 - (Feature 17) Master configuration (file) that specifies certain global values unlikely to change from one simulation to the next. This can be a simple configuration file in any human-readable/editable format (json, xml, yaml, ...)
+
+The config file is located at ./application.config
+
 
 Known Issues: 
 - None
