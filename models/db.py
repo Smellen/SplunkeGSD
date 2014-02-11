@@ -65,6 +65,10 @@ use_janrain(auth, filename='private/janrain.key')
 
 #########################################################################
 ## Define your tables below (or better in another model file) for example
+#db.define_table('jimmy', Field('name'), format = '%(name)s')
+#db.jimmy.name.requires = IS_NOT_EMPTY()
+#db.jimmy.insert(name="Faggot")
+#db.jimmy.insert(name="Shinique")
 ##
 ## >>> db.define_table('mytable',Field('myfield','string'))
 ##

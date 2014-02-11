@@ -53,3 +53,21 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
+timestamp: 2014-02-10T18:56:36.902216
+CREATE TABLE jimmy(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512)
+);
+success!
+timestamp: 2014-02-10T19:38:12.306908
+CREATE TABLE gerald(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512)
+);
+success!
+timestamp: 2014-02-10T20:29:54.804599
+CREATE TABLE gerald(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512)
+);
+success!

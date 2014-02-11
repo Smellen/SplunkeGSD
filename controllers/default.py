@@ -10,11 +10,17 @@
 ########################################################################
 
 import ConfigParser
+import applications.SplunkeGSD.controllers.classes.module as module
 
 def index():
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-    return config.get("Main-Config","Test-String")
+   
+    mod = module.module(50)
+    mod.changeActual(20)
+    te = mod.ActualEffort
+   # tes = mod.test
+    return te 	
 
 
 def user():
