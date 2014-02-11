@@ -20,7 +20,7 @@ def index():
     test = team.team(10, 1)
     test.addModule(mod)
     test.applyEffort()
-    return test.currentModules
+    return str(test.currentModules)
 
 
 def user():

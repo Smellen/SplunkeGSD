@@ -20,7 +20,7 @@ class module:
 		self.actualEffort  += change
 
     def __repr__(self):
-        return self.name + ' is '+self.progress+' of '+self.actualEffort+' done'
+        return self.name + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done'
 
 if __name__ == "__main__":
 	module(50)

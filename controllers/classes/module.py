@@ -11,7 +11,7 @@ class module:
         self.estimateEffort = estimate
         self.actualEffort = (((random.random()/2) - 0.25) * estimate) + estimate
 
-        print self.actualEffort
+        #print self.actualEffort
 
 	def progress(self, val):
 		self.progress += val
@@ -20,7 +20,8 @@ class module:
 		self.actualEffort  += change
 
     def __repr__(self):
-        return self.name + ' is '+self.progress+' of '+self.actualEffort+' done'
+        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done'
+        return ret
 
 if __name__ == "__main__":
 	module(50)
