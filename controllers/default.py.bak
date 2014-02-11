@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # this file is released under public domain and you can use without limitations
-
 #########################################################################
 ## This is a sample controller
 ## - index is the default action of any application
@@ -10,18 +9,18 @@
 ########################################################################
 
 import ConfigParser
-
+import applications.SplunkeGSD.controllers.classes.module as module
+import applications.SplunkeGSD.controllers.classes.team as team
 def index():
-    """
-    example action using the internationalization operator T and flash
-    rendered by views/default/index.html or views/generic.html
-
-    if you need a simple wiki simply replace the two lines below with:
-    return auth.wiki()
-    """
     config = ConfigParser.ConfigParser()
-    config.read("/home/www-data/web2py/applications/team_splunke/application.config")
-    return config.get("Main-Config","Test-String")
+    config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
+
+    mod = module.module('Test Module', 50)
+    te = mod.actualEffort
+    test = team.team(10, 1)
+    test.addModule(mod)
+    test.applyEffort()
+    return test.currentModules
 
 
 def user():

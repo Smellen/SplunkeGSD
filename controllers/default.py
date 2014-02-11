@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # this file is released under public domain and you can use without limitations
-
 #########################################################################
 ## This is a sample controller
 ## - index is the default action of any application
@@ -11,16 +10,17 @@
 
 import ConfigParser
 import applications.SplunkeGSD.controllers.classes.module as module
-
+import applications.SplunkeGSD.controllers.classes.team as team
 def index():
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-   
-    mod = module.module(50)
-    mod.changeActual(20)
-    te = mod.ActualEffort
-   # tes = mod.test
-    return te 	
+
+    mod = module.module('Test Module', 50)
+    te = mod.actualEffort
+    test = team.team(10, 1)
+    test.addModule(mod)
+    test.applyEffort()
+    return test.currentModules
 
 
 def user():
