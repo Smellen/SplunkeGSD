@@ -8,9 +8,11 @@ class TestControllerDefault(unittest.TestCase):
 		config = ConfigParser.ConfigParser()
 		config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
 		fromFile = config.get("Main-Config","Test-String")
-
-		webData = urllib2.urlopen('http://localhost/SplunkeGSD')
-
+		try:
+			webData = urllib2.urlopen('http://localhost:8000/SplunkeGSD')
+		except urllib2.HTTPError as e:
+			print e
+			webData = e
 
 
 		self.assertEqual(fromFile, webData.read())
