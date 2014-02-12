@@ -14,11 +14,11 @@ class module:
 
         #print self.actualEffort
 
-        def progress(self, val):
-            self.progress += val
+    def progress(self, val):
+        self.progress += val
 
-        def changeActual(self, change):
-            self.actualEffort  += change
+    def changeActual(self, change):
+        self.actualEffort  += change
         
     def getProgress(self): 
         prog = float(self.progress/self.actualEffort)
