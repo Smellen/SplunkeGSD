@@ -29,4 +29,7 @@ class team:
     def applyEffort(self):
         modEffort = float(self.totalEffort()) / len(self.currentModules)
         for module in self.currentModules:
-            module.progress += modEffort
+            if module.progress < module.actualEffort: 
+                module.progress += modEffort
+            if module.progress >= module.actualEffort:
+                module.progress = module.actualEffort

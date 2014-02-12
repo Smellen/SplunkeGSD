@@ -8,6 +8,7 @@ class module:
         self.name = nm
         self.test = "I love this"
         self.progress = 0
+        self.stage = "Unstarted"
         self.estimateEffort = estimate
         self.actualEffort = (((random.random()/2) - 0.25) * estimate) + estimate
 
@@ -15,6 +16,7 @@ class module:
 
 	def progress(self, val):
 		self.progress += val
+        self.stage = self.getProgress
 
 	def changeActual(self, change):
 		self.actualEffort  += change
@@ -22,24 +24,24 @@ class module:
     def getProgress(self): 
         prog = float(self.progress/self.actualEffort)
         if prog < 15: 
-            return "Design"
+            self.stage = "Design"
         elif prog < 30: 
-            return "Implementation" 
+            self.stage ="Implementation" 
         elif prog < 40: 
-            return "Unit Test"
+            self.stage ="Unit Test"
         elif prog < 55: 
-            return "Integration"
+            self.stage ="Integration"
         elif prog < 70: 
-            return "System Test"
+            self.stage ="System Test"
         elif prog < 85: 
-            return "Deployment" 
+            self.stage ="Deployment" 
         elif prog < 100: 
-            return "Acceptance Test"
+            self.stage ="Acceptance Test"
         else: 
-            return "Complete"
+            self.stage ="Complete"
 
     def __repr__(self):
-        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Stage: '+str(self.getProgress())
+        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Stage: '+str(self.stage)
         return ret
 
 if __name__ == "__main__":
