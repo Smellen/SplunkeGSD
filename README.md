@@ -57,6 +57,7 @@ Implemented:
 A page refresh simulates the end of a day. It will display the current effort and at what stage the module is at or if it has been completed.
 
 Example Output:
+
 [Test Module is 10.0 of 60.8879480518 done. Current Stage: Implementation]
 
 [Test Module is 39.2829866538 of 39.2829866538 done. Current Stage: Complete]
