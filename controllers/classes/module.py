@@ -14,13 +14,11 @@ class module:
 
         #print self.actualEffort
 
-	def progress(self, val):
-		self.stage = self.getProgress()
-        self.progress += val
-        
+        def progress(self, val):
+            self.progress += val
 
-	def changeActual(self, change):
-		self.actualEffort  += change
+        def changeActual(self, change):
+            self.actualEffort  += change
         
     def getProgress(self): 
         prog = float(self.progress/self.actualEffort)
@@ -42,7 +40,8 @@ class module:
             self.stage ="Complete"
 
     def __repr__(self):
-        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Stage: '+str(self.stage)
+        stage = self.getProgress()
+        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Stage: '+str(stage)
         return ret
 
 if __name__ == "__main__":
