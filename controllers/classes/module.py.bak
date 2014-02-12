@@ -23,21 +23,21 @@ class module:
     def getProgress(self): 
         prog = float(self.progress/self.actualEffort)
         if prog < 15: 
-            self.stage = "Design"
+            return "Design"
         elif prog < 30: 
-            self.stage ="Implementation" 
+            return "Implementation" 
         elif prog < 40: 
-            self.stage ="Unit Test"
+            return "Unit Test"
         elif prog < 55: 
-            self.stage ="Integration"
+            return "Integration"
         elif prog < 70: 
-            self.stage ="System Test"
+            return "System Test"
         elif prog < 85: 
-            self.stage ="Deployment" 
+            return "Deployment" 
         elif prog < 100: 
-            self.stage ="Acceptance Test"
+            return "Acceptance Test"
         else: 
-            self.stage ="Complete"
+            return "Complete"
 
     def __repr__(self):
         stage = self.getProgress()

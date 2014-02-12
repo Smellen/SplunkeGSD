@@ -13,7 +13,6 @@ def index(): # acts like initialisation. session.variablename allows the variabl
     session.test.addModule(mod)
     redirect(URL('view'))
 
-
 def view():
     team = session.test
     team.applyEffort()

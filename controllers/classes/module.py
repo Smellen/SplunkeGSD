@@ -14,30 +14,30 @@ class module:
 
         #print self.actualEffort
 
-        def progress(self, val):
-            self.progress += val
+    def progress(self, val):
+        self.progress += val
 
-        def changeActual(self, change):
-            self.actualEffort  += change
+    def changeActual(self, change):
+        self.actualEffort  += change
         
     def getProgress(self): 
         prog = float(self.progress/self.actualEffort)
-        if prog < 15: 
-            self.stage = "Design"
-        elif prog < 30: 
-            self.stage ="Implementation" 
-        elif prog < 40: 
-            self.stage ="Unit Test"
-        elif prog < 55: 
-            self.stage ="Integration"
-        elif prog < 70: 
-            self.stage ="System Test"
-        elif prog < 85: 
-            self.stage ="Deployment" 
-        elif prog < 100: 
-            self.stage ="Acceptance Test"
+        if prog < 0.15: 
+            return "Design"
+        elif prog < 0.30: 
+            return "Implementation" 
+        elif prog < 0.40: 
+            return "Unit Test"
+        elif prog < 0.55: 
+            return "Integration"
+        elif prog < 0.70: 
+            return "System Test"
+        elif prog < 0.85: 
+            return "Deployment" 
+        elif prog < 1: 
+            return "Acceptance Test"
         else: 
-            self.stage ="Complete"
+            return "Complete"
 
     def __repr__(self):
         stage = self.getProgress()
