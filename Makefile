@@ -14,7 +14,7 @@ build:
 	chmod +x setup-web2py-ubuntu.sh
 	sudo ./setup-web2py-ubuntu.sh
 	sudo git clone https://github.com/Smellen/SplunkeGSD
-	sudo mv -r SplunkeGSD/ /home/www-data/web2py/applications/
+	sudo mv SplunkeGSD/ /home/www-data/web2py/applications/
 	sudo chown -R www-data:www-data /home/www-data/web2py/applications/SplunkeGSD/
 	
 install: 
@@ -28,7 +28,7 @@ install:
 	chmod +x setup-web2py-ubuntu.sh
 	sudo ./setup-web2py-ubuntu.sh
 	sudo git clone https://github.com/Smellen/SplunkeGSD
-	sudo mv -r SplunkeGSD/ /home/www-data/web2py/applications/
+	sudo mv SplunkeGSD/ /home/www-data/web2py/applications/
 	sudo chown -R www-data:www-data /home/www-data/web2py/applications/SplunkeGSD/
 
 test: 
