@@ -33,8 +33,7 @@ install:
 
 test: 
 	clear 
-	python tests/testControllerDefault.py
-	
+	python tests/testTeam.py
 clean: 	
 	clear
 	cd 
