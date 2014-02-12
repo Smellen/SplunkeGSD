@@ -20,24 +20,24 @@ class module:
         def changeActual(self, change):
             self.actualEffort  += change
         
-    def getProgress(self): 
-        prog = float(self.progress/self.actualEffort)
-        if prog < 15: 
-            self.stage = "Design"
-        elif prog < 30: 
-            self.stage ="Implementation" 
-        elif prog < 40: 
-            self.stage ="Unit Test"
-        elif prog < 55: 
-            self.stage ="Integration"
-        elif prog < 70: 
-            self.stage ="System Test"
-        elif prog < 85: 
-            self.stage ="Deployment" 
-        elif prog < 100: 
-            self.stage ="Acceptance Test"
-        else: 
-            self.stage ="Complete"
+        def getProgress(self): 
+            prog = float(self.progress/self.actualEffort)
+            if prog < 15: 
+                self.stage = "Design"
+            elif prog < 30: 
+                self.stage ="Implementation" 
+            elif prog < 40: 
+                self.stage ="Unit Test"
+            elif prog < 55: 
+                self.stage ="Integration"
+            elif prog < 70: 
+                self.stage ="System Test"
+            elif prog < 85: 
+                self.stage ="Deployment" 
+            elif prog < 100: 
+                self.stage ="Acceptance Test"
+            else: 
+                self.stage ="Complete"
 
     def __repr__(self):
         stage = self.getProgress()
@@ -45,4 +45,4 @@ class module:
         return ret
 
 if __name__ == "__main__":
-	module(1, 50)
+	module(50)
