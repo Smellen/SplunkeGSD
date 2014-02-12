@@ -41,8 +41,8 @@ class module:
 
     def __repr__(self):
         stage = self.getProgress()
-        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Stage: '+str(stage)
+        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Current Stage: '+str(stage)
         return ret
 
 if __name__ == "__main__":
-	module(50)
+	module(1, 50)
