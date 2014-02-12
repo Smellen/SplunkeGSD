@@ -1,27 +1,23 @@
 # -*- coding: utf-8 -*-
-# this file is released under public domain and you can use without limitations
-#########################################################################
-## This is a sample controller
-## - index is the default action of any application
-## - user is required for authentication and authorization
-## - download is for downloading files uploaded in the db (does streaming)
-## - call exposes all registered services (none by default)
-########################################################################
 
 import ConfigParser
 import applications.SplunkeGSD.controllers.classes.module as module
 import applications.SplunkeGSD.controllers.classes.team as team
+
 def index():
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-
     mod = module.module('Test Module', 50)
     te = mod.actualEffort
-    test = team.team(10, 1)
-    test.addModule(mod)
-    test.applyEffort()
-    return str(test.currentModules)
+    session.test = team.team(10, 1)
+    session.test.addModule(mod)
+    redirect(URL('view'))
 
+
+def view():
+    team = session.test
+    team.applyEffort()
+    return str(team.currentModules)
 
 def user():
     """
