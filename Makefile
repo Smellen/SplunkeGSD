@@ -37,6 +37,5 @@ test:
 	
 clean: 	
 	clear
-	cd /home/www-data/web2py/applications
-	echo $pwd
-	sudo rm -r SplunkeGSD
+	cd 
+	sudo rm -r /home/www-data/web2py/applications/SplunkeGSD
