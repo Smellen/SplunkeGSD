@@ -13,10 +13,10 @@ build:
 	sudo apt-get -y install libapache2-mod-proxy-html
 	chmod +x setup-web2py-ubuntu.sh
 	sudo ./setup-web2py-ubuntu.sh
-	cd /home/www-data/web2py/applications
 	sudo git clone https://github.com/Smellen/SplunkeGSD
-	sudo chown -R www-data:www-data SplunkeGSD/
-
+	sudo mv -r SplunkeGSD/ /home/www-data/web2py/applications/
+	sudo chown -R www-data:www-data /home/www-data/web2py/applications/SplunkeGSD/
+	
 install: 
 	clear
 	sudo apt-get -y install openssh-server
@@ -27,9 +27,9 @@ install:
 	sudo apt-get -y install libapache2-mod-proxy-html
 	chmod +x setup-web2py-ubuntu.sh
 	sudo ./setup-web2py-ubuntu.sh
-	cd /home/www-data/web2py/applications/
 	sudo git clone https://github.com/Smellen/SplunkeGSD
-	sudo chown -R www-data:www-data SplunkeGSD/
+	sudo mv -r SplunkeGSD/ /home/www-data/web2py/applications/
+	sudo chown -R www-data:www-data /home/www-data/web2py/applications/SplunkeGSD/
 
 test: 
 	clear 
