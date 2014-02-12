@@ -15,8 +15,9 @@ class module:
         #print self.actualEffort
 
 	def progress(self, val):
-		self.progress += val
-        self.stage = self.getProgress
+		self.stage = self.getProgress()
+        self.progress += val
+        
 
 	def changeActual(self, change):
 		self.actualEffort  += change
