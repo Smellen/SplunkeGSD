@@ -4,7 +4,7 @@ import ConfigParser
 import applications.SplunkeGSD.controllers.classes.module as module
 import applications.SplunkeGSD.controllers.classes.team as team
 
-def index():
+def index(): # acts like initialisation. session.variablename allows the variable to be accessed between refreshes. 
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
     mod = module.module('Test Module', 50)
