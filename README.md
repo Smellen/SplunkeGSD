@@ -33,7 +33,7 @@ The application is also able to be downloaded using a tar file at each release, 
 
 Release 0
 ===========
-Released: 05/02/14
+Released: 05/02/2014
 
 Implemented: 
 - (Feature 17) Master configuration (file) that specifies certain global values unlikely to change from one simulation to the next. This can be a simple configuration file in any human-readable/editable format (json, xml, yaml, ...)
@@ -47,4 +47,16 @@ Known Issues:
 Fixed Issues: 
 - None
 
+Iteration 1
+============
+Released: XX/02/2014
+
+Implemented:
+- (Feature 9) Process simulator that calculates progress on each task for each module for each simulated day in the game. Taking into account the development method (waterfall or agile; follow-the-sun are taken into account sperately).
+
+Known Issues:
+-(1) web2py Invalid Request when trying to access localhost/SplunkeGSD
+
+Fixed Issues:
+-(1) Do not remove/unistall Welcome application. Welcome application takes care of admin login.
 
