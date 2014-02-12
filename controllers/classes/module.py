@@ -18,9 +18,28 @@ class module:
 
 	def changeActual(self, change):
 		self.actualEffort  += change
+        
+    def getProgress(self): 
+        prog = float(self.progress/self.actualEffort)
+        if prog < 15: 
+            return "Design"
+        elif prog < 30: 
+            return "Implementation" 
+        elif prog < 40: 
+            return "Unit Test"
+        elif prog < 55: 
+            return "Integration"
+        elif prog < 70: 
+            return "System Test"
+        elif prog < 85: 
+            return "Deployment" 
+        elif prog < 100: 
+            return "Acceptance Test"
+        else: 
+            return "Complete"
 
     def __repr__(self):
-        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done'
+        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Stage: '+str(self.getProgress())
         return ret
 
 if __name__ == "__main__":
