@@ -7,43 +7,35 @@
    max-width: 20%;
    max-height: 20%; <!--leaves room at bottom for module things-->
 }
-    
+
 </style>
 <h1>{{=title}}</h1>
 
+<table width="100%" border="0" cellspacing="1" cellpadding="1"; >
+    <tr>
+        <td>
+            <FORM METHOD="LINK" ACTION="view">
+            <INPUT TYPE="submit" VALUE="Click to Continue to next day">
+            </FORM>
+        </td>
+        <td>
+            <FORM METHOD="LINK" ACTION="home">
+            <INPUT TYPE="submit" VALUE="Restart Game">
+            </FORM>
+        </td>
+    </tr>
+</table>
 
-<p id="demo">Click the button to display this window's height and width (NOT including toolbars and scrollbars).</p>
-
-<button onclick="myFunction()">Try it</button>
-
-<script>
-function myFunction()
-{
-var w = window.innerWidth;
-var h = window.innerHeight;
-x = document.getElementById("demo");
-x.innerHTML="Width: " + w + " Heigth: " + h;
-}
-function getHeight()
-{
-var w = window.innerWidth;
-var h = window.innerHeight;
-return w;
-}
-</script>
-
-<div style="position: absolute; z-index:100">
-    <img height=getHeight() width=window.innerWidth src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"> 
-    <div style="position: absolute; z-index:5000; top: 72%; left: 82%">
-    <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png">     
-</div>
-</div>
-
-<div style="position: absolute; z-index:5000; top: 80%; left: 15%">
 {{for i in modules: }}
 <h3>
     {{=i}}
 </h3>
 
 {{pass}}
+
+<div style="position: absolute; z-index:100">
+    <img class="fit" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"> 
+    <div style="position: absolute; z-index:5000; top: 72%; left: 82%">
+        <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png">     
     </div>
+</div>
