@@ -257,6 +257,7 @@
 [2014-02-17 15:12:30] EDIT SplunkeGSD/views/default/view.html: 6
 [2014-02-17 15:12:35] EDIT SplunkeGSD/views/default/view.html: 0
 [2014-02-17 15:12:53] EDIT SplunkeGSD/views/default/view.html: 0
+<<<<<<< HEAD
 [2014-02-17 15:15:14] EDIT SplunkeGSD/views/default/view.html: -17
 [2014-02-17 15:17:17] EDIT SplunkeGSD/views/default/view.html: 0
 [2014-02-17 15:19:25] EDIT SplunkeGSD/views/default/view.html: 6
@@ -385,3 +386,36 @@
 [2014-02-17 17:47:18] EDIT SplunkeGSD/controllers/default.py: 0
 [2014-02-17 17:55:46] EDIT SplunkeGSD/controllers/default.py: 0
 [2014-02-17 17:56:18] EDIT SplunkeGSD/controllers/default.py: 0
+=======
+[2014-02-17 16:00:22] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 16:00:44] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 16:13:14] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 16:13:43] EDIT SplunkeGSD/views/default/view.html: -1
+[2014-02-17 16:15:52] EDIT SplunkeGSD/views/default/view.html: -5
+[2014-02-17 16:18:56] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 16:19:11] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 16:21:35] EDIT SplunkeGSD/views/default/view.html: 1
+[2014-02-17 16:45:34] EDIT SplunkeGSD/views/default/view.html: 12
+[2014-02-17 16:51:01] EDIT SplunkeGSD/views/default/view.html: 1
+[2014-02-17 16:53:55] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 16:58:31] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 16:59:13] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:00:32] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:03:02] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:03:32] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:06:57] EDIT SplunkeGSD/views/default/view.html: 1
+[2014-02-17 17:10:32] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:12:44] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:13:12] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:16:54] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:18:48] EDIT SplunkeGSD/views/default/view.html: 1
+[2014-02-17 17:20:55] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:21:33] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:22:16] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:23:08] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:23:17] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:23:17] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:23:17] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:23:18] EDIT SplunkeGSD/views/default/view.html: 0
+[2014-02-17 17:23:18] EDIT SplunkeGSD/views/default/view.html: 0
+>>>>>>> 3242e206f2bf11a41e77f05dec9dbb509c478f1a
