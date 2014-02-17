@@ -63,8 +63,7 @@ Example Output:
 [Test Module is 39.2829866538 of 39.2829866538 done. Current Stage: Complete]
 
 Known Issues:
-- (1) web2py Invalid Request when trying to access localhost/SplunkeGSD
+- (1) web2py Invalid Request when trying to access localhost/SplunkeGSD. Do not remove the welcome application from the applications folder. Without this application web2py admin page can not be reached.
 
 Fixed Issues:
-- (1) Do not remove/unistall Welcome application in the applications folder. The welcome application takes care of admin login for web2py. Without this application web2py cannot be used.
-
+- None
