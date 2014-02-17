@@ -7,35 +7,45 @@
    max-width: 20%;
    max-height: 20%; <!--leaves room at bottom for module things-->
 }
-    
+.block {
+        position: absolute;
+        z-index: 50000;
+        height: 20px;
+        width: 20px;
+        background: black;
+}
 </style>
 <h1>{{=title}}</h1>
 
 
 <p id="demo">Click the button to display this window's height and width (NOT including toolbars and scrollbars).</p>
 
-<button onclick="myFunction()">Try it</button>
+<body onload="myFunction()"/>
 
 <script>
 function myFunction()
 {
 var w = window.innerWidth;
 var h = window.innerHeight;
-x = document.getElementById("demo");
-x.innerHTML="Width: " + w + " Heigth: " + h;
+x = document.getElementById("map");
+x.width = window.innerWidth;
+scale = window.innerWidth / 4500; //image width = 2234
+locs = [[1776, 432], [907, 621], [2891, 1045], [3434, 777], [3816, 1763], [279,673]];
+for(i=0; i<locs.length; i++){
+    var ndiv = document.createElement("div");
+    ndiv.className = "block";
+    ndiv.style.top = (locs[i][1] * scale);
+    ndiv.style.left = (locs[i][0] * scale);
+    x.parentNode.appendChild(ndiv);
 }
-function getHeight()
-{
-var w = window.innerWidth;
-var h = window.innerHeight;
-return w;
 }
+
 </script>
 
 <div style="position: absolute; z-index:100">
-    <img height=getHeight() width=window.innerWidth src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"> 
+    <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
     <div style="position: absolute; z-index:5000; top: 72%; left: 82%">
-    <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png">     
+        <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png"/>     
 </div>
 </div>
 
