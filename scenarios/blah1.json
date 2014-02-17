@@ -1,0 +1,21 @@
+{
+	"Game1": {
+		"team1": {
+			"numberOfMembers": "10",
+				"modules": [
+				{"name":"Module1", "estimate":"10"}, 
+				{"name":"Module2", "estimate":"7"}
+			],
+			"location":"Dublin"
+
+		},
+		"team2": {
+			"numberOfMembers": "14",
+			"modules": [
+			{"name":"Module11", "estimate":"14"}, 
+			{"name":"Module21", "estimate":"18"}
+			],
+			"location":"New York"
+		}
+	}
+}

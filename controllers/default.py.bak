@@ -3,30 +3,48 @@
 import ConfigParser
 import applications.SplunkeGSD.controllers.classes.module as module
 import applications.SplunkeGSD.controllers.classes.team as team
+import subprocess
+import os
+import json
 
-def index(): # acts like initialisation. session.variablename allows the variable to be accessed between refreshes.
+def home():
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
+    return dict(title=T('Home'))
+
+def index(): # acts like initialisation. session.variablename allows the variable to be accessed between refreshes.
     mod = module.module('Test Module', 50)
     te = mod.actualEffort
-    session.test = team.team(10, 1)
-    session.test.addModule(mod)
+    session.test = []
+    new_team = team.team(10, 1)
+    new_team.addModule(mod)
+    session.test.append(new_team)
     redirect(URL('view'))
-    
-def map():
-    return dict(
-      googlemap_key='...',
-      center_latitude = 41.878,
-      center_longitude = -87.629,
-      scale = 7,
-      maker = lambda point: A(row.id,_href='...')
-     )
 
 def view():
-    team = session.test
-    team.applyEffort()
-    modules=team.currentModules
+    modules = []
+    for team in session.test:
+        team.applyEffort()
+        modules.append(team.currentModules)
     return dict(title=T('Home'), modules=modules)
+
+def config_game():
+    result = os.popen("ls /home/www-data/web2py/applications/SplunkeGSD/scenarios").read()
+    result1 = result.splitlines()
+    result2=[]
+    for i in result1:
+        i = i.strip() #remove spaces
+        i = i.strip(".json") #remove the .json at end
+        result2.append(i)
+    return dict(title=T('Pre-defined Games'),result=result2)
+
+def load_game():
+    file_id = request.args[0]
+    string = "/home/www-data/web2py/applications/SplunkeGSD/scenarios/"+file_id+".json"
+    f=open(string)
+    data = json.load(f)
+    #read data in put in session.test
+    return dict(title=T('Load Games'),string = string, data=data)
 
 def user():
     """

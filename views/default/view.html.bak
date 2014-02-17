@@ -8,6 +8,7 @@
    max-height: 20%; <!--leaves room at bottom for module things-->
 }
 .block {
+        name: "mapmarker";
         position: absolute;
         z-index: 50000;
         height: 20px;
@@ -17,13 +18,27 @@
 </style>
 <h1>{{=title}}</h1>
 
+<table width="100%" border="0" cellspacing="1" cellpadding="1"; >
+    <tr>
+        <td>
+            <FORM METHOD="LINK" ACTION="view">
+            <INPUT TYPE="submit" VALUE="Click to Continue to next day">
+            </FORM>
+        </td>
+        <td>
+            <FORM METHOD="LINK" ACTION="home">
+            <INPUT TYPE="submit" VALUE="Restart Game">
+            </FORM>
+        </td>
+    </tr>
+</table>
 
 <p id="demo">Click the button to display this window's height and width (NOT including toolbars and scrollbars).</p>
 
-<body onload="myFunction()"/>
+<body onload="mapSetup()" onresize="mapSetup()"/>
 
 <script>
-function myFunction()
+function mapSetup()
 {
 var w = window.innerWidth;
 var h = window.innerHeight;
@@ -31,12 +46,17 @@ x = document.getElementById("map");
 x.width = window.innerWidth;
 scale = window.innerWidth / 4500; //image width = 2234
 locs = [[1776, 432], [907, 621], [2891, 1045], [3434, 777], [3816, 1763], [279,673]];
-for(i=0; i<locs.length; i++){
-    var ndiv = document.createElement("div");
-    ndiv.className = "block";
-    ndiv.style.top = (locs[i][1] * scale);
-    ndiv.style.left = (locs[i][0] * scale);
-    x.parentNode.appendChild(ndiv);
+if(document.getElementsByClassName("block").length == 0){
+    for(i=0; i<locs.length; i++){
+        var ndiv = document.createElement("div");
+        ndiv.className = "block";
+        x.parentNode.appendChild(ndiv);
+    }
+}
+markers = document.getElementsByClassName("block");
+for(i=0; i<markers.length; i++){
+    markers[i].style.top = (locs[i][1] * scale);
+    markers[i].style.left = (locs[i][0] * scale);
 }
 }
 
@@ -46,7 +66,7 @@ for(i=0; i<locs.length; i++){
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
     <div style="position: absolute; z-index:5000; top: 72%; left: 82%">
         <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png"/>     
-</div>
+    </div>
 </div>
 
 <div style="position: absolute; z-index:5000; top: 80%; left: 15%">
@@ -56,4 +76,10 @@ for(i=0; i<locs.length; i++){
 </h3>
 
 {{pass}}
+
+<div style="position: absolute; z-index:100">
+    <img class="fit" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"> 
+    <div style="position: absolute; z-index:5000; top: 72%; left: 82%">
+        <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png">     
     </div>
+</div>
