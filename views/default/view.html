@@ -13,7 +13,7 @@
         z-index: 50000;
         height: 20px;
         width: 20px;
-        background: black;
+        background: blue;
 }
 </style>
 <h1>{{=title}}</h1>
@@ -59,6 +59,9 @@ markers = document.getElementsByClassName("block");
 for(i=0; i<markers.length; i++){
     markers[i].style.top = (locs[i][0] * scale);
     markers[i].style.left = (locs[i][1] * scale);
+    if(!(typeof locs[i][2] == 'undefined')){
+        markers[i].style.background = ((locs[i][2][0]>=0)?"green":"red");
+    }
 }
 }
 

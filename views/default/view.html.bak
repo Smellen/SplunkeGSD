@@ -13,7 +13,7 @@
         z-index: 50000;
         height: 20px;
         width: 20px;
-        background: black;
+        background: blue;
 }
 </style>
 <h1>{{=title}}</h1>
@@ -45,7 +45,8 @@ var h = window.innerHeight;
 x = document.getElementById("map");
 x.width = window.innerWidth;
 scale = window.innerWidth / 4500; //image width = 2234
-locs = [[1776, 432], [907, 621], [2891, 1045], [3434, 777], [3816, 1763], [279,673]];
+    locs = {{=locations}};
+    //Create divs
 if(document.getElementsByClassName("block").length == 0){
     for(i=0; i<locs.length; i++){
         var ndiv = document.createElement("div");
@@ -53,10 +54,14 @@ if(document.getElementsByClassName("block").length == 0){
         x.parentNode.appendChild(ndiv);
     }
 }
+    //Move divs
 markers = document.getElementsByClassName("block");
 for(i=0; i<markers.length; i++){
-    markers[i].style.top = (locs[i][1] * scale);
-    markers[i].style.left = (locs[i][0] * scale);
+    markers[i].style.top = (locs[i][0] * scale);
+    markers[i].style.left = (locs[i][1] * scale);
+    if(!(typeof locs[i][2] == 'undefined')){
+        markers[i].style.background = ((locs[i][2][0]<0)?"green":"red");
+    }
 }
 }
 

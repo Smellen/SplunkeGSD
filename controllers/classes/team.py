@@ -12,7 +12,8 @@ class team:
                 self.currentModules.append(m)
 
         #location should be loaded from the global config file
-        self.localProductivity = location
+        self.location = location
+        self.localProductivity = 1
         self.modifier = 1
 
     def changeTeamSize(self, newSize):
@@ -38,4 +39,8 @@ class team:
             if module.progress >= module.actualEffort:
                 module.progress = module.actualEffort
 
-
+    def getStatus(self):
+        res = []
+        for module in self.currentModules:
+            res.append(module.estimateEffort - module.actualEffort)
+        return res

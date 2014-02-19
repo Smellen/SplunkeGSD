@@ -6,6 +6,7 @@ import applications.SplunkeGSD.controllers.classes.team as team
 import subprocess
 import os
 import json
+import ast
 
 def home():
     config = ConfigParser.ConfigParser()
@@ -16,24 +17,26 @@ def index(): # acts like initialisation. session.variablename allows the variabl
     mod = module.module('Test Module', 50)
     te = mod.actualEffort
     session.test = []
-    new_team = team.team(10, 1)
+    new_team = team.team(10, 'dublin')
     new_team.addModule(mod)
     session.test.append(new_team)
     redirect(URL('view'))
 
 def view():
-    modules = [] 
-    location = []
+    modules = []
+    statuses = {}
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-    fromFile = config.items('Location') 
+    fromFile = config.items('Location')
     for loc in fromFile:
          name, pos = loc
-         location.append(list(pos))
+         name.rstrip()
+         statuses.update({name: ast.literal_eval(pos)})
     for team in session.test:
          team.applyEffort()
+         statuses[team.location].append(team.getStatus())
          modules.append(team.currentModules)
-    print location
+    location = list(statuses.values())
     return dict(title=T('Home'), modules=modules, locations=location)
 
 def config_game():
@@ -41,7 +44,7 @@ def config_game():
     result1 = result.splitlines()
     result2=[]
     for i in result1:
-        i = i.strip() #remove spaces
+        i = i.strip() #remove space
         i = i.strip(".json") #remove the .json at end
         result2.append(i)
     return dict(title=T('Pre-defined Games'),result=result2)
