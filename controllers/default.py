@@ -22,11 +22,18 @@ def index(): # acts like initialisation. session.variablename allows the variabl
     redirect(URL('view'))
 
 def view():
-    modules = []
+    modules = [] 
+    location = []
+    config = ConfigParser.ConfigParser()
+    config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
+    fromFile = config.items('Location') 
+    for loc in fromFile
+	name, pos = loc    
+	location.append(list(pos))
     for team in session.test:
-        team.applyEffort()
-        modules.append(team.currentModules)
-    return dict(title=T('Home'), modules=modules)
+         team.applyEffort()
+         modules.append(team.currentModules)
+    return dict(title=T('Home'), modules=modules, locations=location)
 
 def config_game():
     result = os.popen("ls /home/www-data/web2py/applications/SplunkeGSD/scenarios").read()
