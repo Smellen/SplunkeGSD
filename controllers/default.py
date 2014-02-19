@@ -6,6 +6,7 @@ import applications.SplunkeGSD.controllers.classes.team as team
 import subprocess
 import os
 import json
+import ast
 
 def home():
     config = ConfigParser.ConfigParser()
@@ -22,17 +23,18 @@ def index(): # acts like initialisation. session.variablename allows the variabl
     redirect(URL('view'))
 
 def view():
-    modules = [] 
+    modules = []
     location = []
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-    fromFile = config.items('Location') 
+    fromFile = config.items('Location')
     for loc in fromFile:
          name, pos = loc
-         location.append(list(pos))
+         location.append(ast.literal_eval(pos))
     for team in session.test:
          team.applyEffort()
          modules.append(team.currentModules)
+    print location
     return dict(title=T('Home'), modules=modules, locations=location)
 
 def config_game():
