@@ -27,9 +27,9 @@ def view():
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
     fromFile = config.items('Location') 
-    for loc in fromFile
-	name, pos = loc    
-	location.append(list(pos))
+    for loc in fromFile:
+         name, pos = loc
+         location.append(list(pos))
     for team in session.test:
          team.applyEffort()
          modules.append(team.currentModules)
