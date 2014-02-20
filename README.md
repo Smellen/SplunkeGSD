@@ -85,10 +85,10 @@ Implemented:
 New title screen has been added. The options to choose from are Create New Game or Select from Predefined Games. Creating a new game will take the player to the map screen. They will then be able to choose next day to continue progress or restart game which takes them back to title screen.
 
 - (Feature 20) Default game scenarios including pre-specified product and site configuration.
-All default game scenarios have been added to SplunkeGSD/scenarios. All files in this location are different scenarios stored in JSON format.
+All default game scenarios have been added to SplunkeGSD/scenarios. All files in this location are different scenarios stored in JSON format and users can select which game they want to play.
 
 Known Issues:
 - (None)
 
 Fixed Issues:
-- (None)
+- Fixed Issue with URL - redirects to the correct URL if you input localhost/SplunkeGSD/default and localhost/SplunkeGSD/
