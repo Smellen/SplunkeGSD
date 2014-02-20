@@ -13,12 +13,17 @@ The installation installs this framework during installation.
 Installation Instructions
 =========================
 
-To install the application: run make install 
+To install the application from scratch: run make install 
 Additional Install Notes: 
 - The commands will need to use sudo 
 - The application will install in /home/www-data which it creates itself 
 - In order to not write over any files that might already be there, select [N]one if asked to replace, this will use the files that are there. 
 - If asked about mail server, select No Config
+
+To update the application to current version: run make build
+
+To update the application with a clean version: run make cleanbuild 
+(Please note that this will need to be run with the makefile in another directory) 
 
 To clean the application: run make clean with the make file out of the directory. 
 
@@ -80,10 +85,10 @@ Implemented:
 New title screen has been added. The options to choose from are Create New Game or Select from Predefined Games. Creating a new game will take the player to the map screen. They will then be able to choose next day to continue progress or restart game which takes them back to title screen.
 
 - (Feature 20) Default game scenarios including pre-specified product and site configuration.
-All default game scenarios have been added to SplunkeGSD/scenarios. All files in this location are different scenarios stored in JSON format.
+All default game scenarios have been added to SplunkeGSD/scenarios. All files in this location are different scenarios stored in JSON format and users can select which game they want to play.
 
 Known Issues:
 - (None)
 
 Fixed Issues:
-- (None)
+- Fixed Issue with URL - redirects to the correct URL if you input localhost/SplunkeGSD/default and localhost/SplunkeGSD/
