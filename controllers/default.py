@@ -9,13 +9,8 @@ import json
 import ast
 import unicodedata
 
-
-def home():
-    config = ConfigParser.ConfigParser()
-    config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-    return dict(title=T('Home'))
-
-def index(): # acts like initialisation. session.variablename allows the variable to be accessed between refreshes.
+def new_game(): # acts like initialisation. session.variablename allows the variable to be 
+ #accessed between refreshes.
     mod = module.module('Test Module', 50)
     te = mod.actualEffort
     session.test = []
@@ -23,6 +18,11 @@ def index(): # acts like initialisation. session.variablename allows the variabl
     new_team.addModule(mod)
     session.test.append(new_team)
     redirect(URL('view'))
+
+def index():
+    config = ConfigParser.ConfigParser()
+    config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
+    return dict(title=T('Home'))
 
 def view():
     modules = []
