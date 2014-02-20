@@ -26,14 +26,25 @@
             </FORM>
         </td>
         <td>
-            <FORM METHOD="LINK" ACTION="home">
+            <FORM METHOD="LINK" ACTION="index">
             <INPUT TYPE="submit" VALUE="Restart Game">
             </FORM>
         </td>
     </tr>
 </table>
+{{for team in modules: }}
+<h3>
+    Team
+</h3>
+{{for i in team: }}
+<h4>
+    {{=i}}
+</h4>
+{{pass}}
+{{pass}}
 
-<p id="demo">Click the button to display this window's height and width (NOT including toolbars and scrollbars).</p>
+
+<p id="demo"></p>
 
 <body onload="mapSetup()" onresize="mapSetup()"/>
 
@@ -60,7 +71,7 @@ for(i=0; i<markers.length; i++){
     markers[i].style.top = (locs[i][0] * scale);
     markers[i].style.left = (locs[i][1] * scale);
     if(!(typeof locs[i][2] == 'undefined')){
-        markers[i].style.background = ((locs[i][2][0]<0)?"green":"red");
+        markers[i].style.background = ((locs[i][2][0]>=0)?"green":"red");
     }
 }
 }
@@ -73,11 +84,3 @@ for(i=0; i<markers.length; i++){
         <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png"/>     
     </div>
 </div>
-
-<div style="position: absolute; z-index:5000; top: 80%; left: 15%">
-{{for i in modules: }}
-<h3>
-    {{=i}}
-</h3>
-
-{{pass}}

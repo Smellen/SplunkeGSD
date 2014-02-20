@@ -5,7 +5,7 @@ import applications.SplunkeGSD.controllers.classes.module as module
 import applications.SplunkeGSD.controllers.classes.team as team
 import subprocess
 import os
-import json
+import json 
 import ast
 import unicodedata
 
@@ -22,7 +22,14 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
 def index():
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-    return dict(title=T('Home'))
+    if 'default' in request.env.path_info: #ensures that the link is right
+        new = 'new_game'
+        config = 'config_game'
+    else:
+        new = 'default/new_game'
+        config = 'default/config_game'
+        
+    return dict(title=T('Home'), new=new, config=config)
 
 def view():
     modules = []

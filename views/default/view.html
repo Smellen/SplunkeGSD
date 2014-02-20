@@ -32,8 +32,19 @@
         </td>
     </tr>
 </table>
+{{for team in modules: }}
+<h3>
+    Team
+</h3>
+{{for i in team: }}
+<h4>
+    {{=i}}
+</h4>
+{{pass}}
+{{pass}}
 
-<p id="demo">Click the button to display this window's height and width (NOT including toolbars and scrollbars).</p>
+
+<p id="demo"></p>
 
 <body onload="mapSetup()" onresize="mapSetup()"/>
 
@@ -69,15 +80,5 @@ for(i=0; i<markers.length; i++){
 
 <div style="position: absolute; z-index:100">
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
-    <div style="position: absolute; z-index:5000; top: 72%; left: 82%">
-        <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png"/>     
-    </div>
+
 </div>
-
-<div style="position: absolute; z-index:5000; top: 80%; left: 15%">
-{{for i in modules: }}
-<h3>
-    {{=i}}
-</h3>
-
-{{pass}}
