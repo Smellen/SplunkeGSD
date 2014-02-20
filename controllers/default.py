@@ -7,6 +7,8 @@ import subprocess
 import os
 import json
 import ast
+import unicodedata
+
 
 def home():
     config = ConfigParser.ConfigParser()
@@ -55,8 +57,16 @@ def load_game():
     string = "/home/www-data/web2py/applications/SplunkeGSD/scenarios/"+file_id+".json"
     f=open(string)
     data = json.load(f)
+    session.test = []
     #read data in put in session.test
-    return dict(title=T('Load Games'),string = string, data=data)
+    for te in data['Game']:
+        dict = data['Game'][te]
+        listOfMods = []
+        for mod in dict['currentModules']:
+            listOfMods.append(module.module(mod['name'], mod['estimate']))
+        newTeam = team.team(dict['teamSize'], 'dublin', listOfMods)#str(dict['location']),
+        session.test.append(newTeam)
+    redirect(URL('view'))
 
 def user():
     """
