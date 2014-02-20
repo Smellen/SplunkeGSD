@@ -67,3 +67,23 @@ Known Issues:
 
 Fixed Issues:
 - None
+
+
+
+Iteration 2
+============
+Released: 20/02/2014
+
+Implemented:
+- (Feature 6) Map based status display showing which sites are making normal progress, which are behind, which are failing.
+
+New title screen has been added. The options to choose from are Create New Game or Select from Predefined Games. Creating a new game will take the player to the map screen. They will then be able to choose next day to continue progress or restart game which takes them back to title screen.
+
+- (Feature 20) Default game scenarios including pre-specified product and site configuration.
+All default game scenarios have been added to SplunkeGSD/scenarios. All files in this location are different scenarios stored in JSON format.
+
+Known Issues:
+- (None)
+
+Fixed Issues:
+- (None)
