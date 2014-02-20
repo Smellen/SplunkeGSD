@@ -13,12 +13,17 @@ The installation installs this framework during installation.
 Installation Instructions
 =========================
 
-To install the application: run make install 
+To install the application from scratch: run make install 
 Additional Install Notes: 
 - The commands will need to use sudo 
 - The application will install in /home/www-data which it creates itself 
 - In order to not write over any files that might already be there, select [N]one if asked to replace, this will use the files that are there. 
 - If asked about mail server, select No Config
+
+To update the application to current version: run make build
+
+To update the application with a clean version: run make cleanbuild 
+(Please note that this will need to be run with the makefile in another directory) 
 
 To clean the application: run make clean with the make file out of the directory. 
 
