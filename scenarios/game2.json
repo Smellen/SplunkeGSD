@@ -1,0 +1,22 @@
+{
+	"Game2": {
+		"team3": {
+			"teamSize": 6,
+				"currentModules": [
+				{"name":"Module31", "estimate":22}, 
+				{"name":"Module32", "estimate":12}
+			],
+			"location":"New York",
+			"localProductivity":1
+		},
+		"team4": {
+			"teamSize": 8,
+			"currentModules": [
+			{"name":"Module41", "estimate":16}, 
+			{"name":"Module42", "estimate":21}
+			],
+			"location":"Shanghai",
+			"localProductivity":1
+		}
+	}
+}
