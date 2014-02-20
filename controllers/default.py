@@ -9,7 +9,6 @@ import json
 import ast
 import unicodedata
 
-
 def home():
     config = ConfigParser.ConfigParser()
     config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
@@ -64,7 +63,7 @@ def load_game():
         listOfMods = []
         for mod in dict['currentModules']:
             listOfMods.append(module.module(mod['name'], mod['estimate']))
-        newTeam = team.team(dict['teamSize'], 'dublin', listOfMods)#str(dict['location']),
+        newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), listOfMods)#str(dict['location']),
         session.test.append(newTeam)
     redirect(URL('view'))
 
