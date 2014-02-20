@@ -1,15 +1,36 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
+<style>
+td 
+{
+    text-align:center; 
+    vertical-align:middle;
+}
+h4, h1
+    {
+        text-align:center; 
+    }
+</style>
+<h1>
+    Welcome to Team Splunke Game
+</h1>
 
-{{if 'modules' in globals():}}
-<h2>{{=modules}}</h2>
+<h4>
+    Players may choose to start a new game or play a pre-defined game
+</h4>
 
-{{elif 'content' in globals():}}
-{{=content}}
-{{else:}}
-{{=BEAUTIFY(response._vars)}}
-{{pass}}
-
-{{block right_sidebar}}
-
-{{end}}
+<table width="100%" border="0" cellspacing="1" cellpadding="1" >
+    <tr>
+        <td align="center">
+            <FORM METHOD="LINK" ACTION="new_game">
+            <INPUT TYPE="submit" VALUE="Create New Game">
+            </FORM>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <FORM METHOD="LINK" ACTION="config_game">
+            <INPUT TYPE="submit" VALUE="Select from Predefined Games">
+            </FORM>
+        </td>
+    </tr>
+</table>

@@ -7,13 +7,10 @@ import subprocess
 import os
 import json
 import ast
+import unicodedata
 
-def home():
-    config = ConfigParser.ConfigParser()
-    config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-    return dict(title=T('Home'))
-
-def index(): # acts like initialisation. session.variablename allows the variable to be accessed between refreshes.
+def new_game: # acts like initialisation. session.variablename allows the variable to be 
+ #accessed between refreshes.
     mod = module.module('Test Module', 50)
     te = mod.actualEffort
     session.test = []
@@ -21,6 +18,11 @@ def index(): # acts like initialisation. session.variablename allows the variabl
     new_team.addModule(mod)
     session.test.append(new_team)
     redirect(URL('view'))
+
+def index():
+    config = ConfigParser.ConfigParser()
+    config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
+    return dict(title=T('Home'))
 
 def view():
     modules = []
@@ -35,6 +37,7 @@ def view():
     for team in session.test:
          team.applyEffort()
          statuses[team.location].append(team.getStatus())
+         print team.getStatus()
          modules.append(team.currentModules)
     location = list(statuses.values())
     return dict(title=T('Home'), modules=modules, locations=location)
@@ -54,8 +57,16 @@ def load_game():
     string = "/home/www-data/web2py/applications/SplunkeGSD/scenarios/"+file_id+".json"
     f=open(string)
     data = json.load(f)
+    session.test = []
     #read data in put in session.test
-    return dict(title=T('Load Games'),string = string, data=data)
+    for te in data['Game']:
+        dict = data['Game'][te]
+        listOfMods = []
+        for mod in dict['currentModules']:
+            listOfMods.append(module.module(mod['name'], mod['estimate']))
+        newTeam = team.team(dict['teamSize'], 'dublin', listOfMods)#str(dict['location']),
+        session.test.append(newTeam)
+    redirect(URL('view'))
 
 def user():
     """

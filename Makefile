@@ -8,9 +8,9 @@ build:
 cleanbuild: 
 	clear
 	sudo rm -r /home/www-data/web2py/applications/SplunkeGSD
-        sudo git clone https://github.com/Smellen/SplunkeGSD 
-        sudo mv SplunkeGSD/ /home/www-data/web2py/applications/ 
-        sudo chown -R www-data:www-data /home/www-data/web2py/applications/SplunkeGSD/ 
+	sudo git clone https://github.com/Smellen/SplunkeGSD 
+	sudo mv SplunkeGSD/ /home/www-data/web2py/applications/ 
+	sudo chown -R www-data:www-data /home/www-data/web2py/applications/SplunkeGSD/ 
 
 install: 
 	clear
