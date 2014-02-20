@@ -1,5 +1,5 @@
 default: 
-	echo "Please run: \n1.  make build \n2.  make install \n3.  make test \n4.  make clean"
+	echo "Please run: \n1.  make build \n2.  make install \n3.  make test \n4.  make clean \n5. make cleanbuild"
 
 build: 
 	clear
