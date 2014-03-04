@@ -10,9 +10,9 @@
 .block {
         position: absolute;
         z-index: 50000;
-        height: 15px;
-        width: 15px;
-        border-radius: 8px;
+        height: 10px;
+        width: 10px;
+        border-radius: 5px;
 }
 </style>
 <h1>{{=title}}</h1>
@@ -67,8 +67,10 @@ if(document.getElementsByClassName("block").length == 0){
     //Move divs
 markers = document.getElementsByClassName("block");
 for(i=0; i<markers.length; i++){
-    markers[i].style.left = (locs[i][0] * scale);
-    markers[i].style.top = (locs[i][1] * scale);
+    var widthOffset = window.getComputedStyle(markers[i]).getPropertyValue("width");
+    var heightOffset = window.getComputedStyle(markers[i]).getPropertyValue("height");
+    markers[i].style.left = ((locs[i][0] * scale) - (parseInt(widthOffset, 10)/2));
+    markers[i].style.top = ((locs[i][1] * scale) - (parseInt(widthOffset, 10)/2));
     if(!(typeof locs[i][2] == 'undefined')){
         markers[i].style.background = (locs[i][2][0] == 0)?"green":
                                          (locs[i][2][0] == 1)?"orange":
