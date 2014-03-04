@@ -39,8 +39,10 @@ class team:
             if module.progress >= module.actualEffort:
                 module.progress = module.actualEffort
 
+# 0 = Green, 1 = Yellow, 2 = Red.
     def getStatus(self):
-        res = []
+        res = [0]
         for module in self.currentModules:
-            res.append(module.estimateEffort - module.actualEffort)
+            if module.progress > module.estimateEffort and module.progress < module.actualEffort:
+                res[0] = 1 #If any module late show yellow.
         return res
