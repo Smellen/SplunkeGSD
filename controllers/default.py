@@ -40,14 +40,19 @@ def view():
          name.rstrip()
          statuses.update({name: ast.literal_eval(pos)})
     isComplete = True
+    teamEstimatesAndProgresses = []
     for team in session.test:
          team.applyEffort()
          statuses[team.location].append(team.getStatus())
          modules.append(team.currentModules)
          isComplete = isComplete and team.isFinished()
+         estimateAndProgress = []
+         for mod in team.currentModules:
+                estimateAndProgress.append([mod.name, mod.progress, mod.estimateEffort])
+         teamEstimatesAndProgresses.append((team.location, estimateAndProgress))
     complete = "true" if isComplete else "false"
     location = list(statuses.values())
-    return dict(title=T('Home'), modules=modules, locations=location, completed=complete)
+    return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses)
 
 def config_game():
     result = os.popen("ls applications/SplunkeGSD/scenarios").read()
