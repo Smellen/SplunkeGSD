@@ -41,13 +41,14 @@ def view():
          name, pos = loc
          name.rstrip()
          statuses.update({name: ast.literal_eval(pos)})
+    isComplete = True
     for team in session.test:
          team.applyEffort()
          statuses[team.location].append(team.getStatus())
-         print team.getStatus()
          modules.append(team.currentModules)
+         isComplete = isComplete and team.isFinished()
     location = list(statuses.values())
-    return dict(title=T('Home'), modules=modules, locations=location)
+    return dict(title=T('Home'), modules=modules, locations=location, completed=isComplete)
 
 def config_game():
     result = os.popen("ls /home/www-data/web2py/applications/SplunkeGSD/scenarios").read()

@@ -46,3 +46,9 @@ class team:
             if module.progress > module.estimateEffort and module.progress < module.actualEffort:
                 res[0] = 1 #If any module late show yellow.
         return res
+
+    def isFinished(self):
+        res = True
+        for module in self.currentModules:
+            res = res and module.isFinished()
+        return res

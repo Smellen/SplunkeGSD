@@ -44,5 +44,8 @@ class module:
         ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Current Stage: '+str(stage)
         return ret
 
+    def isFinished(self):
+        return self.progress >= self.actualEffort
+
 if __name__ == "__main__":
 	module(1, 50)
