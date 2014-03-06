@@ -1,3 +1,4 @@
+from __future__ import division
 import random
 
 tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test"]
@@ -41,7 +42,7 @@ class module:
 
     def __repr__(self):
         stage = self.getProgress()
-        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Current Stage: '+str(stage)
+        ret =str(self.name) + ' is '+str("%.2f" % self.progress)+' / '+str("%.2f" % self.estimateEffort)+' person/days ('+str(self.actualEffort)+') done. Current Stage: '+str(stage)
         return ret
 
     def isFinished(self):
