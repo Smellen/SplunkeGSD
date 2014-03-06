@@ -20,12 +20,6 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     redirect(URL('view'))
 
 def index():
-    if 'SplunkeGSD' in request.env.path_info:
-    	new = ''
-    	config = ''
-    else: 
-    	new = 'SplunkeGSD/'
-    	config = 'SplunkeGSD'
     if 'default' in request.env.path_info: #ensures that the link is right
         new = new+'new_game'
         config = config+'config_game'
