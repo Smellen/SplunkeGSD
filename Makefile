@@ -15,6 +15,7 @@ install:
 
 install-web2py:
 	unzip web2py_src.zip
+	sudo mkdir $HOME/public_html
 	sudo mv web2py/ ${HOME}/public_html
 	sudo mv ${HOME}/public_html/web2py/handlers/wsgihandler.py ${HOME}/public_html/web2py/wsgihandler.py
 	#sudo chown -R www-data:www-data ${HOME}/public_html/web2py
