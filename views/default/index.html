@@ -21,16 +21,18 @@ h4, h1
 <table width="100%" border="0" cellspacing="1" cellpadding="1" >
     <tr>
         <td align="center">
-            <FORM METHOD="LINK" ACTION={{=new}}>
-            <INPUT TYPE="submit" VALUE="Create New Game">
-            </FORM>
+	<Button type="button" name ="new_button"
+	onclick = 'window.location="{{=URL('default', 'new_game')}}";'>
+    	Create New Game
+	</Button>
         </td>
     </tr>
     <tr>
         <td align="center">
-            <FORM METHOD="LINK" ACTION={{=config}}>
-            <INPUT TYPE="submit" VALUE='Select Pre-defined Game'>
-            </FORM>
+	<Button type="button" name ="new_button"
+	onclick = 'window.location="{{=URL('default', 'config_game')}}";'>
+    	Select Pre-defined Game
+	</Button>
         </td>
     </tr>
 </table>
