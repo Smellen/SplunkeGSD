@@ -21,11 +21,11 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
 
 def index():
     if 'default' in request.env.path_info: #ensures that the link is right
-        new = new+'new_game'
-        config = config+'config_game'
+        new = 'new_game'
+        config = 'config_game'
     else:
-        new = new+'default/new_game'
-        config = config+'default/config_game'
+        new = 'default/new_game'
+        config = 'default/config_game'
 
     return dict(title=T('Home'), new=new, config=config)
 
