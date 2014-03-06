@@ -35,10 +35,10 @@ Download Files
 ===============
 
 The application is also able to be downloaded using a tar file at each release. 
-- Release 0 : pub.mmcgarr.me/team_splunke_release0.tar.gz
-- Iteration 1: pub.mmcgarr.me/team_splunke_iteration1.tar.gz
-- Iteration 2: pub.mmcgarr.me/team_splunke_iteration2.tar.gz
-- Iteration 3:
+- Release 0 : http://pub.mmcgarr.me/team_splunke_release0.tar.gz
+- Iteration 1: http://pub.mmcgarr.me/team_splunke_iteration1.tar.gz
+- Iteration 2: http://pub.mmcgarr.me/team_splunke_iteration2.tar.gz
+- Iteration 3: http://pub.mmcgarr.me/team_splunke_iteration3.tar.gz
 
 
 Release 0
