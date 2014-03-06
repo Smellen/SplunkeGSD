@@ -25,5 +25,21 @@ class TestTeam(unittest.TestCase):
 		bob.removeModule(mod1)
 		self.assertEqual(1, len(bob.currentModules))
 
+	def testApplyEffort(self):
+		bob = team.team(10, 10, [module.module('testModule', 40), module.module('anotherTestModule', 65)])
+		effortList = []
+		newEffortList = []
+
+		for mod in bob.currentModules:
+			effortList.append(mod.progress)
+
+		bob.applyEffort()
+		for mod in bob.currentModules:
+			newEffortList.append(mod.progress)
+			
+		for i in xrange(len(bob.currentModules)):
+			self.assertGreater(newEffortList[i], effortList[i]) 
+
+
 if __name__ == '__main__':
 	unittest.main()
