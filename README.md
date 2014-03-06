@@ -103,12 +103,16 @@ Iteration 3
 ============
 Released: 06/03/2014
 
-
-
 Implemented:
+- (Feature 20) Default game scenarios updated. They now contain three new saves. They are located in /scenarios.
+
+- (Feature 14) End of game report. The end of game report comparing estimates to actual performance; report can be saved.
 
 Known Issues:
+- Default Follow the Sun scenario does not implement a FTS model.
 
 Fixed Issues:
-
+- web2py can now be installed in user space.
+- Installation script has been updated.
+- URL redirection.
 
