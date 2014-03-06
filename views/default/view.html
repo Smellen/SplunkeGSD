@@ -57,11 +57,12 @@
         </td>
     </tr>
 </table>
+
 {{for team in modules: }}
 <h3>
-    Team
+    Team - {{=team[0].upper()}}
 </h3>
-{{for i in team: }}
+{{for i in team[1]: }}
 <h4>
     {{=i}}
 </h4>

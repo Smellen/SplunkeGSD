@@ -44,7 +44,7 @@ def view():
     for team in session.test:
          team.applyEffort()
          statuses[team.location].append(team.getStatus())
-         modules.append(team.currentModules)
+         modules.append((team.location , team.currentModules))
          isComplete = isComplete and team.isFinished()
          estimateAndProgress = []
          for mod in team.currentModules:

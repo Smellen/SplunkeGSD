@@ -29,7 +29,7 @@ To update the application to current version (from tar): run 'sudo make install'
 
 To clean the application: run 'sudo make clean' with the make file out of the directory. 
 
-To test the application : run 'sudo make test'
+To test the application : run 'make test'
 
 
 Download Files
