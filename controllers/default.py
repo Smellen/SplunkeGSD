@@ -53,8 +53,8 @@ def config_game():
     result2=[]
     for i in result1:
         i = i.strip() #remove space
-        i = i.strip(".json") #remove the .json at end
-        result2.append(i)
+	filename, extension = os.path.splitext(i)
+        result2.append(filename)
     return dict(title=T('Pre-defined Games'),result=result2)
 
 def load_game():
