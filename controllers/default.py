@@ -5,11 +5,11 @@ import applications.SplunkeGSD.controllers.classes.module as module
 import applications.SplunkeGSD.controllers.classes.team as team
 import subprocess
 import os
-import json 
+import json
 import ast
 import unicodedata
 
-def new_game(): # acts like initialisation. session.variablename allows the variable to be 
+def new_game(): # acts like initialisation. session.variablename allows the variable to be
  #accessed between refreshes.
     mod = module.module('Test Module', 50)
     te = mod.actualEffort
@@ -20,22 +20,20 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     redirect(URL('view'))
 
 def index():
-    config = ConfigParser.ConfigParser()
-    config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
     if 'default' in request.env.path_info: #ensures that the link is right
         new = 'new_game'
         config = 'config_game'
     else:
         new = 'default/new_game'
         config = 'default/config_game'
-        
+
     return dict(title=T('Home'), new=new, config=config)
 
 def view():
     modules = []
     statuses = {}
     config = ConfigParser.ConfigParser()
-    config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
+    config.read("applications/SplunkeGSD/application.config")
     fromFile = config.items('Location')
     for loc in fromFile:
          name, pos = loc
@@ -52,18 +50,18 @@ def view():
     return dict(title=T('Home'), modules=modules, locations=location, completed=complete)
 
 def config_game():
-    result = os.popen("ls /home/www-data/web2py/applications/SplunkeGSD/scenarios").read()
+    result = os.popen("ls applications/SplunkeGSD/scenarios").read()
     result1 = result.splitlines()
     result2=[]
     for i in result1:
         i = i.strip() #remove space
-        i = i.strip(".json") #remove the .json at end
-        result2.append(i)
+	filename, extension = os.path.splitext(i)
+        result2.append(filename)
     return dict(title=T('Pre-defined Games'),result=result2)
 
 def load_game():
     file_id = request.args[0]
-    string = "/home/www-data/web2py/applications/SplunkeGSD/scenarios/"+file_id+".json"
+    string = "applications/SplunkeGSD/scenarios/"+file_id+".json"
     f=open(string)
     data = json.load(f)
     session.test = []

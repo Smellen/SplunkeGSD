@@ -1,0 +1,32 @@
+{
+	"Game": {
+		"team6": {
+			"teamSize": 12,
+				"currentModules": [
+				{"name":"Module1", "estimate":10}, 
+				{"name":"Module2", "estimate":7}
+			],
+			"location":"Dublin",
+			"localProductivity":1
+
+		},
+		"team7": {
+			"teamSize": 8,
+			"currentModules": [
+			{"name":"Module11", "estimate":14}, 
+			{"name":"Module21", "estimate":18}
+			],
+			"location":"San Francisco",
+			"localProductivity":1
+		},
+		"team8": {
+			"teamSize": 12,
+			"currentModules": [
+			{"name":"Module11", "estimate":14}, 
+			{"name":"Module21", "estimate":18}
+			],
+			"location":"Bangalore",
+			"localProductivity":1
+		}
+	}
+}

@@ -1,37 +1,27 @@
+SplunkeGSD=SplunkeGSD 
+
 default: 
-	echo "Please run: \n1.  make build \n2.  make install \n3.  make test \n4.  make clean \n5. make cleanbuild"
-
-build: 
-	clear
-	sudo git pull
-
-cleanbuild: 
-	clear
-	sudo rm -r /home/www-data/web2py/applications/SplunkeGSD
-	sudo git clone https://github.com/Smellen/SplunkeGSD 
-	sudo mv SplunkeGSD/ /home/www-data/web2py/applications/ 
-	sudo chown -R www-data:www-data /home/www-data/web2py/applications/SplunkeGSD/ 
+	echo "Please run: \n1. make install \n2.  make test \n3.  make clean"
 
 install: 
-	clear
-	sudo apt-get -yfm update
-	sudo apt-get -y upgrade
-	sudo apt-get -y install openssh-server
-	sudo apt-get -y install python
-	sudo apt-get -y install python-dev
-	sudo apt-get -y install apache2
-	sudo apt-get -y install libapache2-mod-wsgi
-	sudo apt-get -y install libapache2-mod-proxy-html
-	chmod +x setup-web2py-ubuntu.sh
-	sudo ./setup-web2py-ubuntu.sh
-	sudo git clone https://github.com/Smellen/SplunkeGSD
-	sudo mv SplunkeGSD/ /home/www-data/web2py/applications/
-	sudo chown -R www-data:www-data /home/www-data/web2py/applications/SplunkeGSD/
+	sudo rm -rf ${HOME}/public_html/web2py/applications/${SplunkeGSD}
+	sudo mkdir ${HOME}/public_html/web2py/applications/${SplunkeGSD} 
+	sudo cp -r * ${HOME}/public_html/web2py/applications/${SplunkeGSD}
+	#sudo chown -R www-data:www-data ${HOME}/public_html/web2py/applications/${SplunkeGSD}/
+	sudo python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p 8080
 
+install-web2py:
+	unzip web2py_src.zip
+	sudo mv web2py/ ${HOME}/public_html
+	sudo mv ${HOME}/public_html/web2py/handlers/wsgihandler.py ${HOME}/public_html/web2py/wsgihandler.py
+	#sudo chown -R www-data:www-data ${HOME}/public_html/web2py
+
+run: 	
+	sudo python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p 8080
 test: 
 	clear 
-	python tests/testTeam.py
+	python ${HOME}/public_html/web2py/applications/${SplunkeGSD}/tests/testTeam.py
 clean: 	
 	clear
 	cd 
-	sudo rm -r /home/www-data/web2py/applications/SplunkeGSD
+	sudo rm -r ${HOME}/public_html/web2py/applications/${SplunkeGSD}
