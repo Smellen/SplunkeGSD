@@ -12,9 +12,10 @@ The installation installs this framework during installation.
 
 Installation Instructions
 =========================
+PLEASE RUN THE MAKE SCRIPT AS SUDO
 
-If you would like to change the application name include SplunkeGSD=appname in the make command
-e.g. make SplunkeGSD=appname install
+If you would like to change the application name include SplunkeApp=appname in the make command
+e.g. 'sudo make SplunkeApp=appname install'
 
 Additional Install Notes: 
 - The commands will need to use sudo 
@@ -22,13 +23,13 @@ Additional Install Notes:
 - In order to not write over any files that might already be there, select [N]one if asked to replace, this will use the files that are there. 
 - If asked about mail server, select No Config
 
-To install web2py: run make install-web2py
+To install web2py: run 'sudo make install-web2py'
 
-To update the application to current version (from tar): run make install
+To update the application to current version (from tar): run 'sudo make install'
 
-To clean the application: run make clean with the make file out of the directory. 
+To clean the application: run 'sudo make clean' with the make file out of the directory. 
 
-To test the application : run make test
+To test the application : run 'sudo make test'
 
 
 Download Files
