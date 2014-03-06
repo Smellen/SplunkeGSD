@@ -19,11 +19,26 @@
     width: 300px;
     left:50%;
     margin-left:-150px;
+    border:solid black 2px;
     z-index:300;
    }
 .endGameTitle{
-    background:red;
-    z-index: 300;
+    background:yellow;
+    text-align:center;
+}
+.reportTable{
+    border: solid black 2px;
+    border-collapse:collapse;
+}
+.tableSiteName{
+    background:yellow;
+    text-align:center;
+    border:solid black 2px;
+}
+.tableModule{
+    background:white;
+    border:solid black 2px;
+}
 }
 </style>
 <h1>{{=title}}</h1>
@@ -91,11 +106,18 @@ for(i=0; i<markers.length; i++){
     if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
     var body = document.getElementsByName("body");
     var newele = document.createElement("div");
+    var report = {{=XML(report)}}
     newele.className = "endGame";
-    var internal = document.createElement("div");
-    internal.className = "endGameTitle";
-    internal.innerHTML = "End of Game Report";
-    newele.appendChild(internal);
+    internal ='<table class="reportTable"><tr><td colspan=2 class="endGameTitle">End of Game Report</td></tr>';
+    for (i=0;i<report.length;i++){
+        internal += '<tr><td class="tableSiteName">' + report[i][0] + '</td><td class="tableModule">';
+        for (j=0; j<report[i][1].length; j++){
+            internal += report[i][1][j][0] + ': ' + report[i][1][j][1] + '/' + report[i][1][j][2]+'<br/>';
+        }
+        internal += '</td>';
+    }
+    internal += '</table>'
+    newele.innerHTML = internal;
     body[0].appendChild(newele);
 }
 }

@@ -48,8 +48,8 @@ def view():
          isComplete = isComplete and team.isFinished()
          estimateAndProgress = []
          for mod in team.currentModules:
-                estimateAndProgress.append([mod.name, mod.progress, mod.estimateEffort])
-         teamEstimatesAndProgresses.append((team.location, estimateAndProgress))
+                estimateAndProgress.append([mod.name.encode("ascii"), mod.progress, mod.estimateEffort])
+         teamEstimatesAndProgresses.append([team.location, estimateAndProgress])
     complete = "true" if isComplete else "false"
     location = list(statuses.values())
     return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses)
