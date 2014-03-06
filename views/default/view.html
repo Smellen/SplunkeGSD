@@ -9,10 +9,21 @@
 }
 .block {
         position: absolute;
-        z-index: 50000;
+        z-index: 200;
         height: 10px;
         width: 10px;
         border-radius: 5px;
+}
+.endGame{
+    position: absolute;
+    width: 300px;
+    left:50%;
+    margin-left:-150px;
+    z-index:300;
+   }
+.endGameTitle{
+    background:red;
+    z-index: 300;
 }
 </style>
 <h1>{{=title}}</h1>
@@ -45,7 +56,7 @@
 
 <p id="demo"></p>
 
-<body onload="mapSetup()" onresize="mapSetup()"/>
+<body name="body" onload="mapSetup()" onresize="mapSetup()">
 
 <script>
 function mapSetup()
@@ -77,6 +88,16 @@ for(i=0; i<markers.length; i++){
                                          "red";
     }
 }
+    if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
+    var body = document.getElementsByName("body");
+    var newele = document.createElement("div");
+    newele.className = "endGame";
+    var internal = document.createElement("div");
+    internal.className = "endGameTitle";
+    internal.innerHTML = "End of Game Report";
+    newele.appendChild(internal);
+    body[0].appendChild(newele);
+}
 }
 
 </script>
@@ -84,4 +105,4 @@ for(i=0; i<markers.length; i++){
 <div style="position: absolute; z-index:100">
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
 </div>
-{{completed}}
+</body>

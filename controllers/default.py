@@ -47,8 +47,9 @@ def view():
          statuses[team.location].append(team.getStatus())
          modules.append(team.currentModules)
          isComplete = isComplete and team.isFinished()
+    complete = "true" if isComplete else "false"
     location = list(statuses.values())
-    return dict(title=T('Home'), modules=modules, locations=location, completed=isComplete)
+    return dict(title=T('Home'), modules=modules, locations=location, completed=complete)
 
 def config_game():
     result = os.popen("ls /home/www-data/web2py/applications/SplunkeGSD/scenarios").read()
