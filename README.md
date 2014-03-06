@@ -34,7 +34,11 @@ To test the application : run make test
 Download Files
 ===============
 
-The application is also able to be downloaded using a tar file at each release, these are located in Downloads. 
+The application is also able to be downloaded using a tar file at each release. 
+- Release 0 : pub.mmcgarr.me/team_splunke_release0.tar.gz
+- Iteration 1: pub.mmcgarr.me/team_splunke_iteration1.tar.gz
+- Iteration 2: pub.mmcgarr.me/team_splunke_iteration2.tar.gz
+- Iteration 3:
 
 
 Release 0
@@ -93,3 +97,18 @@ Known Issues:
 
 Fixed Issues:
 - Fixed Issue with URL - redirects to the correct URL if you input localhost/SplunkeGSD/default and localhost/SplunkeGSD/
+
+
+Iteration 3
+============
+Released: 06/03/2014
+
+
+
+Implemented:
+
+Known Issues:
+
+Fixed Issues:
+
+
