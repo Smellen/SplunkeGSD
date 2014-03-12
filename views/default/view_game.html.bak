@@ -58,13 +58,20 @@
     </tr>
 </table>
 
+{{if pre == "true": }}
+<Button type="button" name ="new_button"
+	onclick = 'window.location="{{=URL('default', 'config_game')}}";'>
+    	Select Different Pre-Configured Game Game
+</Button>
+{{pass}}
+
 <h1>
     Day: {{=day}}
 </h1>
 
 {{for team in modules: }}
 <h3>
-    Team - {{=team[0].upper()}} (Location Team Size: {{=team[2]}})
+    {{=team[0].upper()}} (Location Team Size: {{=team[2]}})
 </h3>
 {{for i in team[1]: }}
 <h4>

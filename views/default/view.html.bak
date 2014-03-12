@@ -8,17 +8,42 @@
    max-height: 20%; <!--leaves room at bottom for module things-->
 }
 .block {
-        name: "mapmarker";
         position: absolute;
-        z-index: 50000;
-        height: 20px;
-        width: 20px;
-        background: blue;
+        z-index: 200;
+        height: 10px;
+        width: 10px;
+        border-radius: 5px;
+}
+.endGame{
+    position: absolute;
+    width: 300px;
+    left:50%;
+    margin-left:-150px;
+    border:solid black 2px;
+    z-index:300;
+   }
+.endGameTitle{
+    background:yellow;
+    text-align:center;
+}
+.reportTable{
+    border: solid black 2px;
+    border-collapse:collapse;
+}
+.tableSiteName{
+    background:yellow;
+    text-align:center;
+    border:solid black 2px;
+}
+.tableModule{
+    background:white;
+    border:solid black 2px;
+}
 }
 </style>
 <h1>{{=title}}</h1>
 
-<table width="100%" border="0" cellspacing="1" cellpadding="1"; >
+<table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
         <td>
             <FORM METHOD="LINK" ACTION="view">
@@ -27,16 +52,21 @@
         </td>
         <td>
             <FORM METHOD="LINK" ACTION="index">
-            <INPUT TYPE="submit" VALUE="Restart Game">
+            <INPUT TYPE="submit" VALUE="Home">
             </FORM>
         </td>
     </tr>
 </table>
+
+<h1>
+    Day: {{=day}}
+</h1>
+
 {{for team in modules: }}
 <h3>
-    Team
+    Team - {{=team[0].upper()}} (Location Team Size: {{=team[2]}})
 </h3>
-{{for i in team: }}
+{{for i in team[1]: }}
 <h4>
     {{=i}}
 </h4>
@@ -46,7 +76,7 @@
 
 <p id="demo"></p>
 
-<body onload="mapSetup()" onresize="mapSetup()"/>
+<body name="body" onload="mapSetup()" onresize="mapSetup()">
 
 <script>
 function mapSetup()
@@ -68,11 +98,32 @@ if(document.getElementsByClassName("block").length == 0){
     //Move divs
 markers = document.getElementsByClassName("block");
 for(i=0; i<markers.length; i++){
-    markers[i].style.top = (locs[i][0] * scale);
-    markers[i].style.left = (locs[i][1] * scale);
+    var widthOffset = window.getComputedStyle(markers[i]).getPropertyValue("width");
+    var heightOffset = window.getComputedStyle(markers[i]).getPropertyValue("height");
+    markers[i].style.left = ((locs[i][0] * scale) - (parseInt(widthOffset, 10)/2));
+    markers[i].style.top = ((locs[i][1] * scale) - (parseInt(widthOffset, 10)/2));
     if(!(typeof locs[i][2] == 'undefined')){
-        markers[i].style.background = ((locs[i][2][0]>=0)?"green":"red");
+        markers[i].style.background = (locs[i][2][0] == 0)?"green":
+                                         (locs[i][2][0] == 1)?"orange":
+                                         "red";
     }
+}
+    if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
+    var body = document.getElementsByName("body");
+    var newele = document.createElement("div");
+    var report = {{=XML(report)}}
+    newele.className = "endGame";
+    internal ='<table class="reportTable"><tr><td colspan=2 class="endGameTitle">End of Game Report</td></tr>';
+    for (i=0;i<report.length;i++){
+        internal += '<tr><td class="tableSiteName">' + report[i][0] + '</td><td class="tableModule">';
+        for (j=0; j<report[i][1].length; j++){
+            internal += report[i][1][j][0] + ': ' + report[i][1][j][1] + '/' + report[i][1][j][2]+'<br/>';
+        }
+        internal += '</td>';
+    }
+    internal += '</table>'
+    newele.innerHTML = internal;
+    body[0].appendChild(newele);
 }
 }
 
@@ -80,7 +131,5 @@ for(i=0; i<markers.length; i++){
 
 <div style="position: absolute; z-index:100">
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
-    <div style="position: absolute; z-index:5000; top: 72%; left: 82%">
-        <img class="marker" src="http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Pink.png"/>     
-    </div>
 </div>
+</body>
