@@ -3,8 +3,8 @@
 		"team1": {
 			"teamSize": 10,
 				"currentModules": [
-				{"name":"Module1", "estimate":10}, 
-				{"name":"Module2", "estimate":7}
+				{"name":"Module1", "estimate":100}, 
+				{"name":"Module2", "estimate":70}
 			],
 			"location":"Dublin",
 			"localProductivity":1
@@ -13,8 +13,8 @@
 		"team2": {
 			"teamSize": 14,
 			"currentModules": [
-			{"name":"Module11", "estimate":14}, 
-			{"name":"Module21", "estimate":18}
+			{"name":"Module11", "estimate":140}, 
+			{"name":"Module21", "estimate":180}
 			],
 			"location":"New York",
 			"localProductivity":1
