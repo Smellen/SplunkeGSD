@@ -44,7 +44,7 @@
 <h1>{{=title}}</h1>
 
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
-    <tr>
+    <tr>        
         <td>
             <FORM METHOD="LINK" ACTION="view">
             <INPUT TYPE="submit" VALUE="Click to Continue to next day">
@@ -64,10 +64,10 @@
 
 {{for team in modules: }}
 <h3>
-    Team - {{=team[0].upper()}} (Location Team Size: {{=team[2]}})
+{{=team[0].upper()}} (Team Size: {{=team[2]}})
 </h3>
 
-<table width="60%">
+<table width="50%">
     <tr>
         <td>
                 <strong>Name</strong>
@@ -164,3 +164,16 @@ for(i=0; i<markers.length; i++){
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
 </div>
 </body>
+
+    <div class="row">
+        <footer class="footer span12" id="footer">
+            <div class="footer-content">
+                {{block footer}} <!-- this is default footer -->
+                <div id="title" class="pull-right">
+                    {{=T('A TEAM SPLUNKE PRODUCTION')}}
+                </div>
+                {{end}}
+            </div>
+        </footer>
+    </div>
+  </div>

@@ -39,7 +39,6 @@
     background:white;
     border:solid black 2px;
 }
-}
 </style>
 <h1>{{=title}}</h1>
 
@@ -71,7 +70,7 @@
 
 {{for team in modules: }}
 <h3>
-    {{=team[0].upper()}} (Location Team Size: {{=team[2]}})
+    {{=team[0].upper()}} (Team Size: {{=team[2]}})
 </h3>
 <table width="60%">
     <tr>
@@ -105,8 +104,7 @@
                 {{=j[3]}}
         </td>
 
-    </tr>
-    
+    </tr> 
 </h4>
 {{pass}}
 </table>
