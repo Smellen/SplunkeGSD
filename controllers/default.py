@@ -15,10 +15,12 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     mod = module.module('Test Module', 50)
     te = mod.actualEffort
     session.test = []
+    session.day = 0
+    session.pre = "false"
     new_team = team.team(10, 'dublin')
     new_team.addModule(mod)
     session.test.append(new_team)
-    redirect(URL('view'))
+    redirect(URL('view_game'))
 
 def index():
     if 'default' in request.env.path_info: #ensures that the link is right
@@ -47,7 +49,7 @@ def view():
     for team in session.test:
          team.applyEffort()
          statuses[team.location].append(team.getStatus())
-         modules.append((team.location , team.currentModules))
+         modules.append((team.location , team.currentModules, team.teamSize))
          isComplete = isComplete and team.isFinished()
          for mod in team.currentModules:
              splitLoc = team.location.split(" ")
@@ -62,8 +64,36 @@ def view():
     budgetReport = [["Budget", "", ""]];
     revenueReport = [["Revenue", "", ""]];
     complete = "true" if isComplete else "false"
+    if complete == "false":
+        session.day +=1
     location = list(statuses.values())
     return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport)
+
+
+def view_game():
+    modules = []
+    statuses = {}
+    config = ConfigParser.ConfigParser()
+    config.read("applications/SplunkeGSD/application.config")
+    fromFile = config.items('Location')
+    for loc in fromFile:
+         name, pos = loc
+         name.rstrip()
+         statuses.update({name: ast.literal_eval(pos)})
+    isComplete = True
+    teamEstimatesAndProgresses = []
+    for team in session.test:
+         statuses[team.location].append(team.getStatus())
+         modules.append((team.location, team.currentModules, team.teamSize))
+         isComplete = isComplete and team.isFinished()
+         estimateAndProgress = []
+         for mod in team.currentModules:
+                estimateAndProgress.append([mod.name.encode("ascii"), mod.progress, mod.estimateEffort])
+         teamEstimatesAndProgresses.append([team.location, estimateAndProgress])
+    complete = "true" if isComplete else "false"
+    location = list(statuses.values())
+    return dict(title=T('Home'), modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
+
 
 def config_game():
     result = os.popen("ls applications/SplunkeGSD/scenarios").read()
@@ -81,6 +111,8 @@ def load_game():
     f=open(string)
     data = json.load(f)
     session.test = []
+    session.day = 0
+    session.pre = "true"
     #read data in put in session.test
     for te in data['Game']:
         dict = data['Game'][te]
@@ -89,7 +121,7 @@ def load_game():
             listOfMods.append(module.module(mod['name'], mod['estimate']))
         newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), listOfMods)
         session.test.append(newTeam)
-    redirect(URL('view'))
+    redirect(URL('view_game'))
 
 def user():
     """

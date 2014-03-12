@@ -69,7 +69,7 @@
 </style>
 <h1>{{=title}}</h1>
 
-<table width="100%" border="0" cellspacing="1" cellpadding="1"; >
+<table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
         <td>
             <FORM METHOD="LINK" ACTION="view">
@@ -84,16 +84,51 @@
     </tr>
 </table>
 
+<h1>
+    Day: {{=day}}
+</h1>
+
 {{for team in modules: }}
 <h3>
-    Team - {{=team[0].upper()}}
+    Team - {{=team[0].upper()}} (Location Team Size: {{=team[2]}})
 </h3>
-{{for i in team[1]: }}
-<h4>
-    {{=i}}
+
+<table width="60%">
+    <tr>
+        <td>
+                <strong>Name</strong>
+        </td>
+        <td>
+                <strong>Task Done</strong>
+        </td>
+        <td>
+                <strong>Task Estimated</strong>
+        </td>
+        <td>
+                <strong>Current Stage</strong>
+        </td>
+
+    </tr>
+{{for i in team[1]:}}
+{{j = str(i).split(',')}}
+    <tr>
+        <td>
+                {{=j[0]}}
+        </td>
+        <td>
+                {{=j[1]}}
+        </td>
+        <td>
+                {{=j[2]}}
+        </td>
+        <td>
+                {{=j[3]}}
+        </td>
+
+    </tr> 
 </h4>
 {{pass}}
-{{pass}}
+</table>{{pass}}
 
 
 <p id="demo"></p>

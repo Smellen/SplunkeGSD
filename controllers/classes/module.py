@@ -42,7 +42,7 @@ class module:
 
     def __repr__(self):
         stage = self.getProgress()
-        ret =str(self.name) + ' is '+str("%.2f" % self.progress)+' / '+str("%.2f" % self.estimateEffort)+' person*days ('+str(self.actualEffort)+') done. Current Stage: '+str(stage)
+        ret =str(self.name) + ','+str("%.1f" % self.progress)+','+str("%.1f" % self.estimateEffort)+','+str(stage)+','+str("%.1f" % self.actualEffort)
         return ret
 
     def isFinished(self):
