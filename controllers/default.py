@@ -123,6 +123,20 @@ def load_game():
         session.test.append(newTeam)
     redirect(URL('view_game'))
 
+def schedule_calculator(teamsList):
+    config = ConfigParser.ConfigParser()
+    config.read("applications/SplunkeGSD/application.config")
+    effort = config.get('Development Period', 'Effort')
+    effortList = []
+    for i in range(len(teamsList)):
+        effortList.append(0)
+        for mod in teamsList[i].currentModules:
+            effortList[i] += mod.estimateEffort
+        print effortList[i]
+        effortList[i] = (effortList[i])/teamsList[i].teamSize
+    print effortList
+    return effortList
+
 def user():
     """
     exposes:
