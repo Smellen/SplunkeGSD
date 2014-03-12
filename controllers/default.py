@@ -73,6 +73,7 @@ def load_game():
     f=open(string)
     data = json.load(f)
     session.test = []
+    session.day = 0
     #read data in put in session.test
     for te in data['Game']:
         dict = data['Game'][te]
