@@ -9,6 +9,7 @@ class module:
         self.name = nm
         self.test = "I love this"
         self.progress = 0
+        self.daysLeft = None
         self.stage = "Unstarted"
         self.estimateEffort = estimate
         self.actualEffort = (((random.random()/2) - 0.25) * estimate) + estimate
@@ -20,7 +21,7 @@ class module:
 
     def changeActual(self, change):
         self.actualEffort  += change
-        
+
     def getProgress(self): 
         prog = float(self.progress/self.actualEffort)
         if prog < 0.15: 

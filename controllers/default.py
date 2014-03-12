@@ -19,8 +19,9 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     session.pre = "false"
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
+    new_team.calcDaysLeft()
+    print new_team.currentModules[0].daysLeft
     session.test.append(new_team)
-    schedule_calculator(session.test)
     redirect(URL('view_game'))
 
 def getDailyDevPeriod():
@@ -73,6 +74,9 @@ def view():
     if complete == "false":
         session.day += 1
     location = list(statuses.values())
+    for team in session.test:
+        for mod in team.currentModules:
+            print mod.daysLeft
     return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 
@@ -140,20 +144,7 @@ def load_game():
             listOfMods.append(module.module(mod['name'], mod['estimate']))
         newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), getDailyDevPeriod(), listOfMods)
         session.test.append(newTeam)
-    schedule_calculator(session.test)
     redirect(URL('view_game'))
-
-def schedule_calculator(teamsList):
-
-    effortList = []
-    for i in range(len(teamsList)):
-        effortList.append(0)
-        for mod in teamsList[i].currentModules:
-            effortList[i] += mod.estimateEffort
-        print effortList[i]
-        effortList[i] = ((effortList[i])/teamsList[i].teamSize)/getDailyDevPeriod()
-    print effortList
-    return effortList
 
 def user():
     """
