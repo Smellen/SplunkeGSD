@@ -88,11 +88,24 @@ def config_game():
     result = os.popen("ls applications/SplunkeGSD/scenarios").read()
     result1 = result.splitlines()
     result2=[]
+    details = {}
     for i in result1:
         i = i.strip() #remove space
-	filename, extension = os.path.splitext(i)
+        filename, extension = os.path.splitext(i)
         result2.append(filename)
-    return dict(title=T('Pre-defined Games'),result=result2)
+    for the_file in result2: #for file in the list
+        details[the_file]=[] #to put the information
+        string = "applications/SplunkeGSD/scenarios/"+the_file+".json"
+        f=open(string)
+        data = json.load(f)
+        for te in data['Game']:
+            dict1 = data['Game'][te]
+            listOfMods = []
+            for mod in dict1['currentModules']:
+                listOfMods.append((mod['name'], mod['estimate']))
+            newTeam = (dict1['teamSize'], str(dict1['location']).lower(), listOfMods)
+            details[the_file].append(newTeam)
+    return dict(title=T('Pre-defined Games'),result=result2, data=data["Game"], details=details)
 
 def load_game():
     file_id = request.args[0]

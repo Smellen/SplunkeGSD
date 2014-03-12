@@ -44,7 +44,7 @@
 <h1>{{=title}}</h1>
 
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
-    <tr>
+    <tr>        
         <td>
             <FORM METHOD="LINK" ACTION="view">
             <INPUT TYPE="submit" VALUE="Click to Continue to next day">
@@ -64,10 +64,10 @@
 
 {{for team in modules: }}
 <h3>
-    Team - {{=team[0].upper()}} (Location Team Size: {{=team[2]}})
+{{=team[0].upper()}} (Team Size: {{=team[2]}})
 </h3>
 
-<table width="60%">
+<table width="50%">
     <tr>
         <td>
                 <strong>Name</strong>
