@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import division
 import ConfigParser
 import applications.SplunkeGSD.controllers.classes.module as module
 import applications.SplunkeGSD.controllers.classes.team as team
@@ -8,6 +8,7 @@ import os
 import json
 import ast
 import unicodedata
+
 
 def new_game(): # acts like initialisation. session.variablename allows the variable to be
  #accessed between refreshes.
@@ -42,21 +43,31 @@ def view():
          name.rstrip()
          statuses.update({name: ast.literal_eval(pos)})
     isComplete = True
-    teamEstimatesAndProgresses = []
+    teamEstimatesAndProgresses = [["", "Actual Effort", "Estimated Effort"]]
+    totEstimate = 0
+    totActual = 0
     for team in session.test:
          team.applyEffort()
          statuses[team.location].append(team.getStatus())
          modules.append((team.location , team.currentModules, team.teamSize))
          isComplete = isComplete and team.isFinished()
-         estimateAndProgress = []
          for mod in team.currentModules:
-                estimateAndProgress.append([mod.name.encode("ascii"), mod.progress, mod.estimateEffort])
-         teamEstimatesAndProgresses.append([team.location, estimateAndProgress])
+             splitLoc = team.location.split(" ")
+             capLoc = ""
+             for word in splitLoc:
+                 capped = word.capitalize()
+                 capLoc += capped
+             teamEstimatesAndProgresses.append([capLoc +": "+ mod.name.encode("ascii"), str("%.1f" % mod.progress), str(mod.estimateEffort)])
+             totEstimate += mod.estimateEffort
+             totActual += mod.progress
+    teamEstimatesAndProgresses.append(["Total Effort", str("%.1f" % totActual), str(totEstimate)])
+    budgetReport = [["Budget", "", ""]];
+    revenueReport = [["Revenue", "", ""]];
     complete = "true" if isComplete else "false"
     if complete == "false":
-        session.day +=1
+        session.day += 1
     location = list(statuses.values())
-    return dict(title=T('Home'), modules=modules, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
+    return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 
 def view_game():
@@ -124,6 +135,20 @@ def load_game():
         newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), listOfMods)
         session.test.append(newTeam)
     redirect(URL('view_game'))
+
+def schedule_calculator(teamsList):
+    config = ConfigParser.ConfigParser()
+    config.read("applications/SplunkeGSD/application.config")
+    effort = config.get('Development Period', 'Effort')
+    effortList = []
+    for i in range(len(teamsList)):
+        effortList.append(0)
+        for mod in teamsList[i].currentModules:
+            effortList[i] += mod.estimateEffort
+        print effortList[i]
+        effortList[i] = (effortList[i])/teamsList[i].teamSize
+    print effortList
+    return effortList
 
 def user():
     """
