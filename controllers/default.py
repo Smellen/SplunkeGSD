@@ -65,9 +65,9 @@ def view():
     revenueReport = [["Revenue", "", ""]];
     complete = "true" if isComplete else "false"
     if complete == "false":
-        session.day +=1
+        session.day += 1
     location = list(statuses.values())
-    return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport)
+    return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 
 def view_game():
