@@ -5,12 +5,28 @@ td{
 }
 </style>
 <h1>{{=title}}</h1>
-
-<table width="100%" border="0" cellspacing="1" cellpadding="1"; >
-    {{for i in result:}}
+</br>
+</br>
+{{=result}}
+<table width="100%" border="1" cellspacing="1" cellpadding="1"; >
+    {{for file in details:}}
         <tr>
-            {{url = "/SplunkeGSD/default/load_game/" +i }}
-            <td> <a href={{=url}} > {{=i.upper()}} </a></td>
+            {{url = "/SplunkeGSD/default/load_game/" +file }}
+            <td> <a href={{=url}} > {{=file.upper()}} </a></td> <!-- File Name -->
+            <td> <table> <!-- For team in file --> 
+                {{for team in details[file]:}}
+                <tr> <td> {{=team[1].upper()}} (Team Size: {{=team[0]}})</td>
+                    <td>
+                        <table> <!-- For Module in Team -->
+                            {{for module in team[2]:}}
+                                <tr> <td> {{=module[0]}} </td> <td> Estimated Effort: {{=module[1]}}</td> </tr>
+                            {{pass}}
+                        </table>
+                    </td>
+                    </tr>
+                {{pass}}
+                </table>
+            </td>
         </tr>
     {{pass}}
 </table>
