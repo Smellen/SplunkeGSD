@@ -12,15 +12,21 @@ import unicodedata
 
 def new_game(): # acts like initialisation. session.variablename allows the variable to be
  #accessed between refreshes.
-    mod = module.module('Test Module', 50)
+    mod = module.module('Test Module', 200)
     te = mod.actualEffort
     session.test = []
     session.day = 0
     session.pre = "false"
-    new_team = team.team(10, 'dublin')
+    new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     session.test.append(new_team)
+    schedule_calculator(session.test)
     redirect(URL('view_game'))
+
+def getDailyDevPeriod():
+    config = ConfigParser.ConfigParser()
+    config.read("applications/SplunkeGSD/application.config")
+    return float(config.get('Development Period', 'Effort'))
 
 def index():
     if 'default' in request.env.path_info: #ensures that the link is right
@@ -132,21 +138,20 @@ def load_game():
         listOfMods = []
         for mod in dict['currentModules']:
             listOfMods.append(module.module(mod['name'], mod['estimate']))
-        newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), listOfMods)
+        newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), getDailyDevPeriod(), listOfMods)
         session.test.append(newTeam)
+    schedule_calculator(session.test)
     redirect(URL('view_game'))
 
 def schedule_calculator(teamsList):
-    config = ConfigParser.ConfigParser()
-    config.read("applications/SplunkeGSD/application.config")
-    effort = config.get('Development Period', 'Effort')
+
     effortList = []
     for i in range(len(teamsList)):
         effortList.append(0)
         for mod in teamsList[i].currentModules:
             effortList[i] += mod.estimateEffort
         print effortList[i]
-        effortList[i] = (effortList[i])/teamsList[i].teamSize
+        effortList[i] = ((effortList[i])/teamsList[i].teamSize)/getDailyDevPeriod()
     print effortList
     return effortList
 

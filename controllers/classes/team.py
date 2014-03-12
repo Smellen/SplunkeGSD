@@ -1,12 +1,15 @@
 # coding: utf8
 # try something like
 #def index(): return dict(message="hello from team.py")
+import ConfigParser
+
 
 class team:
 
-    def __init__(self, size, location, modules=None):
+    def __init__(self, size, location, effectiveWorkingDay, modules=None):
         self.teamSize = size
         self.currentModules = []
+        self.effectiveWorkingDay = effectiveWorkingDay
         if modules != None:
             for m in modules:
                 self.currentModules.append(m)
@@ -29,7 +32,7 @@ class team:
         self.currentModules.append(module)
 
     def totalEffort(self):
-        return self.teamSize * self.localProductivity * self.modifier
+        return self.teamSize * self.localProductivity * self.modifier * self.effectiveWorkingDay
 
     def applyEffort(self):
         modEffort = float(self.totalEffort()) / len(self.currentModules)
