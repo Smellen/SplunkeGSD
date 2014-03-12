@@ -14,6 +14,7 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     mod = module.module('Test Module', 50)
     te = mod.actualEffort
     session.test = []
+    session.day = 0
     new_team = team.team(10, 'dublin')
     new_team.addModule(mod)
     session.test.append(new_team)
@@ -51,8 +52,10 @@ def view():
                 estimateAndProgress.append([mod.name.encode("ascii"), mod.progress, mod.estimateEffort])
          teamEstimatesAndProgresses.append([team.location, estimateAndProgress])
     complete = "true" if isComplete else "false"
+    if complete == "false":
+        session.day +=1
     location = list(statuses.values())
-    return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses)
+    return dict(title=T('Home'), modules=modules, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
 
 def config_game():
     result = os.popen("ls applications/SplunkeGSD/scenarios").read()
