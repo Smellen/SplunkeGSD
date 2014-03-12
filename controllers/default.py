@@ -19,6 +19,8 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     session.pre = "false"
     new_team = team.team(10, 'dublin')
     new_team.addModule(mod)
+    new_team.calcDaysLeft()
+    print new_team.currentModules[0].daysLeft
     session.test.append(new_team)
     redirect(URL('view_game'))
 
@@ -67,6 +69,9 @@ def view():
     if complete == "false":
         session.day += 1
     location = list(statuses.values())
+    for team in session.test:
+        for mod in team.currentModules:
+            print mod.daysLeft
     return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 

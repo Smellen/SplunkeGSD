@@ -31,6 +31,11 @@ class team:
     def totalEffort(self):
         return self.teamSize * self.localProductivity * self.modifier
 
+    def calcDaysLeft(self):
+        modEffort = float(self.totalEffort()) / len(self.currentModules)
+        for module in self.currentModules:
+            module.daysLeft = int((module.estimateEffort - module.progress) / modEffort)
+
     def applyEffort(self):
         modEffort = float(self.totalEffort()) / len(self.currentModules)
         for module in self.currentModules:
@@ -38,6 +43,7 @@ class team:
                 module.progress += modEffort
             if module.progress >= module.actualEffort:
                 module.progress = module.actualEffort
+            module.daysLeft = int((module.estimateEffort-module.progress) / modEffort)
 
 # 0 = Green, 1 = Yellow, 2 = Red.
     def getStatus(self):
