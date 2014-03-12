@@ -1,3 +1,4 @@
+from __future__ import division
 import random
 
 tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test"]
@@ -14,35 +15,38 @@ class module:
 
         #print self.actualEffort
 
-        def progress(self, val):
-            self.progress += val
+    def progress(self, val):
+        self.progress += val
 
-        def changeActual(self, change):
-            self.actualEffort  += change
+    def changeActual(self, change):
+        self.actualEffort  += change
         
     def getProgress(self): 
         prog = float(self.progress/self.actualEffort)
-        if prog < 15: 
+        if prog < 0.15: 
             return "Design"
-        elif prog < 30: 
+        elif prog < 0.30: 
             return "Implementation" 
-        elif prog < 40: 
+        elif prog < 0.40: 
             return "Unit Test"
-        elif prog < 55: 
+        elif prog < 0.55: 
             return "Integration"
-        elif prog < 70: 
+        elif prog < 0.70: 
             return "System Test"
-        elif prog < 85: 
+        elif prog < 0.85: 
             return "Deployment" 
-        elif prog < 100: 
+        elif prog < 1: 
             return "Acceptance Test"
         else: 
             return "Complete"
 
     def __repr__(self):
         stage = self.getProgress()
-        ret =str(self.name) + ' is '+str(self.progress)+' of '+str(self.actualEffort)+' done. Current Stage: '+str(stage)
+        ret =str(self.name) + ','+str("%.1f" % self.progress)+','+str("%.1f" % self.estimateEffort)+','+str(stage)+','+str("%.1f" % self.actualEffort)
         return ret
+
+    def isFinished(self):
+        return self.progress >= self.actualEffort
 
 if __name__ == "__main__":
 	module(1, 50)

@@ -66,12 +66,43 @@
 <h3>
     Team - {{=team[0].upper()}} (Location Team Size: {{=team[2]}})
 </h3>
-{{for i in team[1]: }}
-<h4>
-    {{=i}}
+
+<table width="60%">
+    <tr>
+        <td>
+                <strong>Name</strong>
+        </td>
+        <td>
+                <strong>Task Done</strong>
+        </td>
+        <td>
+                <strong>Task Estimated</strong>
+        </td>
+        <td>
+                <strong>Current Stage</strong>
+        </td>
+
+    </tr>
+{{for i in team[1]:}}
+{{j = str(i).split(',')}}
+    <tr>
+        <td>
+                {{=j[0]}}
+        </td>
+        <td>
+                {{=j[1]}}
+        </td>
+        <td>
+                {{=j[2]}}
+        </td>
+        <td>
+                {{=j[3]}}
+        </td>
+
+    </tr> 
 </h4>
 {{pass}}
-{{pass}}
+</table>{{pass}}
 
 
 <p id="demo"></p>
