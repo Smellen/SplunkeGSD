@@ -86,7 +86,9 @@
         <td>
                 <strong>Current Stage</strong>
         </td>
-
+        <td>
+            <strong>Days Left</strong>
+        </td>
     </tr>
 {{for i in team[1]:}}
 {{j = str(i).split(',')}}
@@ -103,7 +105,9 @@
         <td>
                 {{=j[3]}}
         </td>
-
+        <td>
+            {{=j[4]}}
+        </td>
     </tr> 
 </h4>
 {{pass}}

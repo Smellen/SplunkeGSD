@@ -43,7 +43,7 @@ class module:
 
     def __repr__(self):
         stage = self.getProgress()
-        ret =str(self.name) + ','+str("%.1f" % self.progress)+','+str("%.1f" % self.estimateEffort)+','+str(stage)+','+str("%.1f" % self.actualEffort)
+        ret =str(self.name) + ','+str("%.1f" % self.progress)+','+str("%.1f" % self.estimateEffort)+','+str(stage)+','+str(self.daysLeft)+','+str("%.1f" % self.actualEffort)
         return ret
 
     def isFinished(self):

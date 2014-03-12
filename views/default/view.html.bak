@@ -16,7 +16,6 @@
 }
 .endGame{
     position: absolute;
-    width: 300px;
     left:50%;
     margin-left:-150px;
     border:solid black 2px;
@@ -29,14 +28,41 @@
 .reportTable{
     border: solid black 2px;
     border-collapse:collapse;
+    table-layout: fixed;
 }
 .tableSiteName{
     background:yellow;
     text-align:center;
+    width: 100px;
+    overflow: hidden;
+    border:solid black 2px;
+}
+.tableEffortTotal{
+    background:pink;
+    text-align:center;
+    width: 100px;
+    overflow: hidden;
+    border:solid black 2px;
+}
+.tableBudgetTitle{
+    background:magenta;
+    text-align:center;
+    width: 100px;
+    overflow: hidden;
+    border:solid black 2px;
+}
+.tableRevenueTitle{
+    background:green;
+    text-align:center;
+    width: 100px;
+    overflow: hidden;
     border:solid black 2px;
 }
 .tableModule{
     background:white;
+    width: 100px;
+    max-width: 100px;
+    overflow: hidden;
     border:solid black 2px;
 }
 }
@@ -81,6 +107,9 @@
         <td>
                 <strong>Current Stage</strong>
         </td>
+        <td>
+            <strong> Days Left</strong>
+        </td>
 
     </tr>
 {{for i in team[1]:}}
@@ -97,6 +126,9 @@
         </td>
         <td>
                 {{=j[3]}}
+        </td>
+        <td>
+                {{=j[4]}}
         </td>
 
     </tr> 
@@ -143,14 +175,26 @@ for(i=0; i<markers.length; i++){
     var body = document.getElementsByName("body");
     var newele = document.createElement("div");
     var report = {{=XML(report)}}
+    var budgetR = {{=XML(budget)}}
+    var revenueR = {{=XML(revenue)}}
     newele.className = "endGame";
-    internal ='<table class="reportTable"><tr><td colspan=2 class="endGameTitle">End of Game Report</td></tr>';
-    for (i=0;i<report.length;i++){
-        internal += '<tr><td class="tableSiteName">' + report[i][0] + '</td><td class="tableModule">';
-        for (j=0; j<report[i][1].length; j++){
-            internal += report[i][1][j][0] + ': ' + report[i][1][j][1] + '/' + report[i][1][j][2]+'<br/>';
-        }
-        internal += '</td>';
+    internal ='<table class="reportTable"><tr><td colspan=3 class="endGameTitle">End of Game Report</td></tr>';
+    internal += '<tr><td class="tableSiteName">' + report[0][0] + '</td><td class="tableSiteName">'
+    + report[0][1] + '</td><td class ="tableSiteName">' + report[0][2] + '</td>';
+    for (i=1;i<report.length-1;i++){
+        internal += '<tr><td class="tableSiteName">' + report[i][0] + '</td><td class="tableModule">'
+        + report[i][1] + '</td><td class ="tableModule">' + report[i][2] + '</td>';
+    }
+    //Change colour for the total of the report.
+    internal += '<tr><td class="tableEffortTotal">' + report[i][0] + '</td><td class="tableEffortTotal">'
+    + report[i][1] + '</td><td class ="tableEffortTotal">' + report[i][2] + '</td>';
+    for (i=0;i<budgetR.length;i++){
+        internal += '<tr><td class="tableBudgetTitle">' + budgetR[i][0] + '</td><td class="tableModule">'
+        + budgetR[i][1] + '</td><td class ="tableModule">' + budgetR[i][2] + '</td>';
+    }
+    for (i=0;i<revenueR.length;i++){
+        internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0] + '</td><td class="tableModule">'
+        + revenueR[i][1] + '</td><td class ="tableModule">' + revenueR[i][2] + '</td>';
     }
     internal += '</table>'
     newele.innerHTML = internal;
@@ -164,16 +208,3 @@ for(i=0; i<markers.length; i++){
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
 </div>
 </body>
-
-    <div class="row">
-        <footer class="footer span12" id="footer">
-            <div class="footer-content">
-                {{block footer}} <!-- this is default footer -->
-                <div id="title" class="pull-right">
-                    {{=T('A TEAM SPLUNKE PRODUCTION')}}
-                </div>
-                {{end}}
-            </div>
-        </footer>
-    </div>
-  </div>

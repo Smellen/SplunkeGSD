@@ -143,6 +143,7 @@ def load_game():
         for mod in dict['currentModules']:
             listOfMods.append(module.module(mod['name'], mod['estimate']))
         newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), getDailyDevPeriod(), listOfMods)
+        newTeam.calcDaysLeft()
         session.test.append(newTeam)
     redirect(URL('view_game'))
 
