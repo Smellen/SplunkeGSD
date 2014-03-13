@@ -16,9 +16,6 @@ class module:
 
         #print self.actualEffort
 
-    def progress(self, val):
-        self.progress += val
-
     def changeActual(self, change):
         self.actualEffort  += change
 
