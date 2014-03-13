@@ -15,6 +15,7 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     te = mod.actualEffort
     session.test = []
     session.day = 0
+    session.revenue = 1000000
     session.pre = "false"
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
@@ -28,6 +29,17 @@ def getDailyDevPeriod():
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
     return float(config.get('Development Period', 'Effort'))
+
+def getFinalRevenue():
+    number_of_days = 0
+    for team in session.test: 
+        for mod in team.currentModules: 
+            if mod.daysLeft < number_of_days: 
+                number_of_days = mod.daysLeft
+    days_late =  number_of_days * (-1)
+    temp = 6 - (days_late/30)
+    actual_revenue = temp * (session.revenue /12)
+    return str("%.2f" % actual_revenue)
 
 def getExpectedBudget():
     config = ConfigParser.ConfigParser()
@@ -91,12 +103,15 @@ def view():
     complete = "true" if isComplete else "false"
     if complete == "false":
         session.day += 1
+        final = 0
+    else:
+        final = getFinalRevenue()
     location = list(statuses.values())
     for team in session.test:
         for mod in team.currentModules:
             print mod.daysLeft
     cost = getTotalCost()
-    return dict(title=T('Team Splunke Game'), modules=modules, cost=cost, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title=T('Team Splunke Game'), modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(): 
     config = ConfigParser.ConfigParser()
@@ -130,7 +145,7 @@ def view_game():
     complete = "true" if isComplete else "false"
     location = list(statuses.values())
     cost = getTotalCost()
-    return dict(title=T('Team Splunke Game'), budget=str("%.1f" % session.budget), cost=cost, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
+    return dict(title=T('Team Splunke Game'), budget=str("%.1f" % session.budget), cost=cost,  the_revenue=session.revenue, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
 
 
 def config_game():
@@ -166,6 +181,7 @@ def load_game():
     session.day = 0
     session.pre = "true"
     projectType = data['Game']['projectType']
+    session.revenue = data['Game']['expected_revenue']
     for te in data['Game']['Teams']:
         dict = data['Game']['Teams'][te]
         listOfMods = []

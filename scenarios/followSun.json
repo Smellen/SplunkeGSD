@@ -2,6 +2,7 @@
 	"Game": {
 
 		"projectType": "agile",
+		"expected_revenue": 20000000,
 			"Teams": {
 				"team6": {
 					"teamSize": 12,

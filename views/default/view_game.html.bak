@@ -67,7 +67,7 @@
 <table border="1" width="80%">
     <tr>
         <td>
-             <h3> Expected Budget: ${{=budget}}
+             <h3> Budget: ${{=budget}}
              </h3>
         </td>
         <td>
@@ -75,6 +75,11 @@
                 Total Cost: $ {{=cost}}
             </h3>
         </td>
+            <td>
+                  <h3>
+                      Expected Revenue: ${{=the_revenue/2}}
+                </h3>
+            </td>
     </tr>
 </table>
     

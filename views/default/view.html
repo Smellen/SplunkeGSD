@@ -70,7 +70,7 @@
 <h1>{{=title}}</h1>
 
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
-    <tr>        
+    <tr>
         <td>
             <FORM METHOD="LINK" ACTION="view">
             <INPUT TYPE="submit" VALUE="Click to Continue to next day">
@@ -84,8 +84,6 @@
     </tr>
 </table>
 
-
-
 <table border="1" width="80%">
     <tr>
         <td>
@@ -97,12 +95,19 @@
                     Total Cost: ${{=cost}}
                 </h3>
             </td>
+            <td>
+                  <h3>
+                      Expected Revenue: ${{=the_revenue/2}}
+                </h3>
+            </td>
     </tr>
 </table>
 
 <h1>
     Day: {{=day}}
 </h1>
+
+Final Revenue : ${{=final}}
 
 {{for team in modules: }}
 <h3>
@@ -209,7 +214,7 @@ for(i=0; i<markers.length; i++){
         + budgetR[i][1] + '</td><td class ="tableModule">' + budgetR[i][2] + '</td>';
     }
     for (i=0;i<revenueR.length;i++){
-        internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0] + '</td><td class="tableModule">'
+        internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0]  + '</td><td class="tableModule">'
         + revenueR[i][1] + '</td><td class ="tableModule">' + revenueR[i][2] + '</td>';
     }
     internal += '</table>'
