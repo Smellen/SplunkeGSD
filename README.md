@@ -116,3 +116,27 @@ Fixed Issues:
 - Installation script has been updated.
 - URL redirection.
 
+
+Release 1
+==========
+Released: 13/06/2014
+
+Implemented:
+- (Feature 5) Nominal Schedule Calculator calculates how long until the end of a module. The nominal schedule is done by getting the sum of all the efforts estimated for each module, divided by a default developer period effort value.
+
+- (Feature 3) Game score calculator calculates the game score as a function of the budget and revenue.
+
+- (Feature 14) Added to the end of game report to now contain information on the revenue and budget.
+
+- application.config now contains a default parameter for the developer period effort value. 
+
+- Json files edited to now contain the development type eg Agile or Waterfall.
+
+
+
+Known Issues:
+- None
+
+Fixed Issues:
+- None
+
