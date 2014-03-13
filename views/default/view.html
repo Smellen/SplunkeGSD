@@ -107,8 +107,6 @@
     Day: {{=day}}
 </h1>
 
-Final Revenue : ${{=final}}
-
 {{for team in modules: }}
 <h3>
 {{=team[0].upper()}} (Team Size: {{=team[2]}})
@@ -210,12 +208,12 @@ for(i=0; i<markers.length; i++){
     internal += '<tr><td class="tableEffortTotal">' + report[i][0] + '</td><td class="tableEffortTotal">'
     + report[i][1] + '</td><td class ="tableEffortTotal">' + report[i][2] + '</td>';
     for (i=0;i<budgetR.length;i++){
-        internal += '<tr><td class="tableBudgetTitle">' + budgetR[i][0] + '</td><td class="tableModule">'
-        + budgetR[i][1] + '</td><td class ="tableModule">' + budgetR[i][2] + '</td>';
+        internal += '<tr><td class="tableBudgetTitle">' + budgetR[i][0] + '</td><td class="tableModule"> $'
+        + budgetR[i][1] + '</td><td class ="tableModule"> $' + budgetR[i][2] + '</td>';
     }
     for (i=0;i<revenueR.length;i++){
-        internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0]  + '</td><td class="tableModule">'
-        + revenueR[i][1] + '</td><td class ="tableModule">' + revenueR[i][2] + '</td>';
+        internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0]  + '</td><td class="tableModule"> $'
+        + revenueR[i][1] + '</td><td class ="tableModule"> $' + revenueR[i][2] + '</td>';
     }
     internal += '</table>'
     newele.innerHTML = internal;

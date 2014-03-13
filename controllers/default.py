@@ -80,7 +80,7 @@ def view():
          name.rstrip()
          statuses.update({name: ast.literal_eval(pos)})
     isComplete = True
-    teamEstimatesAndProgresses = [["", "Actual Effort", "Estimated Effort"]]
+    teamEstimatesAndProgresses = [["", "Actual", "Estimated"]]
     totEstimate = 0
     totActual = 0
     for team in session.test:
@@ -98,19 +98,19 @@ def view():
              totEstimate += mod.estimateEffort
              totActual += mod.progress
     teamEstimatesAndProgresses.append(["Total Effort", str("%.1f" % totActual), str(totEstimate)])
-    budgetReport = [["Budget", "", ""]];
-    revenueReport = [["Revenue", "", ""]];
     complete = "true" if isComplete else "false"
     if complete == "false":
         session.day += 1
         final = 0
     else:
         final = getFinalRevenue()
+    cost = getTotalCost()    
+    budgetReport = [["Cost", str("%.1f" % cost), str("%.1f" % session.budget)]];
+    revenueReport = [["Revenue", str("%.1f" % float(final)), str("%.1f" % (session.revenue/2))]];
     location = list(statuses.values())
     for team in session.test:
         for mod in team.currentModules:
             print mod.daysLeft
-    cost = getTotalCost()
     return dict(title=T('Team Splunke Game'), modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(): 

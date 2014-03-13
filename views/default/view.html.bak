@@ -107,8 +107,6 @@
     Day: {{=day}}
 </h1>
 
-Final Revenue : ${{=final}}
-
 {{for team in modules: }}
 <h3>
 {{=team[0].upper()}} (Team Size: {{=team[2]}})
