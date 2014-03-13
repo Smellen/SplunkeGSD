@@ -8,6 +8,7 @@ import os
 import json
 import ast
 import unicodedata
+from time import gmtime, strftime
 
 def new_game(): # acts like initialisation. session.variablename allows the variable to be
  #accessed between refreshes.
@@ -25,6 +26,20 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     session.budget = getExpectedBudget()
     redirect(URL('view_game'))
 
+def save_game(): 
+    f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'--save_game.txt', 'w')
+    for i in session.d_report: 
+        f.write(str(i))
+    f.write('\n')
+    for i in session.d_budget:
+        f.write(str(i))
+    f.write('\n')        
+    for i in session.d_revenue: 
+        f.write(str(i))
+    f.write('\n')
+    f.close()
+    redirect(URL('view'))
+    
 def getDailyDevPeriod():
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
@@ -104,16 +119,19 @@ def view():
         final = 0
     else:
         final = getFinalRevenue()
-    cost = getTotalCost()    
+    cost = getTotalCost()
     budgetReport = [["Cost", str("%.1f" % cost), str("%.1f" % session.budget)]];
     revenueReport = [["Revenue", str("%.1f" % float(final)), str("%.1f" % (session.revenue/2))]];
     location = list(statuses.values())
     for team in session.test:
         for mod in team.currentModules:
             print mod.daysLeft
+    session.d_report = teamEstimatesAndProgresses
+    session.d_budget = budgetReport
+    session.d_revenue = revenueReport
     return dict(title=T('Team Splunke Game'), modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
-def getTotalCost(): 
+def getTotalCost():
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
     cost_of_dev = config.get('Developer', 'Cost_Per_Day')
@@ -121,7 +139,7 @@ def getTotalCost():
     for team in session.test:
         number_of_devs = number_of_devs + team.teamSize
     return number_of_devs * float(cost_of_dev) * session.day
-        
+
 def view_game():
     modules = []
     statuses = {}
