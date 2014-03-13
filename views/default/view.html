@@ -70,7 +70,7 @@
 <h1>{{=title}}</h1>
 
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
-    <tr>        
+    <tr>
         <td>
             <FORM METHOD="LINK" ACTION="view">
             <INPUT TYPE="submit" VALUE="Click to Continue to next day">
@@ -81,6 +81,25 @@
             <INPUT TYPE="submit" VALUE="Home">
             </FORM>
         </td>
+    </tr>
+</table>
+
+<table border="1" width="80%">
+    <tr>
+        <td>
+             <h3> Budget: ${{=the_budget}}
+             </h3>
+        </td>
+            <td>
+                <h3>
+                    Total Cost: ${{=cost}}
+                </h3>
+            </td>
+            <td>
+                  <h3>
+                      Expected Revenue: ${{=the_revenue/2}}
+                </h3>
+            </td>
     </tr>
 </table>
 
@@ -189,12 +208,12 @@ for(i=0; i<markers.length; i++){
     internal += '<tr><td class="tableEffortTotal">' + report[i][0] + '</td><td class="tableEffortTotal">'
     + report[i][1] + '</td><td class ="tableEffortTotal">' + report[i][2] + '</td>';
     for (i=0;i<budgetR.length;i++){
-        internal += '<tr><td class="tableBudgetTitle">' + budgetR[i][0] + '</td><td class="tableModule">'
-        + budgetR[i][1] + '</td><td class ="tableModule">' + budgetR[i][2] + '</td>';
+        internal += '<tr><td class="tableBudgetTitle">' + budgetR[i][0] + '</td><td class="tableModule"> $'
+        + budgetR[i][1] + '</td><td class ="tableModule"> $' + budgetR[i][2] + '</td>';
     }
     for (i=0;i<revenueR.length;i++){
-        internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0] + '</td><td class="tableModule">'
-        + revenueR[i][1] + '</td><td class ="tableModule">' + revenueR[i][2] + '</td>';
+        internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0]  + '</td><td class="tableModule"> $'
+        + revenueR[i][1] + '</td><td class ="tableModule"> $' + revenueR[i][2] + '</td>';
     }
     internal += '</table>'
     newele.innerHTML = internal;

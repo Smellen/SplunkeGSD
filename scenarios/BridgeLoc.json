@@ -1,32 +1,36 @@
 {
 	"Game": {
-		"team3": {
-			"teamSize": 12,
-				"currentModules": [
-				{"name":"Module1", "estimate":100}, 
-				{"name":"Module2", "estimate":170}
-			],
-			"location":"Dublin",
-			"localProductivity":1
+		"projectType": "agile",
+		"expected_revenue": 20000000,
+			"Teams": {	
+				"team3": {
+					"teamSize": 12,
+					"currentModules": [
+					{"name":"Module1", "estimate":100}, 
+					{"name":"Module2", "estimate":170}
+					],
+						"location":"Dublin",
+						"localProductivity":1
 
-		},
-		"team4": {
-			"teamSize": 8,
-			"currentModules": [
-			{"name":"Module11", "estimate":104}, 
-			{"name":"Module21", "estimate":180}
-			],
-			"location":"New York",
-			"localProductivity":1
-		},
-		"team5": {
-			"teamSize": 12,
-			"currentModules": [
-			{"name":"Module11", "estimate":140}, 
-			{"name":"Module21", "estimate":180}
-			],
-			"location":"Shanghai",
-			"localProductivity":1
-		}
+				},
+				"team4": {
+					"teamSize": 8,
+					"currentModules": [
+					{"name":"Module11", "estimate":104}, 
+					{"name":"Module21", "estimate":180}
+					],
+						"location":"New York",
+						"localProductivity":1
+				},
+				"team5": {
+					"teamSize": 12,
+					"currentModules": [
+					{"name":"Module11", "estimate":140}, 
+					{"name":"Module21", "estimate":180}
+					],
+						"location":"Shanghai",
+						"localProductivity":1
+				}
+			}
 	}
 }

@@ -1,13 +1,17 @@
 {{extend 'layout.html'}}
 <style>
 td{
-    text-align: center;
+    text-align: left;
 }
+td.inner{
+    text-align: left;
+    width: 33%;
+}
+table { table-layout: fixed; }
 </style>
 <h1>{{=title}}</h1>
 </br>
 </br>
-{{=result}}
 <table width="100%" border="1" cellspacing="1" cellpadding="1"; >
     {{for file in details:}}
         <tr>
@@ -15,11 +19,11 @@ td{
             <td> <a href={{=url}} > {{=file.upper()}} </a></td> <!-- File Name -->
             <td> <table> <!-- For team in file --> 
                 {{for team in details[file]:}}
-                <tr> <td> {{=team[1].upper()}} (Team Size: {{=team[0]}})</td>
-                    <td>
+                <tr> <td class="inner"> {{=team[1].upper()}} (Team Size: {{=team[0]}})</td>
+                    <td class="inner">
                         <table> <!-- For Module in Team -->
                             {{for module in team[2]:}}
-                                <tr> <td> {{=module[0]}} </td> <td> Estimated Effort: {{=module[1]}}</td> </tr>
+                                <tr> <td class="inner"> {{=module[0]}} </td> <td class="inner"> Estimated Effort: {{=module[1]}}</td> </tr>
                             {{pass}}
                         </table>
                     </td>
