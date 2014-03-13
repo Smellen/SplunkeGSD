@@ -22,12 +22,31 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     new_team.calcDaysLeft()
     print new_team.currentModules[0].daysLeft
     session.test.append(new_team)
+    session.budget = getExpectedBudget()
     redirect(URL('view_game'))
 
 def getDailyDevPeriod():
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
     return float(config.get('Development Period', 'Effort'))
+
+def getExpectedBudget():
+    avg_developer_effort_day = getDailyDevPeriod()
+    number_of_devs = 0
+    module_estimated_effort = 0
+    for team in session.test:
+        number_of_devs = number_of_devs + team.teamSize
+        for mod in team.currentModules: 
+            module_estimated_effort = module_estimated_effort + mod.estimateEffort
+    print "module: "+ str(module_estimated_effort)
+    print "devs: "+ str(number_of_devs)
+    print "avg: "+ str(avg_developer_effort_day)
+    temp = avg_developer_effort_day * number_of_devs
+    print temp
+    expected_budget = module_estimated_effort / temp
+    print expected_budget
+    expected_budget = expected_budget * 1.25
+    return expected_budget 
 
 def index():
     if 'default' in request.env.path_info: #ensures that the link is right
@@ -102,7 +121,7 @@ def view_game():
          teamEstimatesAndProgresses.append([team.location, estimateAndProgress])
     complete = "true" if isComplete else "false"
     location = list(statuses.values())
-    return dict(title=T('Home'), modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
+    return dict(title=T('Home'), budget=session.budget, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
 
 
 def config_game():
@@ -145,6 +164,7 @@ def load_game():
         newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), getDailyDevPeriod(), listOfMods)
         newTeam.calcDaysLeft()
         session.test.append(newTeam)
+        session.budget = getExpectedBudget()
     redirect(URL('view_game'))
 
 def user():

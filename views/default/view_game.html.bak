@@ -64,6 +64,7 @@
 </Button>
 {{pass}}
 
+<h1> Estimated Budget: {{=budget}}million Katharionaians
 <h1>
     Day: {{=day}}
 </h1>
@@ -87,7 +88,7 @@
                 <strong>Current Stage</strong>
         </td>
         <td>
-            <strong>Days Left</strong>
+            <strong>Estimated Days Left</strong>
         </td>
     </tr>
 {{for i in team[1]:}}
