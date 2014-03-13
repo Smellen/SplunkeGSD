@@ -9,7 +9,6 @@ import json
 import ast
 import unicodedata
 
-
 def new_game(): # acts like initialisation. session.variablename allows the variable to be
  #accessed between refreshes.
     mod = module.module('Test Module', 200)
@@ -31,19 +30,19 @@ def getDailyDevPeriod():
     return float(config.get('Development Period', 'Effort'))
 
 def getExpectedBudget():
+    config = ConfigParser.ConfigParser()
+    config.read("applications/SplunkeGSD/application.config")
+    cost_of_dev = config.get('Developer', 'Cost_Per_Day')
     avg_developer_effort_day = getDailyDevPeriod()
-    number_of_devs = 0
     module_estimated_effort = 0
     for team in session.test:
-        number_of_devs = number_of_devs + team.teamSize
         for mod in team.currentModules: 
             module_estimated_effort = module_estimated_effort + mod.estimateEffort
     print "module: "+ str(module_estimated_effort)
-    print "devs: "+ str(number_of_devs)
     print "avg: "+ str(avg_developer_effort_day)
-    temp = avg_developer_effort_day * number_of_devs
+    temp = module_estimated_effort / avg_developer_effort_day 
     print temp
-    expected_budget = module_estimated_effort / temp
+    expected_budget = temp * float(cost_of_dev)
     print expected_budget
     expected_budget = expected_budget * 1.25
     return expected_budget 
@@ -96,9 +95,18 @@ def view():
     for team in session.test:
         for mod in team.currentModules:
             print mod.daysLeft
-    return dict(title=T('Home'), modules=modules, locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    cost = getTotalCost()
+    return dict(title=T('Team Splunke Game'), modules=modules, cost=cost, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
-
+def getTotalCost(): 
+    config = ConfigParser.ConfigParser()
+    config.read("applications/SplunkeGSD/application.config")
+    cost_of_dev = config.get('Developer', 'Cost_Per_Day')
+    number_of_devs = 0
+    for team in session.test:
+        number_of_devs = number_of_devs + team.teamSize
+    return number_of_devs * float(cost_of_dev) * session.day
+        
 def view_game():
     modules = []
     statuses = {}
@@ -121,7 +129,8 @@ def view_game():
          teamEstimatesAndProgresses.append([team.location, estimateAndProgress])
     complete = "true" if isComplete else "false"
     location = list(statuses.values())
-    return dict(title=T('Home'), budget=session.budget, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
+    cost = getTotalCost()
+    return dict(title=T('Team Splunke Game'), budget=str("%.1f" % session.budget), cost=cost, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
 
 
 def config_game():
@@ -138,8 +147,9 @@ def config_game():
         string = "applications/SplunkeGSD/scenarios/"+the_file+".json"
         f=open(string)
         data = json.load(f)
-        for te in data['Game']:
-            dict1 = data['Game'][te]
+        projectType = data['Game']['projectType']
+        for te in data['Game']['Teams']:
+            dict1 = data['Game']['Teams'][te]
             listOfMods = []
             for mod in dict1['currentModules']:
                 listOfMods.append((mod['name'], mod['estimate']))
@@ -155,9 +165,9 @@ def load_game():
     session.test = []
     session.day = 0
     session.pre = "true"
-    #read data in put in session.test
-    for te in data['Game']:
-        dict = data['Game'][te]
+    projectType = data['Game']['projectType']
+    for te in data['Game']['Teams']:
+        dict = data['Game']['Teams'][te]
         listOfMods = []
         for mod in dict['currentModules']:
             listOfMods.append(module.module(mod['name'], mod['estimate']))

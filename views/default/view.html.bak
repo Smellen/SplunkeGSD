@@ -84,6 +84,41 @@
     </tr>
 </table>
 
+
+
+{{if cost > the_budget:}}
+<table border="1" width="80%">
+    <tr>
+        <td>
+             <h3> Budget: ${{=the_budget}}
+             </h3>
+        </td>
+            <td bgcolor="#FF0000">
+                <h3>
+                    Total Cost: ${{=cost}}
+                </h3>
+            </td>
+    </tr>
+</table>
+{{else:}}
+
+<table border="1" width="80%">
+    <tr>
+        <td>
+             <h3> Budget: ${{=the_budget}}
+             </h3>
+        </td>
+            <td>
+                <h3>
+                    Total Cost: ${{=cost}}
+                </h3>
+            </td>
+    </tr>
+</table>
+{{pass}}
+
+
+
 <h1>
     Day: {{=day}}
 </h1>
@@ -108,7 +143,7 @@
                 <strong>Current Stage</strong>
         </td>
         <td>
-            <strong> Days Left</strong>
+            <strong>Estimated Days Left</strong>
         </td>
 
     </tr>
