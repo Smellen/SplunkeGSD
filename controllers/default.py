@@ -138,8 +138,9 @@ def config_game():
         string = "applications/SplunkeGSD/scenarios/"+the_file+".json"
         f=open(string)
         data = json.load(f)
-        for te in data['Game']:
-            dict1 = data['Game'][te]
+        projectType = data['Game']['projectType']
+        for te in data['Game']['Teams']:
+            dict1 = data['Game']['Teams'][te]
             listOfMods = []
             for mod in dict1['currentModules']:
                 listOfMods.append((mod['name'], mod['estimate']))
@@ -155,9 +156,9 @@ def load_game():
     session.test = []
     session.day = 0
     session.pre = "true"
-    #read data in put in session.test
-    for te in data['Game']:
-        dict = data['Game'][te]
+    projectType = data['Game']['projectType']
+    for te in data['Game']['Teams']:
+        dict = data['Game']['Teams'][te]
         listOfMods = []
         for mod in dict['currentModules']:
             listOfMods.append(module.module(mod['name'], mod['estimate']))
