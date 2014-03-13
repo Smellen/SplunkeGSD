@@ -47,6 +47,25 @@ class TestTeam(unittest.TestCase):
 
 		self.assertFalse(bob.isFinished())
 
+		for m in bob.currentModules:
+			m.progress = m.actualEffort
+
+		self.assertTrue(bob.isFinished())
+
+	def testGetStatus(self):
+		mod1 = module.module("TestMod", 20)
+		mod2 = module.module("AnotherTest", 40)
+		bob = team.team(10, 'dublin', 10, [mod1, mod2])
+
+			
+		validTasks= [0, 1, 2]
+		for i in range(20):
+			stat = bob.getStatus()
+			for s in stat:
+				self.assertIn(s, validTasks)
+			bob.applyEffort()
+	
+
 
 if __name__ == '__main__':
 	unittest.main()
