@@ -132,7 +132,7 @@ Implemented:
 
 - Json files edited to now contain the development type eg Agile or Waterfall.
 
-
+- Able to save end of game reports which are saved in appname/saved_game_reports/ with a timestamp
 
 Known Issues:
 - None
