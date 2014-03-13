@@ -25,7 +25,7 @@ run:
 	python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p 8080
 test: 
 	clear 
-	python ${HOME}/public_html/web2py/applications/${SplunkeApp}/tests/testTeam.py
+	python tests/testTeam.py
 clean: 	
 	clear
 	cd 
