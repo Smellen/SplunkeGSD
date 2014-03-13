@@ -20,7 +20,6 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     new_team.calcDaysLeft()
-    print new_team.currentModules[0].daysLeft
     session.test.append(new_team)
     redirect(URL('view_game'))
 
@@ -54,7 +53,7 @@ def view():
     totEstimate = 0
     totActual = 0
     for team in session.test:
-         team.applyEffort()
+         team.applyEffort(session.projectType)
          statuses[team.location].append(team.getStatus())
          modules.append((team.location , team.currentModules, team.teamSize))
          isComplete = isComplete and team.isFinished()

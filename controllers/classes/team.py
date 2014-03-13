@@ -18,6 +18,7 @@ class team:
         self.location = location
         self.localProductivity = 1
         self.modifier = 1
+        self.stage = 0
 
     def changeTeamSize(self, newSize):
         self.teamSize = newSize
@@ -39,14 +40,33 @@ class team:
         for module in self.currentModules:
             module.daysLeft = int((module.estimateEffort - module.progress) / modEffort)
 
-    def applyEffort(self):
-        modEffort = float(self.totalEffort()) / len(self.currentModules)
-        for module in self.currentModules:
-            if module.progress < module.actualEffort:
-                module.progress += modEffort
-            if module.progress >= module.actualEffort:
-                module.progress = module.actualEffort
-            module.daysLeft = int((module.estimateEffort-module.progress) / modEffort)
+    class ProjectTypeError(Exception):
+        pass
+    # ProjectType 0 = agile, 1 = waterfall, 2 = follow the sun
+    def applyEffort(self, projectType):
+        if(projectType) == 0:
+            modEffort = float(self.totalEffort()) / len(self.currentModules)
+            for module in self.currentModules:
+                if module.progress < module.actualEffort:
+                    module.progress += modEffort
+                if module.progress >= module.actualEffort:
+                    module.progress = module.actualEffort
+                module.daysLeft = int((module.estimateEffort-module.progress) / modEffort)
+        elif(projectType == 1):
+            modEffort = float(self.totalEffort()) / len(self.currentModules)
+            allFinished = True
+            for module in self.currentModules:
+                if module.progress < module.stageMarkers[self.stage]:
+                    module.progress += modEffort
+                    allFinished = False
+                if module.progress >= module.actualEffort:
+                    module.progress = module.actualEffort
+            if allFinished:
+                self.stage += 1
+        elif(projectType == 2):
+            pass
+        else:
+            raise ProjectTypeError
 
 # 0 = Green, 1 = Yellow, 2 = Red.
     def getStatus(self):

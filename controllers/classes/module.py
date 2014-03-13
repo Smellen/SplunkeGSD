@@ -2,7 +2,7 @@ from __future__ import division
 import random
 
 tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test"]
-
+stages = [0.15, 0.3, 0.4, 0.55, 0.7, 0.85, 1, 1] #Extra 1 for when the module is completed.
 class module:
 
     def __init__(self, nm, estimate):
@@ -13,8 +13,14 @@ class module:
         self.stage = "Unstarted"
         self.estimateEffort = estimate
         self.actualEffort = (((random.random()/2) - 0.25) * estimate) + estimate
+        self.stageMarkers = self.calcStages(self.actualEffort)
 
         #print self.actualEffort
+    def calcStages(self, effort):
+        markers = []
+        for stage in stages:
+            markers.append(effort * stage)
+        return markers
 
     def progress(self, val):
         self.progress += val
@@ -40,6 +46,9 @@ class module:
             return "Acceptance Test"
         else: 
             return "Complete"
+
+    def effortLeftInStage(self, stage):
+        return stageMarkers[stage] - self.progress
 
     def __repr__(self):
         stage = self.getProgress()
