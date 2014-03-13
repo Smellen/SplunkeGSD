@@ -1,4 +1,5 @@
 SplunkeApp = SplunkeGSD
+port = 8080
 
 default: 
 	echo "Please run: \n1. make install \n2.  make test \n3.  make clean"
@@ -10,7 +11,7 @@ install:
 	rm -rf ${HOME}/public_html/web2py/applications/${SplunkeApp}
 	mkdir -p ${HOME}/public_html/web2py/applications/${SplunkeApp} 
 	cp -r * ${HOME}/public_html/web2py/applications/${SplunkeApp}
-	python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p 8080
+	python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p ${port}
 
 install-web2py:
 	echo "Please note this will remove current version of web2py"
@@ -22,7 +23,7 @@ install-web2py:
 	mv ${HOME}/public_html/web2py/handlers/wsgihandler.py ${HOME}/public_html/web2py/wsgihandler.py
 
 run: 	
-	python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p 8080
+	python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p ${port}
 test: 
 	clear 
 	python tests/testTeam.py
