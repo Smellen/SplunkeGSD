@@ -4,7 +4,7 @@ SplunkeGSD
 GSD sim game
 
 Once installed, the application can be reached at 
-https://localhost:8080/SplunkeGSD
+http://localhost:8080/SplunkeGSD
 
 We are using the python web framework "Web2Py" - http://web2py.com/ 
 
@@ -12,22 +12,21 @@ The installation installs this framework during installation.
 
 Installation Instructions
 =========================
-PLEASE RUN THE MAKE SCRIPT AS SUDO
 
 If you would like to change the application name include SplunkeApp=appname in the make command
-e.g. 'sudo make SplunkeApp=appname install'
+e.g. 'make SplunkeApp=appname install'
 
-Additional Install Notes: 
-- The commands will need to use sudo 
-- The application will install in /home/www-data which it creates itself 
-- In order to not write over any files that might already be there, select [N]one if asked to replace, this will use the files that are there. 
-- If asked about mail server, select No Config
+The same is for changing the port, it will automatically run on port 8080, include port=port_number in the make command 
+e.g. 'make port=9090 install'
 
-To install web2py: run 'sudo make install-web2py'
+To install web2py: run 'make install-web2py'
 
-To update the application to current version (from tar): run 'sudo make install'
+To run web2py once configured: run 'make run'
+It will be available at: http://localhost:8080/SplunkeGSD or http://localhost:port/appname
 
-To clean the application: run 'sudo make clean' with the make file out of the directory. 
+To update the application to current version (from tar): run 'make install'
+
+To clean the application: run 'make clean' with the make file out of the directory. 
 
 To test the application : run 'make test'
 
@@ -40,7 +39,7 @@ The application is also able to be downloaded using a tar file at each release.
 - Iteration 1: http://pub.mmcgarr.me/team_splunke_iteration1.tar.gz
 - Iteration 2: http://pub.mmcgarr.me/team_splunke_iteration2.tar.gz
 - Iteration 3: http://pub.mmcgarr.me/team_splunke_iteration3.tar.gz
-
+- Release 1: http://pub.mmcgarr.me/team_splunke_release1.tar.gz
 
 Release 0
 ===========
