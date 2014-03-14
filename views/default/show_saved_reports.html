@@ -1,0 +1,12 @@
+{{extend 'layout.html'}}
+<h1>{{=title}}</h1>
+
+
+<table>
+    {{for i in result2:}}
+    <tr>
+        <td> {{=i}} </td>
+        <td>  {{=result2[i]}}        </td>
+    </tr>
+    {{pass}}
+</table>

@@ -26,16 +26,24 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     session.budget = getExpectedBudget()
     redirect(URL('view_game'))
 
-def save_game(): 
-    f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'--save_game.txt', 'w')
-    for i in session.d_report: 
-        f.write(str(i))
+def save_game():
+    f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'.txt', 'w')
     f.write('\n')
+    for i in session.d_report:
+        f.write(str(i[0])+',')
+        f.write(str(i[1])+',')
+        f.write(str(i[2]))
+        f.write('\n')
     for i in session.d_budget:
-        f.write(str(i))
-    f.write('\n')        
+        print i
+        f.write(str(i[0])+',')
+        f.write(str(i[1])+',')
+        f.write(str(i[2]))
+    f.write('\n')
     for i in session.d_revenue: 
-        f.write(str(i))
+        f.write(str(i[0])+',')
+        f.write(str(i[1])+',')
+        f.write(str(i[2]))
     f.write('\n')
     f.close()
     redirect(URL('view'))
@@ -83,6 +91,20 @@ def index():
         config = 'default/config_game'
 
     return dict(title=T('Home'), new=new, config=config)
+
+def show_saved_reports():
+    result = os.popen("ls applications/SplunkeGSD/saved_game_reports").read()
+    result1 = result.splitlines()
+    result2=[]
+    details = {}
+    for i in result1:
+        i = i.strip() #remove space
+        filename, extension = os.path.splitext(i)
+        f = open('applications/SplunkeGSD/saved_game_reports/'+i, 'r')
+        contents = f.read()
+        temp = contents.splitlines()
+        details[filename]=temp
+    return dict (title=T('Saved End of Game Reports'), result2=details)
 
 def view():
     modules = []
