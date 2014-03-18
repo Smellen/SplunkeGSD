@@ -18,6 +18,7 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     session.day = 0
     session.revenue = 1000000
     session.pre = "false"
+    session.saved = "false"
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     new_team.calcDaysLeft()
@@ -46,6 +47,7 @@ def save_game():
         f.write(str(i[2]))
     f.write('\n')
     f.close()
+    session.saved = "true"
     redirect(URL('view'))
     
 def getDailyDevPeriod():
@@ -103,7 +105,10 @@ def show_saved_reports():
         f = open('applications/SplunkeGSD/saved_game_reports/'+i, 'r')
         contents = f.read()
         temp = contents.splitlines()
-        details[filename]=temp
+        details[filename]=[]
+        for line in temp[3:]: #remove banners
+            blah = line.split(',')
+            details[filename].append(blah)
     return dict (title=T('Saved End of Game Reports'), result2=details)
 
 def view():
@@ -151,7 +156,7 @@ def view():
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
-    return dict(title=T('Team Splunke Game'), modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title=T('Team Splunke Game'), saved=session.saved, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost():
     config = ConfigParser.ConfigParser()
@@ -219,6 +224,7 @@ def load_game():
     data = json.load(f)
     session.test = []
     session.day = 0
+    session.saved = "false"
     session.pre = "true"
     projectType = data['Game']['projectType']
     session.revenue = data['Game']['expected_revenue']
