@@ -25,12 +25,8 @@ e.g. 'make SplunkeApp=appname install'
 The same is for changing the port, it will automatically run on port 8080, include port=port_number in the make command 
 e.g. 'make port=9090 install'
 
-Web2Py Already Installed in $HOME/public_html/web2py 
-----------------------------------------------------
-OR 
---
-To Update Application to Current Version
-------------------------------------------------------
+Web2Py Already Installed in $HOME/public_html/web2py OR To Update Application to Current Version
+------------------------------------------------------------------------------------------------------------
 These installation instructions will REMOVE any version of the application with the same name and pull the application files from the tar folder. 
 
 1. run 'make install' (if the app name or port want to be changed from default, please see below)
@@ -44,6 +40,8 @@ The application will be visable at http://localhost:8080/SplunkeGSD or http://lo
 
 To run application once configured
 ------------------------------------
+These running instructions will run web2py with the current application settings. 
+
 1. run 'make run'
 If you would like to change the port, it will automatically run on port 8080, include port=port_number in the make command 
 e.g. 'make port=9090 run' 
@@ -52,11 +50,13 @@ The application will be visable at http://localhost:8080/SplunkeGSD or http://lo
 
 To Clean the Application
 -------------------------
+These instructions will remove the application from web2py. 
 1. run 'make clean' 
 Please note that this must be run with the make script outside the application directory. 
 
 To Test the Application
 --------------------------
+These instructions will test the application using the definded tests. 
 1. run 'make test'
 
 
