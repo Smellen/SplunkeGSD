@@ -68,7 +68,6 @@
 }
 </style>
 <h1>{{=title}}</h1>
-
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
         <td>
@@ -84,7 +83,11 @@
     </tr>
 </table>
 
-<table border="0" width="80%">
+<h1>
+    Day: {{=day}}
+</h1>
+
+<table border="0" width="100%">
     <tr>
         <td>
              <h3> Budget: ${{=the_budget}}
@@ -102,59 +105,6 @@
             </td>
     </tr>
 </table>
-
-<h1>
-    Day: {{=day}}
-</h1>
-
-{{for team in modules: }}
-<h3>
-{{=team[0].upper()}} (Team Size: {{=team[2]}})
-</h3>
-
-<table width="50%">
-    <tr>
-        <td>
-                <strong>Name</strong>
-        </td>
-        <td>
-                <strong>Task Done</strong>
-        </td>
-        <td>
-                <strong>Task Estimated</strong>
-        </td>
-        <td>
-                <strong>Current Stage</strong>
-        </td>
-        <td>
-            <strong>Estimated Days Left</strong>
-        </td>
-
-    </tr>
-{{for i in team[1]:}}
-{{j = str(i).split(',')}}
-    <tr>
-        <td>
-                {{=j[0]}}
-        </td>
-        <td>
-                {{=j[1]}} person hours
-        </td>
-        <td>
-                {{=j[2]}} person hours
-        </td>
-        <td>
-                {{=j[3]}}
-        </td>
-        <td>
-                {{=j[4]}}
-        </td>
-
-    </tr> 
-</h4>
-{{pass}}
-</table>{{pass}}
-
 
 <p id="demo"></p>
 
