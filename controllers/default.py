@@ -2,9 +2,12 @@
 from __future__ import division
 import ConfigParser
 import os
-if int(os.environ['TESTING']) != 1: 
+try:
 	import applications.SplunkeGSD.controllers.classes.module as module
 	import applications.SplunkeGSD.controllers.classes.team as team
+except:
+	pass
+
 import subprocess
 import json
 import ast
