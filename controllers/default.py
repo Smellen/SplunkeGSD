@@ -28,7 +28,7 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     new_team.calcDaysLeft()
     print new_team.currentModules[0].daysLeft
     session.test.append(new_team)
-    session.budget = getExpectedBudget()
+    session.budget = getExpectedBudget(session.test)
     redirect(URL('view_game'))
 
 def save_game():
@@ -61,7 +61,9 @@ def getDailyDevPeriod():
 
 def getFinalRevenue(listOfTeams, revenue = None):
     if revenue != None:
-        session.revenue = revenue
+        rev = revenue
+    else:
+        rev = session.revenue
     number_of_days = 0
     for team in listOfTeams: 
         for mod in team.currentModules: 
@@ -69,24 +71,20 @@ def getFinalRevenue(listOfTeams, revenue = None):
                 number_of_days = mod.daysLeft
     days_late =  number_of_days * (-1)
     temp = 6 - (days_late/30)
-    actual_revenue = temp * (session.revenue /12)
+    actual_revenue = temp * (rev /12)
     return str("%.2f" % actual_revenue)
 
-def getExpectedBudget():
+def getExpectedBudget(listOfTeams):
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
     cost_of_dev = config.get('Developer', 'Cost_Per_Day')
     avg_developer_effort_day = getDailyDevPeriod()
     module_estimated_effort = 0
-    for team in session.test:
+    for team in listOfTeams:
         for mod in team.currentModules: 
             module_estimated_effort = module_estimated_effort + mod.estimateEffort
-    print "module: "+ str(module_estimated_effort)
-    print "avg: "+ str(avg_developer_effort_day)
     temp = module_estimated_effort / avg_developer_effort_day 
-    print temp
     expected_budget = temp * float(cost_of_dev)
-    print expected_budget
     expected_budget = expected_budget * 1.25
     return expected_budget 
 
@@ -152,7 +150,7 @@ def view():
         final = 0
     else:
         final = getFinalRevenue(session.test)
-    cost = getTotalCost()
+    cost = getTotalCost(session.test, session.day)
     budgetReport = [["Cost", str("%.1f" % cost), str("%.1f" % session.budget)]];
     revenueReport = [["Revenue", str("%.1f" % float(final)), str("%.1f" % (session.revenue/2))]];
     location = list(statuses.values())
@@ -168,14 +166,14 @@ def view():
     final_cost = session.budget -cost
     return dict(title=T('Team Splunke Game'), saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
-def getTotalCost():
+def getTotalCost(listOfTeams, numDays):
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
     cost_of_dev = config.get('Developer', 'Cost_Per_Day')
     number_of_devs = 0
-    for team in session.test:
+    for team in listOfTeams:
         number_of_devs = number_of_devs + team.teamSize
-    return number_of_devs * float(cost_of_dev) * session.day
+    return number_of_devs * float(cost_of_dev) * numDays 
 
 def view_game():
     modules = []
@@ -204,7 +202,7 @@ def view_game():
          teamEstimatesAndProgresses.append([team.location, estimateAndProgress])
     complete = "true" if isComplete else "false"
     location = list(statuses.values())
-    cost = getTotalCost()
+    cost = getTotalCost(session.test, session.day)
     return dict(title=T('Team Splunke Game'), esti = session.estimate_day, budget=str("%.1f" % session.budget), cost=cost,  the_revenue=session.revenue, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
 
 
@@ -251,7 +249,7 @@ def load_game():
         newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), getDailyDevPeriod(), listOfMods)
         newTeam.calcDaysLeft()
         session.test.append(newTeam)
-        session.budget = getExpectedBudget()
+        session.budget = getExpectedBudget(session.test)
     redirect(URL('view_game'))
 
 def user():
