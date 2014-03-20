@@ -110,7 +110,7 @@ def show_saved_reports():
         contents = f.read()
         temp = contents.splitlines()
         details[filename]=[]
-        for line in temp[3:]: #remove banners
+        for line in temp[2:]: #remove banners
             blah = line.split(',')
             details[filename].append(blah)
     return dict (title=T('Saved End of Game Reports'), result2=details)
