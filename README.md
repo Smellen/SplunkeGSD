@@ -169,3 +169,18 @@ Known Issues:
 Fixed Issues:
 - None
 
+Iteration 6
+===========
+Released: 20/06/2014
+
+Implemented:
+- (Testing) Added tests for methods in controllers/default.py
+
+- (Formatting) Changed game layout to be more consistant and clear.
+
+
+Known Issues:
+- None
+
+Fixed Issues:
+- None
