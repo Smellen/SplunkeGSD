@@ -48,7 +48,7 @@
         <td>
         <Button type="button" name ="new_button"
             onclick = 'window.location="{{=URL('default', 'view')}}";'>
-            Click to Continue to next day
+            Next Day
         </Button>
         </td>
         <td>
