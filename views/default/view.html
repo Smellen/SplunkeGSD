@@ -76,7 +76,6 @@
   }}
 
 {{include 'web2py_ajax.html'}}
-
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
         <td> <h1>{{=title}}</h1>
@@ -180,7 +179,7 @@ for(i=0; i<markers.length; i++){
         + revenueR[i][1] + '</td><td class ="tableModule"> $' + revenueR[i][2] + '</td>';
     }
     internal += '<tr><td class="tableSiteName"> Days </td><td class="tableModule"> ' +{{=day}}+'</td><td class ="tableModule"> ' +{{=esti}}+' </td>';
-    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Final Score </td><td class="tableModule">'+{{=score}}+'</td>'
+    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Final Score </td><td class="tableModule"> $'+{{=score}}+'</td>'
     internal += '<tr><td colspan="3" class="tableModule"><FORM METHOD="LINK" ACTION="save_game"><INPUT TYPE="submit" VALUE="Save Game"></FORM></td></tr>';
 
     if ({{=saved}}){

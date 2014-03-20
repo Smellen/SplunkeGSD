@@ -162,7 +162,7 @@ def view():
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
-    score = 0
+    score = (float(final) + float(session.budget)) - float(cost)
     return dict(title=T('Team Splunke Game'), saved=session.saved, score=score, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost():
