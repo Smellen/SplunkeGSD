@@ -8,14 +8,13 @@ http://localhost:8080/SplunkeGSD
 
 We are using the python web framework "Web2Py" - http://web2py.com/ 
 
-The installation installs this framework during installation. 
 
 Installation Instructions
 =========================
 
 First-Time Install
 ------------------
-These installation instructions will install web2py in $HOME/public_html/web2py, place the application in the correct folders and run web2py (which can be seen at http://localhost:8080/SplunkeGSD or http://localhost:port/appname )
+These instructions will install web2py in $HOME/public_html/web2py, place the application in the correct folders and run web2py (which can be seen at http://localhost:8080/SplunkeGSD or http://localhost:port/appname )
 
 1. run 'make install-web2py'  
 2. run 'make install' (if the app name or port want to be changed from default, please see below)
@@ -25,7 +24,7 @@ e.g. 'make SplunkeApp=appname install'
 The same is for changing the port, it will automatically run on port 8080, include port=port_number in the make command 
 e.g. 'make port=9090 install'
 
-Web2Py Already Installed in $HOME/public_html/web2py OR To Update Application to Current Version
+Web2Py Already Installed in $HOME/public_html/web2py without Applications OR To Install the Application from TAR
 ------------------------------------------------------------------------------------------------------------
 These installation instructions will REMOVE any version of the application with the same name and pull the application files from the tar folder. 
 
