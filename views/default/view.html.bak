@@ -67,25 +67,32 @@
 }
 }
 </style>
-<h1>{{=title}}</h1>
-
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
+        <td> <h1>{{=title}}</h1>
+            </td>
         <td>
-            <FORM METHOD="LINK" ACTION="view">
-            <INPUT TYPE="submit" VALUE="Click to Continue to next day">
-            </FORM>
+        <Button type="button" name ="new_button"
+            onclick = 'window.location="{{=URL('default', 'view')}}";'>
+            Click to Continue to next day
+        </Button>
         </td>
         <td>
-            <FORM METHOD="LINK" ACTION="index">
-            <INPUT TYPE="submit" VALUE="Home">
-            </FORM>
+            <Button type="button" name ="new_button"
+        onclick = 'window.location="{{=URL('default', 'index')}}";'>
+    	Home
+	</Button>
         </td>
     </tr>
 </table>
 
-<table border="1" width="80%">
+<table border="0" width="100%">
     <tr>
+        <td>
+            <h1>
+                Day: {{=day}}
+            </h1>
+        </td>
         <td>
              <h3> Budget: ${{=the_budget}}
              </h3>
@@ -102,59 +109,6 @@
             </td>
     </tr>
 </table>
-
-<h1>
-    Day: {{=day}}
-</h1>
-
-{{for team in modules: }}
-<h3>
-{{=team[0].upper()}} (Team Size: {{=team[2]}})
-</h3>
-
-<table width="50%">
-    <tr>
-        <td>
-                <strong>Name</strong>
-        </td>
-        <td>
-                <strong>Task Done</strong>
-        </td>
-        <td>
-                <strong>Task Estimated</strong>
-        </td>
-        <td>
-                <strong>Current Stage</strong>
-        </td>
-        <td>
-            <strong>Estimated Days Left</strong>
-        </td>
-
-    </tr>
-{{for i in team[1]:}}
-{{j = str(i).split(',')}}
-    <tr>
-        <td>
-                {{=j[0]}}
-        </td>
-        <td>
-                {{=j[1]}}
-        </td>
-        <td>
-                {{=j[2]}}
-        </td>
-        <td>
-                {{=j[3]}}
-        </td>
-        <td>
-                {{=j[4]}}
-        </td>
-
-    </tr> 
-</h4>
-{{pass}}
-</table>{{pass}}
-
 
 <p id="demo"></p>
 
@@ -201,12 +155,12 @@ for(i=0; i<markers.length; i++){
     internal += '<tr><td class="tableSiteName">' + report[0][0] + '</td><td class="tableSiteName">'
     + report[0][1] + '</td><td class ="tableSiteName">' + report[0][2] + '</td>';
     for (i=1;i<report.length-1;i++){
-        internal += '<tr><td class="tableSiteName">' + report[i][0] + '</td><td class="tableModule">'
-        + report[i][1] + '</td><td class ="tableModule">' + report[i][2] + '</td>';
+        internal += '<tr><td class="tableSiteName">' + report[i][0] + '</td><td class="tableModule"><strong>'
+        + report[i][1] + '</strong> person hours </td><td class ="tableModule"><strong>' + report[i][2] + '</strong> person hours</td>';
     }
     //Change colour for the total of the report.
-    internal += '<tr><td class="tableEffortTotal">' + report[i][0] + '</td><td class="tableEffortTotal">'
-    + report[i][1] + '</td><td class ="tableEffortTotal">' + report[i][2] + '</td>';
+    internal += '<tr><td class="tableEffortTotal">' + report[i][0] + '</td><td class="tableEffortTotal"><strong>'
+    + report[i][1] + '</strong> person hours</td><td class ="tableEffortTotal"><strong>' + report[i][2] + '</strong> person hours</td>';
     for (i=0;i<budgetR.length;i++){
         internal += '<tr><td class="tableBudgetTitle">' + budgetR[i][0] + '</td><td class="tableModule"> $'
         + budgetR[i][1] + '</td><td class ="tableModule"> $' + budgetR[i][2] + '</td>';
@@ -215,6 +169,10 @@ for(i=0; i<markers.length; i++){
         internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0]  + '</td><td class="tableModule"> $'
         + revenueR[i][1] + '</td><td class ="tableModule"> $' + revenueR[i][2] + '</td>';
     }
+    internal += '<tr><td colspan="3" class="tableModule"><FORM METHOD="LINK" ACTION="save_game"><INPUT TYPE="submit" VALUE="Save Game"></FORM></td></tr>';
+    //if ({{=saved}}){
+        internal += '<tr><td colspan="3" class="tableModule">Game Saved</td></tr>';
+    //}
     internal += '</table>'
     newele.innerHTML = internal;
     body[0].appendChild(newele);
@@ -222,13 +180,6 @@ for(i=0; i<markers.length; i++){
 }
 
 </script>
-
-{{if completed == "true":}}
-    	<Button type="button" name ="new_button"
-	onclick = 'window.location="{{=URL('default', 'save_game')}}";'>
-    	Save Game
-	</Button>
-{{pass}}
     
 <div style="position: absolute; z-index:100">
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 

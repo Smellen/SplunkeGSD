@@ -67,28 +67,32 @@
 }
 }
 </style>
-<h1>{{=title}}</h1>
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
+        <td> <h1>{{=title}}</h1>
+            </td>
         <td>
-            <FORM METHOD="LINK" ACTION="view">
-            <INPUT TYPE="submit" VALUE="Click to Continue to next day">
-            </FORM>
+        <Button type="button" name ="new_button"
+            onclick = 'window.location="{{=URL('default', 'view')}}";'>
+            Click to Continue to next day
+        </Button>
         </td>
         <td>
-            <FORM METHOD="LINK" ACTION="index">
-            <INPUT TYPE="submit" VALUE="Home">
-            </FORM>
+            <Button type="button" name ="new_button"
+            onclick = 'window.location="{{=URL('default', 'index')}}";'>
+            Home
+            </Button>
         </td>
     </tr>
 </table>
 
-<h1>
-    Day: {{=day}}
-</h1>
-
 <table border="0" width="100%">
     <tr>
+        <td>
+            <h1>
+                Day: {{=day}}
+            </h1>
+        </td>
         <td>
              <h3> Budget: ${{=the_budget}}
              </h3>

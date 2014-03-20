@@ -39,42 +39,43 @@
     background:white;
     border:solid black 2px;
 }
+    
 </style>
-<h1>{{=title}}</h1>
-
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
+        <td> <h1>{{=title}}</h1>
+            </td>
         <td>
-            <FORM METHOD="LINK" ACTION="view">
-            <INPUT TYPE="submit" VALUE="Click to Continue to next day">
-            </FORM>
+        <Button type="button" name ="new_button"
+            onclick = 'window.location="{{=URL('default', 'view')}}";'>
+            Click to Continue to next day
+        </Button>
         </td>
         <td>
-            <FORM METHOD="LINK" ACTION="index">
-            <INPUT TYPE="submit" VALUE="Home">
-            </FORM>
+            <Button type="button" name ="new_button"
+            onclick = 'window.location="{{=URL('default', 'index')}}";'>
+            Home
+            </Button>
         </td>
     </tr>
 </table>
 
-{{if pre == "true": }}
-<Button type="button" name ="new_button"
-	onclick = 'window.location="{{=URL('default', 'config_game')}}";'>
-    	Select Different Pre-Configured Game
-</Button>
-{{pass}}
-
-<table border="1" width="80%">
+<table border="0" width="100%">
     <tr>
+        <td>
+            <h1>
+                Day: {{=day}}
+            </h1>
+        </td>
         <td>
              <h3> Budget: ${{=budget}}
              </h3>
         </td>
-        <td>
-            <h3>
-                Total Cost: $ {{=cost}}
-            </h3>
-        </td>
+            <td>
+                <h3>
+                    Total Cost: ${{=cost}}
+                </h3>
+            </td>
             <td>
                   <h3>
                       Expected Revenue: ${{=the_revenue/2}}
@@ -82,10 +83,6 @@
             </td>
     </tr>
 </table>
-    
-<h1>
-    Day: {{=day}}
-</h1>
 
 {{for team in modules: }}
 <h3>
@@ -97,13 +94,7 @@
                 <strong>Module Name</strong>
         </td>
         <td>
-                <strong>Task Done</strong>
-        </td>
-        <td>
                 <strong>Task Estimated</strong>
-        </td>
-        <td>
-                <strong>Current Stage</strong>
         </td>
         <td>
             <strong>Estimated Days Left</strong>
@@ -116,13 +107,7 @@
                 {{=j[0]}}
         </td>
         <td>
-                {{=j[1]}}
-        </td>
-        <td>
-                {{=j[2]}}
-        </td>
-        <td>
-                {{=j[3]}}
+                {{=j[2]}} person hours
         </td>
         <td>
             {{=j[4]}}
