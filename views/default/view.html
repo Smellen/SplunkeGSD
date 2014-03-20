@@ -67,6 +67,16 @@
 }
 }
 </style>
+
+  {{
+  response.files.insert(0,URL('static','css/web2py.css'))
+  response.files.insert(1,URL('static','css/bootstrap.min.css'))
+  response.files.insert(2,URL('static','css/bootstrap-responsive.min.css'))
+  response.files.insert(3,URL('static','css/web2py_bootstrap.css'))
+  }}
+
+{{include 'web2py_ajax.html'}}
+
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
         <td> <h1>{{=title}}</h1>
@@ -74,13 +84,13 @@
         <td>
         <Button type="button" name ="new_button"
             onclick = 'window.location="{{=URL('default', 'view')}}";'>
-            Next Day
+            <strong>Next Day</strong>
         </Button>
         </td>
         <td>
             <Button type="button" name ="new_button"
             onclick = 'window.location="{{=URL('default', 'index')}}";'>
-            Home
+            <strong>Home</strong>
             </Button>
         </td>
     </tr>
