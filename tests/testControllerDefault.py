@@ -19,6 +19,19 @@ class TestControllerDefault(unittest.TestCase):
 		self.assertIsNotNone(period)
 		self.assertIsInstance(period, float) 
 
+	def testgetFinalRevenue(self):
+		bob = team.team(10, 'dublin', 10)
+		mod1 = module.module('TestModule', 50)
+		mod2 = module.module('TestModule2', 50)
+		bob.addModule(mod1)
+		bob.addModule(mod2)
+		bob.applyEffort()
+		revenue = default.getFinalRevenue([bob], 1000000)
+		self.assertIsInstance(revenue, str)
+		self.assertNotEqual(revenue, '')
+
+		tmp = float(revenue)
+		self.assertIsInstance(tmp, float)
 	
 
 

@@ -59,15 +59,17 @@ def getDailyDevPeriod():
     config.read("applications/SplunkeGSD/application.config")
     return float(config.get('Development Period', 'Effort'))
 
-def getFinalRevenue():
+def getFinalRevenue(listOfTeams, revenue = None):
+    if revenue == None:
+        session.revenue = revenue
     number_of_days = 0
-    for team in session.test: 
+    for team in listOfTeams: 
         for mod in team.currentModules: 
             if mod.daysLeft < number_of_days: 
                 number_of_days = mod.daysLeft
     days_late =  number_of_days * (-1)
     temp = 6 - (days_late/30)
-    actual_revenue = temp * (session.revenue /12)
+    actual_revenue = temp * (revenue /12)
     return str("%.2f" % actual_revenue)
 
 def getExpectedBudget():
@@ -149,7 +151,7 @@ def view():
         session.day += 1
         final = 0
     else:
-        final = getFinalRevenue()
+        final = getFinalRevenue(session.test)
     cost = getTotalCost()
     budgetReport = [["Cost", str("%.1f" % cost), str("%.1f" % session.budget)]];
     revenueReport = [["Revenue", str("%.1f" % float(final)), str("%.1f" % (session.revenue/2))]];
