@@ -17,6 +17,7 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     session.test = []
     session.day = 0
     session.revenue = 1000000
+    session.projectType = 0
     session.pre = "false"
     session.saved = "false"
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
@@ -216,6 +217,16 @@ def config_game():
             details[the_file].append(newTeam)
     return dict(title=T('Pre-defined Games'),result=result2, data=data["Game"], details=details)
 
+def parseProjectType(pt):
+    if pt == 'agile':
+        return 0
+    elif pt == 'waterfall':
+        return 1
+    elif pt == 'followTheSun':
+        return 2
+    else:
+        return -1
+
 def load_game():
     file_id = request.args[0]
     string = "applications/SplunkeGSD/scenarios/"+file_id+".json"
@@ -225,7 +236,7 @@ def load_game():
     session.day = 0
     session.saved = "false"
     session.pre = "true"
-    projectType = data['Game']['projectType']
+    session.projectType = parseProjectType(data['Game']['projectType'])
     session.revenue = data['Game']['expected_revenue']
     for te in data['Game']['Teams']:
         dict = data['Game']['Teams'][te]
