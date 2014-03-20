@@ -13,22 +13,51 @@ The installation installs this framework during installation.
 Installation Instructions
 =========================
 
+First-Time Install
+------------------
+These installation instructions will install web2py in $HOME/public_html/web2py, place the application in the correct folders and run web2py (which can be seen at http://localhost:8080/SplunkeGSD or http://localhost:port/appname )
+
+1. run 'make install-web2py'  
+2. run 'make install' (if the app name or port want to be changed from default, please see below)
 If you would like to change the application name include SplunkeApp=appname in the make command
 e.g. 'make SplunkeApp=appname install'
 
 The same is for changing the port, it will automatically run on port 8080, include port=port_number in the make command 
 e.g. 'make port=9090 install'
 
-To install web2py: run 'make install-web2py'
+Web2Py Already Installed in $HOME/public_html/web2py OR To Update Application to Current Version
+------------------------------------------------------------------------------------------------------------
+These installation instructions will REMOVE any version of the application with the same name and pull the application files from the tar folder. 
 
-To run web2py once configured: run 'make run'
-It will be available at: http://localhost:8080/SplunkeGSD or http://localhost:port/appname
+1. run 'make install' (if the app name or port want to be changed from default, please see below)
+If you would like to change the application name include SplunkeApp=appname in the make command
+e.g. 'make SplunkeApp=appname install'
 
-To update the application to current version (from tar): run 'make install'
+The same is for changing the port, it will automatically run on port 8080, include port=port_number in the make command 
+e.g. 'make port=9090 install'
 
-To clean the application: run 'make clean' with the make file out of the directory. 
+The application will be visable at http://localhost:8080/SplunkeGSD or http://localhost:port/appname
 
-To test the application : run 'make test'
+To run application once configured
+------------------------------------
+These running instructions will run web2py with the current application settings. 
+
+1. run 'make run'
+If you would like to change the port, it will automatically run on port 8080, include port=port_number in the make command 
+e.g. 'make port=9090 run' 
+
+The application will be visable at http://localhost:8080/SplunkeGSD or http://localhost:port/appname
+
+To Clean the Application
+-------------------------
+These instructions will remove the application from web2py. 
+1. run 'make clean' 
+Please note that this must be run with the make script outside the application directory. 
+
+To Test the Application
+--------------------------
+These instructions will test the application using the definded tests. 
+1. run 'make test'
 
 
 Download Files
@@ -115,4 +144,28 @@ Fixed Issues:
 - web2py can now be installed in user space.
 - Installation script has been updated.
 - URL redirection.
+
+
+Release 1
+==========
+Released: 13/06/2014
+
+Implemented:
+- (Feature 5) Nominal Schedule Calculator calculates how long until the end of a module. The nominal schedule is done by getting the sum of all the efforts estimated for each module, divided by a default developer period effort value.
+
+- (Feature 3) Game score calculator calculates the game score as a function of the budget and revenue.
+
+- (Feature 14) Added to the end of game report to now contain information on the revenue and budget.
+
+- application.config now contains a default parameter for the developer period effort value. 
+
+- Json files edited to now contain the development type eg Agile or Waterfall.
+
+- Able to save end of game reports which are saved in appname/saved_game_reports/ with a timestamp
+
+Known Issues:
+- None
+
+Fixed Issues:
+- None
 

@@ -8,6 +8,7 @@ import os
 import json
 import ast
 import unicodedata
+from time import gmtime, strftime
 
 def new_game(): # acts like initialisation. session.variablename allows the variable to be
  #accessed between refreshes.
@@ -17,6 +18,7 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     session.day = 0
     session.revenue = 1000000
     session.pre = "false"
+    session.saved = "false"
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     new_team.calcDaysLeft()
@@ -24,6 +26,29 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     session.budget = getExpectedBudget()
     redirect(URL('view_game'))
 
+def save_game():
+    f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'.txt', 'w')
+    f.write('\n')
+    for i in session.d_report:
+        f.write(str(i[0])+',')
+        f.write(str(i[1])+',')
+        f.write(str(i[2]))
+        f.write('\n')
+    for i in session.d_budget:
+        print i
+        f.write(str(i[0])+',')
+        f.write(str(i[1])+',')
+        f.write(str(i[2]))
+    f.write('\n')
+    for i in session.d_revenue: 
+        f.write(str(i[0])+',')
+        f.write(str(i[1])+',')
+        f.write(str(i[2]))
+    f.write('\n')
+    f.close()
+    session.saved = "true"
+    redirect(URL('view'))
+    
 def getDailyDevPeriod():
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
@@ -68,6 +93,23 @@ def index():
 
     return dict(title=T('Home'), new=new, config=config)
 
+def show_saved_reports():
+    result = os.popen("ls applications/SplunkeGSD/saved_game_reports").read()
+    result1 = result.splitlines()
+    result2=[]
+    details = {}
+    for i in result1:
+        i = i.strip() #remove space
+        filename, extension = os.path.splitext(i)
+        f = open('applications/SplunkeGSD/saved_game_reports/'+i, 'r')
+        contents = f.read()
+        temp = contents.splitlines()
+        details[filename]=[]
+        for line in temp[3:]: #remove banners
+            blah = line.split(',')
+            details[filename].append(blah)
+    return dict (title=T('Saved End of Game Reports'), result2=details)
+
 def view():
     modules = []
     statuses = {}
@@ -103,16 +145,19 @@ def view():
         final = 0
     else:
         final = getFinalRevenue()
-    cost = getTotalCost()    
+    cost = getTotalCost()
     budgetReport = [["Cost", str("%.1f" % cost), str("%.1f" % session.budget)]];
     revenueReport = [["Revenue", str("%.1f" % float(final)), str("%.1f" % (session.revenue/2))]];
     location = list(statuses.values())
     for team in session.test:
         for mod in team.currentModules:
             print mod.daysLeft
-    return dict(title=T('Team Splunke Game'), modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    session.d_report = teamEstimatesAndProgresses
+    session.d_budget = budgetReport
+    session.d_revenue = revenueReport
+    return dict(title=T('Team Splunke Game'), saved=session.saved, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
-def getTotalCost(): 
+def getTotalCost():
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
     cost_of_dev = config.get('Developer', 'Cost_Per_Day')
@@ -120,7 +165,7 @@ def getTotalCost():
     for team in session.test:
         number_of_devs = number_of_devs + team.teamSize
     return number_of_devs * float(cost_of_dev) * session.day
-        
+
 def view_game():
     modules = []
     statuses = {}
@@ -178,6 +223,7 @@ def load_game():
     data = json.load(f)
     session.test = []
     session.day = 0
+    session.saved = "false"
     session.pre = "true"
     projectType = data['Game']['projectType']
     session.revenue = data['Game']['expected_revenue']

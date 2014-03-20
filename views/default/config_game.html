@@ -24,7 +24,7 @@ td.inner{
                     <td class="inner">
                         <table> <!-- For Module in Team -->
                             {{for module in team[2]:}}
-                                <tr> <td class="inner"> {{=module[0]}} </td> <td class="inner"> Estimated Effort: {{=module[1]}}</td> </tr>
+                                <tr> <td class="inner"> {{=module[0]}} </td> <td class="inner"> Estimated Effort: <strong>{{=module[1]}}</strong> person hours</td> </tr>
                             {{pass}}
                         </table>
                     </td>

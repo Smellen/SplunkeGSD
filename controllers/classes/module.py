@@ -22,9 +22,6 @@ class module:
             markers.append(effort * stage)
         return markers
 
-    def progress(self, val):
-        self.progress += val
-
     def changeActual(self, change):
         self.actualEffort  += change
 

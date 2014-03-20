@@ -66,7 +66,6 @@ def index():
     else:
         new = 'default/new_game'
         config = 'default/config_game'
-
     return dict(title=T('Home'), new=new, config=config)
 
 def view():
@@ -98,19 +97,19 @@ def view():
              totEstimate += mod.estimateEffort
              totActual += mod.progress
     teamEstimatesAndProgresses.append(["Total Effort", str("%.1f" % totActual), str(totEstimate)])
-    budgetReport = [["Budget", "", ""]];
-    revenueReport = [["Revenue", "", ""]];
     complete = "true" if isComplete else "false"
     if complete == "false":
         session.day += 1
         final = 0
     else:
         final = getFinalRevenue()
+    cost = getTotalCost()    
+    budgetReport = [["Cost", str("%.1f" % cost), str("%.1f" % session.budget)]];
+    revenueReport = [["Revenue", str("%.1f" % float(final)), str("%.1f" % (session.revenue/2))]];
     location = list(statuses.values())
     for team in session.test:
         for mod in team.currentModules:
             print mod.daysLeft
-    cost = getTotalCost()
     return dict(title=T('Team Splunke Game'), modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(): 
@@ -121,7 +120,7 @@ def getTotalCost():
     for team in session.test:
         number_of_devs = number_of_devs + team.teamSize
     return number_of_devs * float(cost_of_dev) * session.day
-        
+
 def view_game():
     modules = []
     statuses = {}
@@ -212,11 +211,13 @@ def user():
 
 @cache.action()
 def download():
-    """
-    allows downloading of uploaded files
-    http://..../[app]/default/download/[filename]
-    """
-    return response.download(request, db)
+        response.headers['Content-Type'] = 'text/csv'
+        attachment = 'attachment;filename=data.csv'
+        response.headers['Content-Disposition'] = attachment
+        content = '....,....,....'
+        raise HTTP(200,str(content),
+                   **{'Content-Type':'text/csv',
+                      'Content-Disposition':attachment + ';'})
 
 
 def call():
