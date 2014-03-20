@@ -1,3 +1,0 @@
-['', 'Actual', 'Estimated']['Dublin: Module1', '124.4', '100']['Dublin: Module2', '78.7', '70']['SanFrancisco: Module11', '140.0', '140']['SanFrancisco: Module21', '213.2', '180']['Bangalore: Module11', '164.1', '140']['Bangalore: Module21', '223.6', '180']['Total Effort', '944.0', '810']
-['Cost', '59696.0', '36323.4']
-['Revenue', '9888888.9', '10000000.0']
