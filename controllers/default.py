@@ -160,7 +160,8 @@ def view():
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
-    return dict(title=T('Team Splunke Game'), saved=session.saved, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    score = 0
+    return dict(title=T('Team Splunke Game'), saved=session.saved, score=score, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost():
     config = ConfigParser.ConfigParser()
@@ -177,6 +178,7 @@ def view_game():
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
     fromFile = config.items('Location')
+    session.estimate_day = 0
     for loc in fromFile:
          name, pos = loc
          name.rstrip()
@@ -186,6 +188,10 @@ def view_game():
     for team in session.test:
          statuses[team.location].append(team.getStatus())
          modules.append((team.location, team.currentModules, team.teamSize))
+         for d_mod in team.currentModules:
+             temp = str(d_mod).split(',')
+             if int(temp[4]) >= int(session.estimate_day):
+                    session.estimate_day = temp[4]
          isComplete = isComplete and team.isFinished()
          estimateAndProgress = []
          for mod in team.currentModules:
@@ -194,7 +200,7 @@ def view_game():
     complete = "true" if isComplete else "false"
     location = list(statuses.values())
     cost = getTotalCost()
-    return dict(title=T('Team Splunke Game'), budget=str("%.1f" % session.budget), cost=cost,  the_revenue=session.revenue, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
+    return dict(title=T('Team Splunke Game'), esti = session.estimate_day, budget=str("%.1f" % session.budget), cost=cost,  the_revenue=session.revenue, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
 
 
 def config_game():
@@ -269,4 +275,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-

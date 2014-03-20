@@ -1,13 +1,38 @@
 {{extend 'layout.html'}}
 <h1>{{=title}}</h1>
 
+<Button type="button" name ="new_button"
+onclick = 'window.location="{{=URL('default', 'index')}}";'>
+    Home
+</Button>
 
-<table>
+<table width="80%" border="1">
     {{for i in result2:}}
     <tr>
         <td> {{=i}} </td>
-        <td>  {{=result2[i]}}        </td>
+        <td> <table width="80%"> <tr> <td> </td> <td><strong>Actual</strong> </td> <td> <strong>Estimate</strong> </td> </tr> 
+        {{for result in result2[i][:-3]:}}
+            <tr>
+        <td>  {{=result[0]}}       </td>
+        {{for j in result[1:]:}}
+        <td>  {{=j}} (person hours)       </td>
         {{pass}}
+                </tr>
+        {{pass}}
+            <tr>
+        {{for j in result2[i][-3]:}}
+        <td>  <strong>{{=j}} (person hours)</strong>        </td>
+        {{pass}}
+                </tr>
+        {{for result in result2[i][-2:]:}}
+            <tr>
+        {{for j in result:}}
+        <td>  <strong>{{=j}} ($)</strong>        </td>
+        {{pass}}
+                </tr>
+        {{pass}}
+            </table></td>
+          
     </tr>
     {{pass}}
 </table>

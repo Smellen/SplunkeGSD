@@ -179,10 +179,13 @@ for(i=0; i<markers.length; i++){
         internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0]  + '</td><td class="tableModule"> $'
         + revenueR[i][1] + '</td><td class ="tableModule"> $' + revenueR[i][2] + '</td>';
     }
+    internal += '<tr><td class="tableSiteName"> Days </td><td class="tableModule"> ' +{{=day}}+'</td><td class ="tableModule"> ' +{{=esti}}+' </td>';
+    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Final Score </td><td class="tableModule">'+{{=score}}+'</td>'
     internal += '<tr><td colspan="3" class="tableModule"><FORM METHOD="LINK" ACTION="save_game"><INPUT TYPE="submit" VALUE="Save Game"></FORM></td></tr>';
-    //if ({{=saved}}){
+
+    if ({{=saved}}){
         internal += '<tr><td colspan="3" class="tableModule">Game Saved</td></tr>';
-    //}
+    }
     internal += '</table>'
     newele.innerHTML = internal;
     body[0].appendChild(newele);
