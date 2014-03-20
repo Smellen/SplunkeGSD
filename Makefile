@@ -1,4 +1,4 @@
-SplunkeApp = SplunkeGSD
+SplunkeApp = SplunkeGSD 
 port = 8080
 
 default: 
@@ -27,6 +27,7 @@ run:
 test: 
 	clear 
 	python tests/testTeam.py
+	python tests/testControllerDefault.py
 clean: 	
 	clear
 	cd 

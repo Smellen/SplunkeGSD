@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 import ConfigParser
-import applications.SplunkeGSD.controllers.classes.module as module
-import applications.SplunkeGSD.controllers.classes.team as team
-import subprocess
 import os
+if int(os.environ['TESTING']) != 1: 
+	import applications.SplunkeGSD.controllers.classes.module as module
+	import applications.SplunkeGSD.controllers.classes.team as team
+import subprocess
 import json
 import ast
 import unicodedata
-from time import gmtime, strftime
+from time import gmtime, strftime 
 
 def new_game(): # acts like initialisation. session.variablename allows the variable to be
  #accessed between refreshes.
@@ -256,14 +257,6 @@ def user():
     """
     return dict(form=auth())
 
-@cache.action()
-def download():
-    """
-    allows downloading of uploaded files
-    http://..../[app]/default/download/[filename]
-    """
-    return response.download(request, db)
-
 
 def call():
     """
@@ -274,20 +267,3 @@ def call():
     """
     return service()
 
-
-@auth.requires_signature()
-def data():
-    """
-    http://..../[app]/default/data/tables
-    http://..../[app]/default/data/create/[table]
-    http://..../[app]/default/data/read/[table]/[id]
-    http://..../[app]/default/data/update/[table]/[id]
-    http://..../[app]/default/data/delete/[table]/[id]
-    http://..../[app]/default/data/select/[table]
-    http://..../[app]/default/data/search/[table]
-    but URLs must be signed, i.e. linked with
-      A('table',_href=URL('data/tables',user_signature=True))
-    or with the signed load operator
-      LOAD('default','data.load',args='tables',ajax=True,user_signature=True)
-    """
-    return dict(form=crud())

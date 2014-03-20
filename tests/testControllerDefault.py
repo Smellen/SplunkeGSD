@@ -1,22 +1,25 @@
 import unittest
 import ConfigParser
 import urllib2
+import imp
+import sys
+import os
+
+os.environ['TESTING'] = '1'
+
+default = imp.load_source('default', 'controllers/default.py')
+team = imp.load_source('team', 'controllers/classes/team.py')
+module = imp.load_source('module', 'controllers/classes/module.py')
+
+os.chdir('../..')
+
 
 class TestControllerDefault(unittest.TestCase):
 
-	def testIndex(self):
-		config = ConfigParser.ConfigParser()
-		config.read("/home/www-data/web2py/applications/SplunkeGSD/application.config")
-		fromFile = config.get("Main-Config","Test-String")
-		try:
-			webData = urllib2.urlopen('http://localhost:8000/SplunkeGSD')
-		except urllib2.HTTPError as e:
-			print e
-			webData = e
-
-
-		self.assertEqual(fromFile, webData.read())
-
+	def testGetDailyDevPeriod(self):
+		period = default.getDailyDevPeriod()
+		self.assertIsNotNone(period)
+		self.assertIsInstance(period, float) 
 
 
 if __name__ == '__main__':
