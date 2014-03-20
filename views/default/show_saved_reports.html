@@ -13,21 +13,25 @@ onclick = 'window.location="{{=URL('default', 'index')}}";'>
         <td> <table width="80%"> <tr> <td> </td> <td><strong>Actual</strong> </td> <td> <strong>Estimate</strong> </td> </tr> 
         {{for result in result2[i][:-3]:}}
             <tr>
-        {{for j in result:}}
-        <td>  {{=j}}        </td>
+        <td>  {{=result[0]}}       </td>
+        {{for j in result[1:]:}}
+        <td>  {{=j}} (person hours)       </td>
         {{pass}}
                 </tr>
         {{pass}}
-        {{for result in result2[i][-3:]:}}
+            <tr>
+        {{for j in result2[i][-3]:}}
+        <td>  <strong>{{=j}} (person hours)</strong>        </td>
+        {{pass}}
+                </tr>
+        {{for result in result2[i][-2:]:}}
             <tr>
         {{for j in result:}}
-        <td>  <strong>{{=j}}</strong>        </td>
+        <td>  <strong>{{=j}} ($)</strong>        </td>
         {{pass}}
                 </tr>
         {{pass}}
-
             </table></td>
-
           
     </tr>
     {{pass}}

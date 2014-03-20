@@ -1,5 +1,6 @@
 {{extend 'layout.html'}}
 <style>
+table { table-layout: fixed; }
 td{
     text-align: left;
 }
@@ -7,8 +8,16 @@ td.inner{
     text-align: left;
     width: 33%;
 }
-table { table-layout: fixed; }
+
 </style>
+  {{
+  response.files.insert(0,URL('static','css/web2py.css'))
+  response.files.insert(1,URL('static','css/bootstrap.min.css'))
+  response.files.insert(2,URL('static','css/bootstrap-responsive.min.css'))
+  response.files.insert(3,URL('static','css/web2py_bootstrap.css'))
+  }}
+
+{{include 'web2py_ajax.html'}}
 <h1>{{=title}}</h1>
 </br>
 </br>
@@ -23,7 +32,7 @@ table { table-layout: fixed; }
                     <td class="inner">
                         <table> <!-- For Module in Team -->
                             {{for module in team[2]:}}
-                                <tr> <td class="inner"> {{=module[0]}} </td> <td class="inner"> Estimated Effort: {{=module[1]}}</td> </tr>
+                                <tr> <td class="inner"> {{=module[0]}} </td> <td class="inner"> Estimated Effort: <strong>{{=module[1]}}</strong> person hours</td> </tr>
                             {{pass}}
                         </table>
                     </td>
