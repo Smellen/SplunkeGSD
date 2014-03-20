@@ -60,7 +60,7 @@ def getDailyDevPeriod():
     return float(config.get('Development Period', 'Effort'))
 
 def getFinalRevenue(listOfTeams, revenue = None):
-    if revenue == None:
+    if revenue != None:
         session.revenue = revenue
     number_of_days = 0
     for team in listOfTeams: 
@@ -69,7 +69,7 @@ def getFinalRevenue(listOfTeams, revenue = None):
                 number_of_days = mod.daysLeft
     days_late =  number_of_days * (-1)
     temp = 6 - (days_late/30)
-    actual_revenue = temp * (revenue /12)
+    actual_revenue = temp * (session.revenue /12)
     return str("%.2f" % actual_revenue)
 
 def getExpectedBudget():
