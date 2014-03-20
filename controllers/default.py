@@ -162,8 +162,11 @@ def view():
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
-    score = (float(final) + float(session.budget)) - float(cost)
-    return dict(title=T('Team Splunke Game'), saved=session.saved, score=score, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    amount = str("%.2f" % ((float(final) + float(session.budget)) - float(cost)))
+    #score = str( "%.2f" % ( ((float(final) + float(session.budget)) - float(cost)) / ((float(session.revenue)/2)-float(session.budget)) *75))
+    final_rev =  (float(session.revenue)/2) - float(final)
+    final_cost = session.budget -cost
+    return dict(title=T('Team Splunke Game'), saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost():
     config = ConfigParser.ConfigParser()
