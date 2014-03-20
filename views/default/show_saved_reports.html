@@ -7,6 +7,7 @@ onclick = 'window.location="{{=URL('default', 'index')}}";'>
 </Button>
 
 <table width="80%" border="1">
+    {{try:}}
     {{for i in result2:}}
     <tr>
         <td> {{=i}} </td>
@@ -34,5 +35,8 @@ onclick = 'window.location="{{=URL('default', 'index')}}";'>
             </table></td>
           
     </tr>
+    {{pass}}
+    {{except:}}
+    {{pass}}
     {{pass}}
 </table>
