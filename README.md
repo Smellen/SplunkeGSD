@@ -57,6 +57,7 @@ To Test the Application
 --------------------------
 These instructions will test the application using the definded tests. 
 1. run 'make test'
+Files and functions not testing in these tests are included in NOT_TESTED.csv
 
 
 Download Files
