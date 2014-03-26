@@ -38,8 +38,12 @@
 .tableModule{
     background:white;
     border:solid black 2px;
+    width:50%;
+    z-index:300;
+    position:absolute;
+    left:25%;
+    top:0px;
 }
-    
 </style>
 
   {{
@@ -92,41 +96,6 @@
             </td>
     </tr>
 </table>
-
-{{for team in modules: }}
-<h3>
-    {{=team[0].upper()}} (Team Size: {{=team[2]}})
-</h3>
-<table width="60%">
-    <tr>
-        <td>
-                <strong>Module Name</strong>
-        </td>
-        <td>
-                <strong>Task Estimated</strong>
-        </td>
-        <td>
-            <strong>Estimated Days Left</strong>
-        </td>
-    </tr>
-{{for i in team[1]:}}
-{{j = str(i).split(',')}}
-    <tr>
-        <td>
-                {{=j[0]}}
-        </td>
-        <td>
-                {{=j[2]}} person hours
-        </td>
-        <td>
-            {{=j[4]}}
-        </td>
-    </tr> 
-</h4>
-{{pass}}
-</table>
-{{pass}}
-
 
 <p id="demo"></p>
 
@@ -185,5 +154,40 @@ for(i=0; i<markers.length; i++){
 
 <div style="position: absolute; z-index:100">
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
+    <div class = "tableModule">
+        {{for team in modules: }}
+        <h3>
+            {{=team[0].upper()}} (Team Size: {{=team[2]}})
+        </h3>
+        <table width="100%">
+            <tr>
+                <td>
+                        <strong>Module Name</strong>
+                </td>
+                <td>
+                        <strong>Task Estimated</strong>
+                </td>
+                <td>
+                    <strong>Estimated Days Left</strong>
+                </td>
+            </tr>
+        {{for i in team[1]:}}
+        {{j = str(i).split(',')}}
+            <tr>
+                <td>
+                        {{=j[0]}}
+                </td>
+                <td>
+                        {{=j[2]}} person hours
+                </td>
+                <td>
+                    {{=j[4]}}
+                </td>
+            </tr> 
+        </h4>
+        {{pass}}
+        </table>
+        {{pass}}
+    </div>
 </div>
 </body>
