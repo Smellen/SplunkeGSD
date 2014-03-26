@@ -124,15 +124,12 @@ def show_saved_reports():
     return dict (title=T('Saved End of Game Reports'), result2=details)
 
 def problemSimulator():
-	num = random.random()
-	print num
 	config = ConfigParser.ConfigParser()
 	config.read("applications/SplunkeGSD/application.config")
 	prob = config.get('Problems', 'probability')
 	for team in session.test:
 		for mod in team.currentModules:
-			mod.hasProblem = random.random() >prob
-			print mod.hasProblem
+			mod.hasProblem = random.random() >= prob
 def view():
     modules = []
     statuses = {}
