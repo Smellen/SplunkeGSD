@@ -131,11 +131,16 @@ def problemSimulator():
 	num = random.random()
 	print num
 
-	numTotalModules = 0;
+	config = ConfigParser.ConfigParser()
+	config.read("applications/SplunkeGSD/application.config")
+	prob = config.get('Problems', 'probability')
+
 	for team in session.test:
-		pass;
+		for mod in team.currentModules:
+			mod.hasProblem = random.random() >prob
+			print mod.hasProblem
 
-
+	
 
 def view():
     modules = []
@@ -273,4 +278,4 @@ def load_game_cal():
         newTeam.calcDaysLeft()
         session.test.append(newTeam)
         session.budget = getExpectedBudget(session.test)
-        return
+    return
