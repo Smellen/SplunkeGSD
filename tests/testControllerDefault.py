@@ -26,13 +26,19 @@ class TestControllerDefault(unittest.TestCase):
 		self.assertFalse(os.stat('applications/SplunkeGSD/saved_game_reports/'+str(fil[0])).st_size==0) 
 		os.remove('applications/SplunkeGSD/saved_game_reports/'+str(fil[0]))
 		
-	def testload_game_cal(self): 
-		self.assertTrue(True)
+	def testload_game_cal(self):
+		blah = default.load_game_cal("game1")
+		self.assertIsNotNone(blah)
+		with self.assertRaises(IOError):
+			blah = default.load_game_cal("EllenSmells")
 
 	def testview(self): 
 		self.assertTrue(True)
 
 	def testview_game(self):
+		self.assertTrue(True)
+
+	def testproblemSimulator(self): 
 		self.assertTrue(True)
 
 	def testGetDailyDevPeriod(self):

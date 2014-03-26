@@ -2,13 +2,15 @@
 from __future__ import division
 import ConfigParser
 import os
+import imp
 try:
 	import applications.SplunkeGSD.controllers.classes.module as module
 	import applications.SplunkeGSD.controllers.classes.team as team
 except:
-	pass
-
+    team = imp.load_source('team', 'controllers/classes/team.py')
+    module = imp.load_source('module', 'controllers/classes/module.py')
 import subprocess
+import sys
 import json
 import ast
 import unicodedata
@@ -22,7 +24,7 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     new_game_cal()
     redirect(URL('view_game'))
 
-def new_game_cal(): 
+def new_game_cal():
     mod = module.module('Test Module', 200)
     te = mod.actualEffort
     session.test = []
@@ -36,36 +38,37 @@ def new_game_cal():
     session.test.append(new_team)
     session.budget = getExpectedBudget(session.test)
     problemSimulator()
-    redirect(URL('view_game'))
     return
     
 def save_game_report():
-    save_game_cal()
+    save_game_report_cal(session.d_report, session.d_budget, session.d_revenue)
     redirect(URL('view'))
 
-def save_game_report_cal():
+def save_game_report_cal(report, budget, revenue):
     f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'.txt', 'w')
     f.write('\n')
-    for i in session.d_report:
+    for i in report:
         f.write(str(i[0])+',')
         f.write(str(i[1])+',')
         f.write(str(i[2]))
         f.write('\n')
-    for i in session.d_budget:
-        print i
+    for i in budget:
         f.write(str(i[0])+',')
         f.write(str(i[1])+',')
         f.write(str(i[2]))
     f.write('\n')
-    for i in session.d_revenue: 
+    for i in revenue:
         f.write(str(i[0])+',')
         f.write(str(i[1])+',')
         f.write(str(i[2]))
     f.write('\n')
     f.close()
-    session.saved = "true"
+    try:
+        session.saved = "true"
+    except:
+        pass
     return
-    
+
 def getDailyDevPeriod():
     config = ConfigParser.ConfigParser()
     config.read("applications/SplunkeGSD/application.config")
@@ -131,12 +134,14 @@ def problemSimulator():
 	num = random.random()
 	print num
 
-	numTotalModules = 0;
+	config = ConfigParser.ConfigParser()
+	config.read("applications/SplunkeGSD/application.config")
+	prob = config.get('Problems', 'probability')
+
 	for team in session.test:
-		pass;
-
-
-
+		for mod in team.currentModules:
+			mod.hasProblem = random.random() >prob
+			print mod.hasProblem
 def view():
     modules = []
     statuses = {}
@@ -250,20 +255,26 @@ def config_game():
     return dict(title='Pre-defined Games',result=result2, data=data["Game"], details=details)
 
 def load_game():
-    load_game_cal()
+    load_game_cal(None)
     redirect(URL('view_game'))
 
-def load_game_cal():
-    file_id = request.args[0]
+def load_game_cal(other_file_id):
+    try:
+        file_id = request.args[0]
+    except:
+        file_id = other_file_id
     string = "applications/SplunkeGSD/scenarios/"+file_id+".json"
     f=open(string)
     data = json.load(f)
-    session.test = []
-    session.day = 0
-    session.saved = "false"
-    session.pre = "true"
-    projectType = data['Game']['projectType']
-    session.revenue = data['Game']['expected_revenue']
+    try: #web2py functionality
+        session.test = []
+        session.day = 0
+        session.saved = "false"
+        session.pre = "true"
+        session.revenue = data['Game']['expected_revenue']
+        projectType = data['Game']+['projectType']
+    except:
+        pass
     for te in data['Game']['Teams']:
         dict = data['Game']['Teams'][te]
         listOfMods = []
@@ -271,6 +282,11 @@ def load_game_cal():
             listOfMods.append(module.module(mod['name'], mod['estimate']))
         newTeam = team.team(dict['teamSize'], str(dict['location']).lower(), getDailyDevPeriod(), listOfMods)
         newTeam.calcDaysLeft()
-        session.test.append(newTeam)
-        session.budget = getExpectedBudget(session.test)
-    return
+        try:
+            session.test.append(newTeam)
+            session.budget = getExpectedBudget(session.test)
+        except:
+            pass
+    return data
+
+
