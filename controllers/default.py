@@ -136,7 +136,7 @@ def problemSimulator():
 def generateEndOfGameReport():
     pass
 
-"""def get_locations(): 
+def get_locations(): 
     config=open_conf()
     fromFile = config.items('Location')
     locations = {}
@@ -182,8 +182,7 @@ def view():
     final_rev =  (float(session.revenue)/2) - float(final)
     final_cost = session.budget - cost
     print modules
-    return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)"""
->>>>>>> 66d4a5df03a3413ea4853b3558912d7010124e7a
+    return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 			
 def view():
     modules = []
