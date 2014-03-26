@@ -24,7 +24,7 @@ e.g. 'make SplunkeApp=appname install'
 The same is for changing the port, it will automatically run on port 8080, include port=port_number in the make command 
 e.g. 'make port=9090 install'
 
-Web2Py Already Installed in $HOME/public_html/web2py without Applications OR To Install the Application from TAR
+Web2Py Already Installed in $HOME/public_html/web2py without Application OR To Install the Application from TAR
 ------------------------------------------------------------------------------------------------------------
 These installation instructions will REMOVE any version of the application with the same name and pull the application files from the tar folder. 
 
