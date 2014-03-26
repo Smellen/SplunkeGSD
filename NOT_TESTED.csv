@@ -37,3 +37,4 @@ controllers/default.py, new_game_cal, Place holder for Future Feature
 controllers/default.py, save_game_report, Not testing web2py functions
 controllers/default.py, new_game, Not testing web2py functions
 controllers/default.py, load_game, Not testing web2py functions
+controllers/default.py, index, Not testing web2py functions
