@@ -273,4 +273,4 @@ def load_game_cal():
         newTeam.calcDaysLeft()
         session.test.append(newTeam)
         session.budget = getExpectedBudget(session.test)
-        return
+    return
