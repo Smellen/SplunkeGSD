@@ -131,25 +131,7 @@ for(i=0; i<markers.length; i++){
                                          "red";
     }
 }
-    if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
-    var body = document.getElementsByName("body");
-    var newele = document.createElement("div");
-    var report = {{=XML(report)}}
-    newele.className = "endGame";
-    internal ='<table class="reportTable"><tr><td colspan=2 class="endGameTitle">End of Game Report</td></tr>';
-    for (i=0;i<report.length;i++){
-        internal += '<tr><td class="tableSiteName">' + report[i][0] + '</td><td class="tableModule">';
-        for (j=0; j<report[i][1].length; j++){
-            internal += report[i][1][j][0] + ': ' + report[i][1][j][1] + '/' + report[i][1][j][2]+'<br/>';
-        }
-        internal += '</td>';
-    }
-    internal += '</table>'
-    newele.innerHTML = internal;
-    body[0].appendChild(newele);
 }
-}
-
 </script>
 
 <div style="position: absolute; z-index:100">
