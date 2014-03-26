@@ -34,11 +34,11 @@ def new_game_cal():
     session.budget = getExpectedBudget(session.test)
     return
     
-def save_game():
+def save_game_report():
     save_game_cal()
     redirect(URL('view'))
 
-def save_game_cal():
+def save_game_report_cal():
     f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'.txt', 'w')
     f.write('\n')
     for i in session.d_report:
