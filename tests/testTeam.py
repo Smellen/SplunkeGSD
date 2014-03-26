@@ -29,7 +29,6 @@ class TestTeam(unittest.TestCase):
 		bob = team.team(10, 'dublin', 10, [module.module('testModule', 40), module.module('anotherTestModule', 65)])
 		effortList = []
 		newEffortList = []
-
 		for mod in bob.currentModules:
 			effortList.append(mod.progress)
 
