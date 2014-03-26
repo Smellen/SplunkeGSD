@@ -120,6 +120,7 @@ def show_saved_reports():
             details[filename].append(blah)
     return dict (title=T('Saved End of Game Reports'), result2=details)
 
+
 def problemSimulator():
     print 'simulating problems'
     config = open_conf()
