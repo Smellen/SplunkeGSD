@@ -37,7 +37,6 @@ def new_game_cal():
     new_team.calcDaysLeft()
     session.test.append(new_team)
     session.budget = getExpectedBudget(session.test)
-    problemSimulator()
     return
     
 def save_game_report():
@@ -124,12 +123,14 @@ def show_saved_reports():
     return dict (title=T('Saved End of Game Reports'), result2=details)
 
 def problemSimulator():
+	print 'simulating problems'
 	config = ConfigParser.ConfigParser()
 	config.read("applications/SplunkeGSD/application.config")
 	prob = config.get('Problems', 'probability')
 	for team in session.test:
 		for mod in team.currentModules:
 			mod.hasProblem = random.random() >= prob
+			
 def view():
     modules = []
     statuses = {}
