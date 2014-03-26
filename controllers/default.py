@@ -104,7 +104,6 @@ def getExpectedBudget(listOfTeams):
     return expected_budget 
 
 def index():
-    print sys.modules.keys()
     if 'default' in request.env.path_info: #ensures that the link is right
         new = 'new_game'
         config = 'config_game'
@@ -135,10 +134,14 @@ def problemSimulator():
 	num = random.random()
 	print num
 
-	numTotalModules = 0;
-	for team in session.test:
-		pass;
+	config = ConfigParser.ConfigParser()
+	config.read("applications/SplunkeGSD/application.config")
+	prob = config.get('Problems', 'probability')
 
+	for team in session.test:
+		for mod in team.currentModules:
+			mod.hasProblem = random.random() >prob
+			print mod.hasProblem
 def view():
     modules = []
     statuses = {}
@@ -285,3 +288,5 @@ def load_game_cal(other_file_id):
         except:
             pass
     return data
+
+
