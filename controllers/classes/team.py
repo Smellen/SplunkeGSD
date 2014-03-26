@@ -42,6 +42,13 @@ class team:
     def applyEffort(self):
         modEffort = float(self.totalEffort()) / len(self.currentModules)
         for module in self.currentModules:
+            if module.progress < module.actualEffort: # and module.hasProblem:
+                stage = module.getProgress()
+                config = ConfigParser.ConfigParser()
+                config.read("applications/SplunkeGSD/application.config")
+                delay = config.get('Problems ' + stage, 'delay')
+                print 'delay = ' + delay
+                module.hasProblem = False
             if module.progress < module.actualEffort:
                 module.progress += modEffort
             if module.progress >= module.actualEffort:

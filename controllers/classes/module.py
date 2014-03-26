@@ -11,6 +11,7 @@ class module:
         self.progress = 0
         self.daysLeft = None
         self.stage = "Unstarted"
+        self.hasProblem = False
         self.estimateEffort = estimate
         self.actualEffort = (((random.random()/2) - 0.25) * estimate) + estimate
 
