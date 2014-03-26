@@ -14,6 +14,10 @@ import ast
 import unicodedata
 from time import gmtime, strftime 
 
+import random
+
+random.seed()
+
 def new_game(): # acts like initialisation. session.variablename allows the variable to be
  #accessed between refreshes.
     mod = module.module('Test Module', 200)
@@ -29,6 +33,7 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     print new_team.currentModules[0].daysLeft
     session.test.append(new_team)
     session.budget = getExpectedBudget(session.test)
+    problemSimulator()
     redirect(URL('view_game'))
 
 def save_game():
@@ -114,6 +119,16 @@ def show_saved_reports():
             blah = line.split(',')
             details[filename].append(blah)
     return dict (title=T('Saved End of Game Reports'), result2=details)
+
+def problemSimulator():
+	num = random.random()
+	print num
+
+	numTotalModules = 0;
+	for team in session.test:
+		pass;
+
+
 
 def view():
     modules = []
