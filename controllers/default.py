@@ -121,13 +121,13 @@ def show_saved_reports():
     return dict (title=T('Saved End of Game Reports'), result2=details)
 
 def problemSimulator():
-        config=open_conf()
-	num = random.random()
-	prob = config.get('Problems', 'probability')
-	for team in session.test:
+    print 'simulating problems'
+    config = open_conf()
+    prob = config.get('Problems', 'probability')
+    for team in session.test:
 		for mod in team.currentModules:
-			mod.hasProblem = random.random() >prob
-			print mod.hasProblem
+			mod.hasProblem = random.random() >= prob
+
 
 def generateEndOfGameReport():
     pass
@@ -179,14 +179,6 @@ def view():
     final_cost = session.budget - cost
     print modules
     return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)"""
-
-	print 'simulating problems'
-	config = ConfigParser.ConfigParser()
-	config.read("applications/SplunkeGSD/application.config")
-	prob = config.get('Problems', 'probability')
-	for team in session.test:
-		for mod in team.currentModules:
-			mod.hasProblem = random.random() >= prob
 			
 def view():
     modules = []
