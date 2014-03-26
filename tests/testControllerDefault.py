@@ -35,8 +35,15 @@ class TestControllerDefault(unittest.TestCase):
 	def testview(self): 
 		self.assertTrue(True)
 
-	def testview_game(self):
-		self.assertTrue(True)
+	def testview_game_cal(self): 
+		bob = team.team(10, 'dublin', 10)
+		mod1 = module.module('TestModule', 50)
+		mod2 = module.module('TestModule2', 50)
+		bob.addModule(mod1)
+		bob.addModule(mod2)
+		bob.applyEffort()
+		blah = default.view_game_cal(0, [bob], 0)
+		self.assertIsInstance(blah[3], str)
 
 	def testproblemSimulator(self): 
 		self.assertTrue(True)
