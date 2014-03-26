@@ -1,4 +1,4 @@
-SplunkeApp = SplunkeGSD 
+SplunkeApp = SplunkeGSD
 port = 8080
 
 default: 
