@@ -48,6 +48,7 @@ class team:
                 config.read("applications/SplunkeGSD/application.config")
                 delay = config.get('Problems ' + stage, 'delay')
                 print 'delay = ' + delay
+                module.hasProblem = False
             if module.progress < module.actualEffort:
                 module.progress += modEffort
             if module.progress >= module.actualEffort:
