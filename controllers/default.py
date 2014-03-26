@@ -129,7 +129,10 @@ def problemSimulator():
 	prob = config.get('Problems', 'probability')
 	for team in session.test:
 		for mod in team.currentModules:
-			mod.hasProblem = random.random() >= prob
+                        tmp = random.random()
+                        print 'tmp = ' + str(tmp)
+			mod.hasProblem = (tmp >= float(prob))
+                        print mod.hasProblem
 			
 def view():
     modules = []
