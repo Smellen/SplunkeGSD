@@ -182,7 +182,7 @@ for(i=0; i<markers.length; i++){
     internal += '<tr><td colspan="2" class="tableBudgetTitle"> Difference in Cost </br> (Budget - Cost) </td><td class="tableModule"> $'+{{=final_cost}}+'</td>'
     internal += '<tr><td colspan="2" class="tableBudgetTitle"> Difference in Revenue </br> (Estimate - Actual) </td><td class="tableModule"> $'+{{=final_rev}}+'</td>'
     internal += '<tr><td colspan="2" class="tableBudgetTitle"> Total Money Made </br> (Revenue + Budget) - Cost </td><td class="tableModule"> $'+{{=amount}}+'</td>'
-    internal += '<tr><td colspan="3" class="tableModule"><FORM METHOD="LINK" ACTION="save_game"><INPUT TYPE="submit" VALUE="Save Game"></FORM></td></tr>';
+    internal += '<tr><td colspan="3" class="tableModule"><FORM METHOD="LINK" ACTION="save_game_report"><INPUT TYPE="submit" VALUE="Save Game Report"></FORM></td></tr>';
 
     if ({{=saved}}){
         internal += '<tr><td colspan="3" class="tableModule">Game Saved</td></tr>';

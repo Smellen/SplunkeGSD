@@ -12,14 +12,17 @@ import subprocess
 import json
 import ast
 import unicodedata
-from time import gmtime, strftime 
+from time import gmtime, strftime
 
 import random
 
 random.seed()
 
-def new_game(): # acts like initialisation. session.variablename allows the variable to be
- #accessed between refreshes.
+def new_game(): # acts like initialisation. session.variablename allows the variable to be accessed between refreshes.
+    new_game_cal()
+    redirect(URL('view_game'))
+
+def new_game_cal(): 
     mod = module.module('Test Module', 200)
     te = mod.actualEffort
     session.test = []
@@ -30,13 +33,17 @@ def new_game(): # acts like initialisation. session.variablename allows the vari
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     new_team.calcDaysLeft()
-    print new_team.currentModules[0].daysLeft
     session.test.append(new_team)
     session.budget = getExpectedBudget(session.test)
     problemSimulator()
     redirect(URL('view_game'))
+    return
+    
+def save_game_report():
+    save_game_cal()
+    redirect(URL('view'))
 
-def save_game():
+def save_game_report_cal():
     f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'.txt', 'w')
     f.write('\n')
     for i in session.d_report:
@@ -57,7 +64,7 @@ def save_game():
     f.write('\n')
     f.close()
     session.saved = "true"
-    redirect(URL('view'))
+    return
     
 def getDailyDevPeriod():
     config = ConfigParser.ConfigParser()
@@ -169,9 +176,6 @@ def view():
     budgetReport = [["Cost", str("%.1f" % cost), str("%.1f" % session.budget)]];
     revenueReport = [["Revenue", str("%.1f" % float(final)), str("%.1f" % (session.revenue/2))]];
     location = list(statuses.values())
-    for team in session.test:
-        for mod in team.currentModules:
-            print mod.daysLeft
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
@@ -179,7 +183,7 @@ def view():
     #score = str( "%.2f" % ( ((float(final) + float(session.budget)) - float(cost)) / ((float(session.revenue)/2)-float(session.budget)) *75))
     final_rev =  (float(session.revenue)/2) - float(final)
     final_cost = session.budget -cost
-    return dict(title=T('Team Splunke Game'), saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays):
     config = ConfigParser.ConfigParser()
@@ -218,7 +222,7 @@ def view_game():
     complete = "true" if isComplete else "false"
     location = list(statuses.values())
     cost = getTotalCost(session.test, session.day)
-    return dict(title=T('Team Splunke Game'), esti = session.estimate_day, budget=str("%.1f" % session.budget), cost=cost,  the_revenue=session.revenue, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
+    return dict(title='Team Splunke Game', esti = session.estimate_day, budget=str("%.1f" % session.budget), cost=cost,  the_revenue=session.revenue, modules=modules, pre=session.pre, locations=location,day=session.day, completed=complete, report=teamEstimatesAndProgresses)
 
 
 def config_game():
@@ -243,9 +247,13 @@ def config_game():
                 listOfMods.append((mod['name'], mod['estimate']))
             newTeam = (dict1['teamSize'], str(dict1['location']).lower(), listOfMods)
             details[the_file].append(newTeam)
-    return dict(title=T('Pre-defined Games'),result=result2, data=data["Game"], details=details)
+    return dict(title='Pre-defined Games',result=result2, data=data["Game"], details=details)
 
 def load_game():
+    load_game_cal()
+    redirect(URL('view_game'))
+
+def load_game_cal():
     file_id = request.args[0]
     string = "applications/SplunkeGSD/scenarios/"+file_id+".json"
     f=open(string)
@@ -265,31 +273,4 @@ def load_game():
         newTeam.calcDaysLeft()
         session.test.append(newTeam)
         session.budget = getExpectedBudget(session.test)
-    redirect(URL('view_game'))
-
-def user():
-    """
-    exposes:
-    http://..../[app]/default/user/login
-    http://..../[app]/default/user/logout
-    http://..../[app]/default/user/register
-    http://..../[app]/default/user/profile
-    http://..../[app]/default/user/retrieve_password
-    http://..../[app]/default/user/change_password
-    http://..../[app]/default/user/manage_users (requires membership in
-    use @auth.requires_login()
-        @auth.requires_membership('group name')
-        @auth.requires_permission('read','table name',record_id)
-    to decorate functions that need access control
-    """
-    return dict(form=auth())
-
-
-def call():
-    """
-    exposes services. for example:
-    http://..../[app]/default/call/jsonrpc
-    decorate with @services.jsonrpc the functions to expose
-    supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
-    """
-    return service()
+        return
