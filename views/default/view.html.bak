@@ -76,7 +76,6 @@
   }}
 
 {{include 'web2py_ajax.html'}}
-
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
         <td> <h1>{{=title}}</h1>
@@ -90,7 +89,7 @@
         <td>
             <Button type="button" name ="new_button"
             onclick = 'window.location="{{=URL('default', 'index')}}";'>
-            Home
+            <strong>Home</strong>
             </Button>
         </td>
     </tr>
@@ -179,10 +178,15 @@ for(i=0; i<markers.length; i++){
         internal += '<tr><td class="tableRevenueTitle">' + revenueR[i][0]  + '</td><td class="tableModule"> $'
         + revenueR[i][1] + '</td><td class ="tableModule"> $' + revenueR[i][2] + '</td>';
     }
-    internal += '<tr><td colspan="3" class="tableModule"><FORM METHOD="LINK" ACTION="save_game"><INPUT TYPE="submit" VALUE="Save Game"></FORM></td></tr>';
-    //if ({{=saved}}){
+    internal += '<tr><td class="tableSiteName"> Days </td><td class="tableModule"> ' +{{=day}}+'</td><td class ="tableModule"> ' +{{=esti}}+' </td>';
+    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Difference in Cost </br> (Budget - Cost) </td><td class="tableModule"> $'+{{=final_cost}}+'</td>'
+    internal += '<tr><td colspan="2" class="tableRevenueTitle"> Difference in Revenue </br> (Estimate - Actual) </td><td class="tableModule"> $'+{{=final_rev}}+'</td>'
+    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Total Money Made </br> (Revenue + Budget) - Cost </td><td class="tableModule"> $'+{{=amount}}+'</td>'
+    internal += '<tr><td colspan="3" class="tableModule"><FORM METHOD="LINK" ACTION="save_game_report"><INPUT TYPE="submit" VALUE="Save Game Report"></FORM></td></tr>';
+
+    if ({{=saved}}){
         internal += '<tr><td colspan="3" class="tableModule">Game Saved</td></tr>';
-    //}
+    }
     internal += '</table>'
     newele.innerHTML = internal;
     body[0].appendChild(newele);

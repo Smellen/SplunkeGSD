@@ -38,8 +38,12 @@
 .tableModule{
     background:white;
     border:solid black 2px;
+    width:50%;
+    z-index:300;
+    position:absolute;
+    left:25%;
+    top:0px;
 }
-    
 </style>
 
   {{
@@ -77,6 +81,10 @@
             </h1>
         </td>
         <td>
+             <h3> Estimated: {{=esti}} days
+             </h3>
+        </td>
+        <td>
              <h3> Budget: ${{=budget}}
              </h3>
         </td>
@@ -92,41 +100,6 @@
             </td>
     </tr>
 </table>
-
-{{for team in modules: }}
-<h3>
-    {{=team[0].upper()}} (Team Size: {{=team[2]}})
-</h3>
-<table width="60%">
-    <tr>
-        <td>
-                <strong>Module Name</strong>
-        </td>
-        <td>
-                <strong>Task Estimated</strong>
-        </td>
-        <td>
-            <strong>Estimated Days Left</strong>
-        </td>
-    </tr>
-{{for i in team[1]:}}
-{{j = str(i).split(',')}}
-    <tr>
-        <td>
-                {{=j[0]}}
-        </td>
-        <td>
-                {{=j[2]}} person hours
-        </td>
-        <td>
-            {{=j[4]}}
-        </td>
-    </tr> 
-</h4>
-{{pass}}
-</table>
-{{pass}}
-
 
 <p id="demo"></p>
 
@@ -162,28 +135,46 @@ for(i=0; i<markers.length; i++){
                                          "red";
     }
 }
-    if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
-    var body = document.getElementsByName("body");
-    var newele = document.createElement("div");
-    var report = {{=XML(report)}}
-    newele.className = "endGame";
-    internal ='<table class="reportTable"><tr><td colspan=2 class="endGameTitle">End of Game Report</td></tr>';
-    for (i=0;i<report.length;i++){
-        internal += '<tr><td class="tableSiteName">' + report[i][0] + '</td><td class="tableModule">';
-        for (j=0; j<report[i][1].length; j++){
-            internal += report[i][1][j][0] + ': ' + report[i][1][j][1] + '/' + report[i][1][j][2]+'<br/>';
-        }
-        internal += '</td>';
-    }
-    internal += '</table>'
-    newele.innerHTML = internal;
-    body[0].appendChild(newele);
-}
 }
 
 </script>
 
 <div style="position: absolute; z-index:100">
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
+    <div class = "tableModule">
+        {{for team in modules: }}
+        <h3>
+            {{=team[0].upper()}} (Team Size: {{=team[2]}})
+        </h3>
+        <table width="100%">
+            <tr>
+                <td>
+                        <strong>Module Name</strong>
+                </td>
+                <td>
+                        <strong>Task Estimated</strong>
+                </td>
+                <td>
+                    <strong>Estimated Days Left</strong>
+                </td>
+            </tr>
+        {{for i in team[1]:}}
+        {{j = str(i).split(',')}}
+            <tr>
+                <td>
+                        {{=j[0]}}
+                </td>
+                <td>
+                        {{=j[2]}} person hours
+                </td>
+                <td>
+                    {{=j[4]}}
+                </td>
+            </tr> 
+        </h4>
+        {{pass}}
+        </table>
+        {{pass}}
+    </div>
 </div>
 </body>
