@@ -139,6 +139,11 @@ function showDetails(event, loc){
     details.style.top = event.clientY + document.body.scrollTop;
     details.removeAttribute("hidden");
 }
+function hideDetails(loc){
+    hidden = document.createAttribute("hidden");
+    details = document.getElementById(loc+"details");
+    details.setAttribute(hidden);
+}
 function placeMarkers(){
     var locs = [
     {{if modules[0]: }}
@@ -214,7 +219,7 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 {{ pass }}
 </div>
 {{ for team in modules: }}
-    <div id='{{=team[0]}}details' style='z-index:500;position:absolute;' hidden>
+    <div id='{{=team[0]}}details' style='z-index:500;position:absolute;' onMouseOut='hideDetails("{{=team[0]}}")' hidden>
         <div class='detailsHead'> 
             {{ =team[0] }}
         </div>
