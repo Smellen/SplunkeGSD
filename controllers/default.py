@@ -72,7 +72,7 @@ def getDailyDevPeriod():
     config=open_conf()
     return float(config.get('Development Period', 'Effort'))
 
-def getFinalRevenue(listOfTeams, revenue = None):
+"""def getFinalRevenue(listOfTeams, revenue = None):
     if revenue != None:
         rev = revenue
     else:
@@ -85,7 +85,24 @@ def getFinalRevenue(listOfTeams, revenue = None):
     days_late =  number_of_days * (-1)
     temp = 6 - (days_late/30)
     actual_revenue = temp * (rev /12)
-    return str("%.2f" % actual_revenue)
+    return str("%.2f" % actual_revenue)"""
+
+def getFinalRevenue(listOfTeams, revenue=None, days=None, estimate_days=None):
+    if revenue != None:
+        rev = revenue
+        day=days
+        esti = estimate_days
+    else:
+        rev = session.revenue
+        day = session.day
+        esti = session.estimate_day
+    if int(day) > int(esti):
+        num_days_late = int(day)-int(esti)
+        temp = 6 - num_days_late
+        temp1 = float(rev/12)
+        return str(float(temp*temp1))
+    else:
+        return rev
 
 def getExpectedBudget(listOfTeams):
     config=open_conf()
@@ -180,11 +197,11 @@ def view():
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
     amount = str("%.2f" % ((float(final) + float(session.budget)) - float(cost)))
-    final_rev =  (float(session.revenue)/2) - float(final)
+    final_rev = (float(session.revenue)/2) - float(final)
     final_cost = session.budget - cost
     print modules
     return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
-			
+
 def view():
     modules = []
     statuses = {}
@@ -228,8 +245,8 @@ def view():
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
     amount = str("%.2f" % ((float(final) + float(session.budget)) - float(cost)))
-    final_rev =  (float(session.revenue)/2) - float(final)
-    final_cost = session.budget -cost
+    final_rev =  float(final) - (float(session.revenue/2))
+    final_cost = cost - session.budget
     problemSimulator()
     return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
