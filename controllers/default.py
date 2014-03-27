@@ -139,15 +139,12 @@ def show_saved_reports():
 
 
 def problemSimulator():
-    print 'simulating problems'
     config = open_conf()
     prob = config.get('Problems', 'probability')
     for team in session.test:
 		for mod in team.currentModules:
                         tmp = random.random()
-                        print 'tmp = ' + str(tmp)
 			mod.hasProblem = (tmp >= float(prob))
-                        print mod.hasProblem
 			mod.hasProblem = random.random() >= prob
 
 
