@@ -133,8 +133,11 @@
 <body name="body" onload="mapSetup()" onresize="mapSetup()">
 
 <script>
-function showDetails(){
-    alert('yay');
+function showDetails(event, loc){
+    details = document.getElementById(loc+"details");
+    details.style.left = event.clientX + document.body.scrollLeft;
+    details.style.top = event.clientY + document.body.scrollTop;
+    details.removeAttribute("hidden");
 }
 function placeMarkers(){
     var locs = [
@@ -207,11 +210,15 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 {{ for team in modules: }}
     {{ leftPos = team[4][0] }}
     {{ topPos = team[4][1] }}
-    <div class='block' id='{{=team[0]}}marker' onMouseOver='showDetails()'></div> 
-    <div class='detailsHead' id='{{=team[0]}}details'>
-        {{ =team[0] }}
-        <div class 'details'/>
-    </div>
+    <div class='block' id='{{=team[0]}}marker' onMouseOver='showDetails(event, "{{=team[0]}}")'></div> 
 {{ pass }}
 </div>
+{{ for team in modules: }}
+    <div id='{{=team[0]}}details' style='z-index:500;position:absolute;' hidden>
+        <div class='detailsHead'> 
+            {{ =team[0] }}
+        </div>
+        <div class='details'/>
+    </div>
+{{ pass }}
 </body>
