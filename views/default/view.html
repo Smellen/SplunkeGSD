@@ -214,12 +214,18 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 <div style="position: absolute; z-index:100">
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
 {{ for team in modules: }}
-    {{ leftPos = team[4][0] }}
-    {{ topPos = team[4][1] }}
-    <div class='block' id='{{=team[0]}}marker' onMouseOver='showDetails(event, "{{=team[0]}}")'></div> 
+    {{if team[3][0] == 0:}}
+        {{colour = "green"}}
+    {{elif team[3][0] == 1:}}
+        {{colour = "orange"}}
+    {{elif team[3][0] == 2:}}
+        {{colour = "red"}}
+    {{else:}}
+        {{colour = "blue"}}
+    {{pass}}
+    <div class='block' id='{{=team[0]}}marker' style='background:{{=colour}};' onMouseOver='showDetails(event, "{{=team[0]}}")'></div> 
 {{ pass }}
 </div>
-{{ for team in modules: }}
     <div id='{{=team[0]}}details' style='z-index:500;position:absolute;' onMouseOut='hideDetails("{{=team[0]}}")' hidden>
         <div class='detailsHead'> 
             {{ =team[0].capitalize() }}
