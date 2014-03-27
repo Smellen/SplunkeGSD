@@ -13,6 +13,7 @@
         height: 10px;
         width: 10px;
         border-radius: 5px;
+        background:black;
 }
 .detailsHead{
     background:yellow;
@@ -135,14 +136,29 @@
 function showDetails(){
     alert('yay');
 }
+function placeMarkers(){
+    var locs = [
+    {{if modules[0]: }}
+        {{=modules[0][4] }}
+        {{for team in modules[1:]: }}
+            ,{{=team[4]}}
+        {{pass}}
+    {{pass}}
+    ];
+    var scale = window.innerWidth / 4500; //width of picture in pixels
+    var markers = document.getElementsByClassName("block");
+    for(i=0;i<locs.length;i++){
+        markers[i].style.top = locs[i][1] * scale;
+        markers[i].style.left = locs[i][0] * scale;
+    }
+}
 function mapSetup()
 {
 var w = window.innerWidth;
 var h = window.innerHeight;
 x = document.getElementById("map");
 x.width = window.innerWidth;
-scale = window.innerWidth / 4500; //image width = 2234
-    //Create divs
+placeMarkers();
 if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
     var body = document.getElementsByName("body");
     var newele = document.createElement("div");
@@ -188,7 +204,9 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 <div style="position: absolute; z-index:100">
     <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
 {{ for team in modules: }}
-    <div class='block' id='{{=team[0]}}maker' onMouseOver='showDetails()'/> 
+    {{ leftPos = team[4][0] }}
+    {{ topPos = team[4][1] }}
+    <div class='block' id='{{=team[0]}}marker' onMouseOver='showDetails()'></div> 
     <div class='detailsHead' id='{{=team[0]}}details'>
         {{ =team[0] }}
         <div class 'details'/>
