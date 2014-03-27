@@ -145,11 +145,12 @@ function placeMarkers(){
         {{pass}}
     {{pass}}
     ];
+    var offset = 5;
     var scale = window.innerWidth / 4500; //width of picture in pixels
     var markers = document.getElementsByClassName("block");
     for(i=0;i<locs.length;i++){
-        markers[i].style.top = locs[i][1] * scale;
-        markers[i].style.left = locs[i][0] * scale;
+        markers[i].style.top = locs[i][1] * scale - 5;
+        markers[i].style.left = locs[i][0] * scale - 5;
     }
 }
 function mapSetup()
