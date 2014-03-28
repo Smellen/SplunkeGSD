@@ -123,15 +123,16 @@ def show_saved_reports():
     return dict (title=T('Saved End of Game Reports'), result2=details)
 
 
-def problemSimulator():
+def problemSimulator(listOfTeams):
     config = open_conf()
     prob = config.get('Problems', 'probability')
-    for team in session.test:
-		for mod in team.currentModules:
-                        tmp = random.random()
-			mod.hasProblem = (tmp >= float(prob))
-                        if mod.hasProblem:
-                            print "Problem has occurred"
+    if len(listOfTeams) > 0:
+        for team in listOfTeams:
+            for mod in team.currentModules:
+                tmp = random.random()
+                mod.hasProblem = (tmp >= float(prob))
+        return True 
+    return False 
 
 
 def generateEndOfGameReport():
@@ -182,7 +183,7 @@ def view():
     amount = str("%.2f" % ((float(final) + float(session.budget)) - float(cost)))
     final_rev =  float(final) - (float(session.revenue/2))
     final_cost = cost - session.budget
-    problemSimulator()
+    problemSimulator(session.test)
     return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=str("%.2f" % float(final_rev)), final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=str("%.0f" % cost), the_revenue=session.revenue, the_budget=str("%.0f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays):
