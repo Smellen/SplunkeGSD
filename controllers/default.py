@@ -148,8 +148,7 @@ def get_locations():
 def view():
     modules = []
     statuses = {}
-    config = ConfigParser.ConfigParser()
-    config.read("applications/SplunkeGSD/application.config")
+    config = open_conf()
     fromFile = config.items('Location')
     for loc in fromFile:
          name, pos = loc
