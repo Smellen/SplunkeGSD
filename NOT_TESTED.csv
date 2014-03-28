@@ -38,3 +38,7 @@ controllers/default.py, save_game_report, Not testing web2py functions
 controllers/default.py, new_game, Not testing web2py functions
 controllers/default.py, load_game, Not testing web2py functions
 controllers/default.py, index, Not testing web2py functions
+controllers/default.py, view_game, Not testing web2py functions
+controllers/default.py, show_saved_reports, Unable to test web functions
+controllers/default.py, config_game, Unable to test web function
+controllers/default.py, view, Not tested due to Web2py Fuctions

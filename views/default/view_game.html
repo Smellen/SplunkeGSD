@@ -81,6 +81,10 @@
             </h1>
         </td>
         <td>
+             <h3> Estimated: {{=esti}} days
+             </h3>
+        </td>
+        <td>
              <h3> Budget: ${{=budget}}
              </h3>
         </td>
@@ -135,7 +139,7 @@ for(i=0; i<markers.length; i++){
 </script>
 
 <div style="position: absolute; z-index:100">
-    <img id="map" src="http://upload.wikimedia.org/wikipedia/commons/c/cf/A_large_blank_world_map_with_oceans_marked_in_blue.PNG"/> 
+    <img id="map" src="/SplunkeGSD/static/map.PNG"/> 
     <div class = "tableModule">
         {{for team in modules: }}
         <h3>

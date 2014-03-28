@@ -169,7 +169,7 @@ Known Issues:
 Fixed Issues:
 - None
 
-Iteration 6
+Iteration 5
 ===========
 Released: 20/06/2014
 
@@ -184,3 +184,21 @@ Known Issues:
 
 Fixed Issues:
 - None
+
+
+Iteration 6
+===========
+Released: 27/06/2014
+
+Implemented:
+- (Feature 8) Module Completion. Module task completetion calculator that determines how much effort each task for each module actually takes, based on 25% variation.
+
+- (Feature 11) Problem Simulator. A simulator that occasionally selects a site or module to experience a problem, with a probability determined by game parameters. The probability that a site will have a problem is set in application.config.
+
+- (Layout) On Day 0 for each game a new box containing information about each team will appear. It will display where each team is located and their team size. It will also display the module names, time estimated for the task to be complete and estimated days left.
+
+Known Issues:
+- None
+
+Fixed Issues:
+- (Revenue not returning correct value) End of game report now returns the correct revenue value.

@@ -37,7 +37,6 @@ def new_game_cal():
     new_team.calcDaysLeft()
     session.test.append(new_team)
     session.budget = getExpectedBudget(session.test)
-    problemSimulator()
     return
     
 def save_game_report():
@@ -73,20 +72,22 @@ def getDailyDevPeriod():
     config=open_conf()
     return float(config.get('Development Period', 'Effort'))
 
-def getFinalRevenue(listOfTeams, revenue = None):
+def getFinalRevenue(listOfTeams, revenue=None, days=None, estimate_days=None):
     if revenue != None:
         rev = revenue
+        day=days
+        esti = estimate_days
     else:
         rev = session.revenue
-    number_of_days = 0
-    for team in listOfTeams: 
-        for mod in team.currentModules: 
-            if mod.daysLeft < number_of_days: 
-                number_of_days = mod.daysLeft
-    days_late =  number_of_days * (-1)
-    temp = 6 - (days_late/30)
-    actual_revenue = temp * (rev /12)
-    return str("%.2f" % actual_revenue)
+        day = session.day
+        esti = session.estimate_day
+    if int(day) > int(esti):
+        num_days_late = int(day)-int(esti)
+        temp = 6 - float((num_days_late/30))
+        temp1 = float(rev/12)
+        return str("%.2f" % (float(temp*temp1)))
+    else:
+        return rev
 
 def getExpectedBudget(listOfTeams):
     config=open_conf()
@@ -121,14 +122,17 @@ def show_saved_reports():
             details[filename].append(blah)
     return dict (title=T('Saved End of Game Reports'), result2=details)
 
+
 def problemSimulator():
-        config=open_conf()
-	num = random.random()
-	prob = config.get('Problems', 'probability')
-	for team in session.test:
+    config = open_conf()
+    prob = config.get('Problems', 'probability')
+    for team in session.test:
 		for mod in team.currentModules:
-			mod.hasProblem = random.random() >prob
-			print mod.hasProblem
+                        tmp = random.random()
+			mod.hasProblem = (tmp >= float(prob))
+                        if mod.hasProblem:
+                            print "Problem has occurred"
+
 
 def generateEndOfGameReport():
     pass
@@ -170,16 +174,16 @@ def view():
     else:
         final = getFinalRevenue(session.test)
     cost = getTotalCost(session.test, session.day)
-    budgetReport = [["Cost", str("%.1f" % cost), str("%.1f" % session.budget)]];
-    revenueReport = [["Revenue", str("%.1f" % float(final)), str("%.1f" % (session.revenue/2))]];
+    budgetReport = [["Cost", str("%.2f" % cost), str("%.2f" % session.budget)]];
+    revenueReport = [["Revenue", str("%.2f" % float(final)), str("%.2f" % (session.revenue/2))]];
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
     amount = str("%.2f" % ((float(final) + float(session.budget)) - float(cost)))
-    final_rev =  (float(session.revenue)/2) - float(final)
-    final_cost = session.budget - cost
-    print modules
-    return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=cost, the_revenue=session.revenue, the_budget=str("%.1f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    final_rev =  float(final) - (float(session.revenue/2))
+    final_cost = cost - session.budget
+    problemSimulator()
+    return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=str("%.2f" % float(final_rev)), final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=str("%.0f" % cost), the_revenue=session.revenue, the_budget=str("%.0f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays):
     config=open_conf()
@@ -195,25 +199,29 @@ def open_conf():
     return config
 
 def view_game():
+    responses = view_game_cal(session.estimate_day, session.test, session.day)
+    session.estimate_day = responses[3]
+    return dict(title='Team Splunke Game', esti = session.estimate_day, completed="false", budget=str("%.0f" % session.budget), cost=str("%.0f" % responses[0]),  the_revenue=session.revenue, modules=responses[2], locations=responses[1],day=session.day)
+
+def view_game_cal(estimate_day, test, day):
     modules = []
     statuses = {}
     config=open_conf()
     fromFile = config.items('Location')
-    session.estimate_day = 0
+    estimate_day = 0
     for loc in fromFile:
          name, pos = loc
          name.rstrip()
          statuses.update({name: ast.literal_eval(pos)})
-    for team in session.test:
+    for team in test:
          modules.append((team.location, team.currentModules, team.teamSize))
          for d_mod in team.currentModules:
              temp = str(d_mod).split(',')
-             if int(temp[4]) >= int(session.estimate_day):
-                    session.estimate_day = temp[4]
+             if int(temp[4]) >= int(estimate_day):
+                    estimate_day = temp[4]
     location = list(statuses.values())
-    cost = getTotalCost(session.test, session.day)
-    return dict(title='Team Splunke Game', esti = session.estimate_day, completed="false", budget=str("%.1f" % session.budget), cost=cost,  the_revenue=session.revenue, modules=modules, locations=location,day=session.day)
-
+    cost = getTotalCost(test, day)
+    return [cost, location, modules, estimate_day]
 
 def config_game():
     result = os.popen("ls applications/SplunkeGSD/scenarios").read()
