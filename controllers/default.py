@@ -131,7 +131,6 @@ def problemSimulator(listOfTeams):
             for mod in team.currentModules:
                 tmp = random.random()
                 mod.hasProblem = (tmp >= float(prob))
-                mod.hasProblem = random.random() >= prob
         return True 
     return False 
 
