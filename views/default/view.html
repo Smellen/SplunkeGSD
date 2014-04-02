@@ -76,6 +76,9 @@
   }}
 
 {{include 'web2py_ajax.html'}}
+{{ if completed != "true":}}
+<meta http-equiv="refresh" content="5" >
+{{pass}}
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
         <td> <h1>{{=title}}</h1>
