@@ -60,7 +60,7 @@ class TestControllerDefault(unittest.TestCase):
 		bob.addModule(mod1)
 		bob.addModule(mod2)
 		bob.applyEffort()
-		revenue = default.getFinalRevenue([bob], 1000000)
+		revenue = default.getFinalRevenue([bob], 1000000, 1, 2)
 		self.assertIsInstance(revenue, str)
 		self.assertNotEqual(revenue, '')
 

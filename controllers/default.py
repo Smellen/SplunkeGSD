@@ -32,6 +32,7 @@ def new_game_cal():
     session.revenue = 1000000
     session.pre = "false"
     session.saved = "false"
+    session.first = False
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     new_team.calcDaysLeft()
@@ -87,7 +88,7 @@ def getFinalRevenue(listOfTeams, revenue=None, days=None, estimate_days=None):
         temp1 = float(rev/12)
         return str("%.2f" % (float(temp*temp1)))
     else:
-        return rev
+        return str(rev/2)
 
 def getExpectedBudget(listOfTeams):
     config=open_conf()
@@ -180,6 +181,9 @@ def view():
         session.day += 1
         final = 0
     else:
+        if session.first == False: 
+            session.day += 1
+            session.first = True
         final = getFinalRevenue(session.test)
     cost = getTotalCost(session.test, session.day)
     budgetReport = [["Cost", str("%.2f" % cost), str("%.2f" % session.budget)]];
@@ -273,6 +277,7 @@ def load_game_cal(other_file_id):
         session.day = 0
         session.saved = "false"
         session.pre = "true"
+        session.first = False
         session.revenue = data['Game']['expected_revenue']
         projectType = data['Game']+['projectType']
     except:
