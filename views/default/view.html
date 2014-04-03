@@ -16,18 +16,18 @@
         background:black;
 }
 .details{
-    width:100px;
-    height:100px;
+    width: 150px;
+    height:200px;
     border:solid yellow 2px;
 }
 .detailsHead{
     background:yellow;
-    height:20px;
+    height:40px;
     text-align:center;
 }
 .detailsBody{
     background:white;
-    height:80px;
+    height:160px;
 }
 .endGame{
     position: absolute;
@@ -160,8 +160,8 @@ function hideDetails(event, loc){
     var width = parseInt(window.getComputedStyle(details, "width"), 10);
     var height = parseInt(window.getComputedStyle(details, "height"), 10);
     var test = left + width;
-    if (event.clientX < left || event.clientX > (left + 100/*Width of details*/) ||
-        event.clientY < top || event.clientY > (top + 100/*Height of details*/)){
+    if (event.clientX < left || event.clientX > (left + 150/*Width of details*/) ||
+        event.clientY < top || event.clientY > (top + 200/*Height of details*/)){
         details.setAttribute('hidden', '');
     }
 }
@@ -250,8 +250,13 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
         <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;' onMouseOut='hideDetails(event, "{{=team[0]}}")' hidden>
             <div class='detailsHead'> 
                 {{ =team[0].capitalize() }}
+                Team Size : {{=team[2]}}
             </div>
-        <div class='detailsBody'/>
+        <div class='detailsBody'>
+            {{for module in team[1]:}}
+                {{=module.name}} Est. Eff. {{=module.estimateEffort}} <br/>
+            {{pass}}
+        </div>
     </div>
 {{ pass }}
 </body>
