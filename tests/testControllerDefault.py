@@ -13,7 +13,7 @@ os.chdir('../..')
 
 class TestControllerDefault(unittest.TestCase):
 		
-	def testsave_game(self):
+	def testsave_game_report_cal(self):
 		report = [['', 'Actual', 'Estimated'], ['Dublin: Test Module', '234.7', '200'], ['Total Effort', '234.7', '200']]
 		budget = [['Cost', '7175.0', '8968.8']]
 		revenue = [['Revenue', '500000.0', '500000.0']]
@@ -30,9 +30,27 @@ class TestControllerDefault(unittest.TestCase):
 		self.assertIsNotNone(blah)
 		with self.assertRaises(IOError):
 			blah = default.load_game_cal("EllenSmells")
+	
+	def testopen_conf(self): 
+		conf = default.open_conf()
+		self.assertIsNotNone(conf)
 
-	def testview(self): 
-		self.assertTrue(True)
+	def testget_locations(self): 
+		locations = default.get_locations() 
+		self.assertIsInstance(locations, dict)
+		self.assertTrue(len(locations)>1)
+	
+	def testshow_saved_reports(self):
+		test = default.show_saved_reports()
+		self.assertIsInstance(test["title"], str) 
+		self.assertIsInstance(test["result2"], dict)	
+
+	def testconfig_game(self):
+		temp = default.config_game()
+		self.assertIsInstance(temp["title"], str)
+		self.assertIsInstance(temp["data"], dict)
+		self.assertIsInstance(temp["result"], list) 
+		self.assertIsInstance(temp, dict)
 
 	def testview_game_cal(self): 
 		bob = team.team(10, 'dublin', 10)
@@ -44,15 +62,22 @@ class TestControllerDefault(unittest.TestCase):
 		blah = default.view_game_cal(0, [bob], 0)
 		self.assertIsInstance(blah[3], str)
 
-	def testproblemSimulator(self): 
-		self.assertTrue(True)
+	def testproblemSimulator(self):
+                bob = team.team(10, 'dublin', 10)
+                mod1 = module.module('TestModule', 50)
+                mod2 = module.module('TestModule2', 50)
+                bob.addModule(mod1)
+                bob.addModule(mod2)
+                bob.applyEffort()
+		result = default.problemSimulator([bob]) 
+		self.assertIsInstance(result, bool)
 
-	def testGetDailyDevPeriod(self):
+	def testgetDailyDevPeriod(self):
 		period = default.getDailyDevPeriod()
 		self.assertIsNotNone(period)
 		self.assertIsInstance(period, float) 
 
-	def testGetFinalRevenue(self):
+	def testgetFinalRevenue(self):
 		bob = team.team(10, 'dublin', 10)
 		mod1 = module.module('TestModule', 50)
 		mod2 = module.module('TestModule2', 50)
@@ -66,7 +91,7 @@ class TestControllerDefault(unittest.TestCase):
 		tmp = float(revenue)
 		self.assertIsInstance(tmp, float)
 
-	def testGetExpectedBudget(self):
+	def testgetExpectedBudget(self):
 		bob = team.team(10, 'dublin', 10)
 		mod1 = module.module('TestModule', 50)
 		mod2 = module.module('TestModule2', 50)
@@ -74,29 +99,22 @@ class TestControllerDefault(unittest.TestCase):
 		bob.addModule(mod2)
 		bob.applyEffort()
 		bud = default.getExpectedBudget([bob]*2)
-
 		self.assertIsNotNone(bud)
 		self.assertIsInstance(bud, float)
 
-	def testGetTotalCost(self):
-
+	def testgetTotalCost(self):
 		config = ConfigParser.ConfigParser()
 		config.read("applications/SplunkeGSD/application.config")
 		cost_of_dev = config.get('Developer', 'Cost_Per_Day')
-
 		bob = team.team(10, 'dublin', 10)
 		mod1 = module.module('TestModule', 50)
 		mod2 = module.module('TestModule2', 50)
 		bob.addModule(mod1)
 		bob.addModule(mod2)
-		
 		lst = [bob]*2
 		days = 5
 		cost = default.getTotalCost(lst, 5)
-
 		self.assertEqual(cost, (20*float(cost_of_dev)*days))
-
-
 
 if __name__ == '__main__':
 	unittest.main()

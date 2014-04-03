@@ -25,8 +25,8 @@ td.inner{
     {{for file in details:}}
         <tr>
             {{url = "/SplunkeGSD/default/load_game/" +file }}
-            <td> <a href={{=url}} > {{=file.upper()}} </a></td> <!-- File Name -->
-            <td> <table> <!-- For team in file --> 
+            <td width="15%"> <a href={{=url}} > {{=file.upper()}} </a></td> <!-- File Name -->
+            <td width="85%"> <table> <!-- For team in file --> 
                 {{for team in details[file]:}}
                 <tr> <td class="inner"> {{=team[1].upper()}} (Team Size: {{=team[0]}})</td>
                     <td class="inner">

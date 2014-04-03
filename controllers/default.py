@@ -121,7 +121,7 @@ def show_saved_reports():
         for line in temp[2:]: #remove banners
             blah = line.split(',')
             details[filename].append(blah)
-    return dict (title=T('Saved End of Game Reports'), result2=details)
+    return dict (title='Saved End of Game Reports', result2=details)
 
 
 def problemSimulator(listOfTeams):
@@ -132,12 +132,8 @@ def problemSimulator(listOfTeams):
             for mod in team.currentModules:
                 tmp = random.random()
                 mod.hasProblem = (tmp >= float(prob))
-        return True 
-    return False 
-
-
-def generateEndOfGameReport():
-    pass
+        return True
+    return False
 
 def get_locations(): 
     config=open_conf()
@@ -196,7 +192,7 @@ def view():
     final_rev =  float(final) - (float(session.revenue/2))
     final_cost = cost - session.budget
     problemSimulator(session.test)
-    return dict(title='Team Splunke Game', saved=session.saved, amount=amount, final_rev=str("%.2f" % float(final_rev)), final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=str("%.0f" % cost), the_revenue=session.revenue, the_budget=str("%.0f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev=str("%.2f" % float(final_rev)), final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=str("%.0f" % cost), the_revenue=session.revenue, the_budget=str("%.0f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays):
     config=open_conf()
@@ -214,7 +210,7 @@ def open_conf():
 def view_game():
     responses = view_game_cal(session.estimate_day, session.test, session.day)
     session.estimate_day = responses[3]
-    return dict(title='Team Splunke Game', esti = session.estimate_day, completed="false", budget=str("%.0f" % session.budget), cost=str("%.0f" % responses[0]),  the_revenue=session.revenue, modules=responses[2], locations=responses[1],day=session.day)
+    return dict(title='Global Software Tycoon', esti = session.estimate_day, completed="false", budget=str("%.0f" % session.budget), cost=str("%.0f" % responses[0]),  the_revenue=session.revenue, modules=responses[2], locations=responses[1],day=session.day)
 
 def view_game_cal(estimate_day, test, day):
     modules = []
