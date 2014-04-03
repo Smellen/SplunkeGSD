@@ -146,21 +146,14 @@ def get_locations():
 
 def view():
     modules = []
-    statuses = {}
-    config = open_conf()
-    fromFile = config.items('Location')
-    for loc in fromFile:
-         name, pos = loc
-         name.rstrip()
-         statuses.update({name: ast.literal_eval(pos)})
+    location = get_locations()
     isComplete = True
     teamEstimatesAndProgresses = [["", "Actual", "Estimated"]]
     totEstimate = 0
     totActual = 0
     for team in session.test:
          team.applyEffort()
-         statuses[team.location].append(team.getStatus())
-         modules.append((team.location , team.currentModules, team.teamSize))
+         modules.append((team.location, team.currentModules, team.teamSize, team.getStatus(), location[team.location]))
          isComplete = isComplete and team.isFinished()
          for mod in team.currentModules:
              splitLoc = team.location.split(" ")
@@ -184,7 +177,6 @@ def view():
     cost = getTotalCost(session.test, session.day)
     budgetReport = [["Cost", str("%.2f" % cost), str("%.2f" % session.budget)]];
     revenueReport = [["Revenue", str("%.2f" % float(final)), str("%.2f" % (session.revenue/2))]];
-    location = list(statuses.values())
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
