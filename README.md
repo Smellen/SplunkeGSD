@@ -211,10 +211,12 @@ Released: 03/04/2014
 Implemented:
 - (Testing) Controllers/default.py has now been fully tested. Test coverage is now at 100%.
 
+
 Known Issues:
 - None
 
 Fixed Issues:
-- None
+- (Problem Simultator) For some games if there were too many problems it would cause the game to seemingly never end.
 
+- (Last day of game was not being counted) The last day was left out due to a rounding error. This issue is fixed and the game finishes on the correct day.
 
