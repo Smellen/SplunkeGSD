@@ -11,14 +11,13 @@ module = imp.load_source('module', 'controllers/classes/module.py')
 
 os.chdir('../..')
 
-
 class TestControllerDefault(unittest.TestCase):
 		
-	def testsave_game(self): 
+	def testsave_game(self):
 		report = [['', 'Actual', 'Estimated'], ['Dublin: Test Module', '234.7', '200'], ['Total Effort', '234.7', '200']]
 		budget = [['Cost', '7175.0', '8968.8']]
 		revenue = [['Revenue', '500000.0', '500000.0']]
-		files = [name for name in os.listdir('applications/SplunkeGSD/saved_game_reports')]
+		files = [name for name in os.listdir('applications/SplunkeGSD/saved_game_reports/.')]
 		blah = default.save_game_report_cal(report, budget, revenue)
 		new_files = [name for name in os.listdir('applications/SplunkeGSD/saved_game_reports/')]
 		self.assertTrue(len(new_files)-len(files) ==1)#check only one file is created
