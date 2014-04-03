@@ -92,7 +92,6 @@
 
 {{include 'web2py_ajax.html'}}
 {{ if completed != "true":}}
-<meta http-equiv="refresh" content="5" >
 {{pass}}
 <table width="60%" border="0" cellspacing="1" cellpadding="1"; >
     <tr>
@@ -153,16 +152,10 @@ function showDetails(event, loc){
     details.style.top = event.clientY + document.body.scrollTop;
     details.removeAttribute("hidden");
 }
-function hideDetails(event, loc){
-    var details = document.getElementById(loc+"details");
-    var left = parseInt(details.style.left, 10);
-    var top = parseInt(details.style.top, 10);
-    var width = parseInt(window.getComputedStyle(details, "width"), 10);
-    var height = parseInt(window.getComputedStyle(details, "height"), 10);
-    var test = left + width;
-    if (event.clientX < left || event.clientX > (left + 150/*Width of details*/) ||
-        event.clientY < top || event.clientY > (top + 200/*Height of details*/)){
-        details.setAttribute('hidden', '');
+function hideDetails(){
+    var details = document.getElementsByClassName("details");
+    for (i=0;i<details.length;i++){
+        details[i].setAttribute('hidden', '');
     }
 }
 function placeMarkers(){
@@ -232,7 +225,7 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 </script>
     
 <div style="position: absolute; z-index:100">
-    <img id="map" src="/SplunkeGSD/static/map.PNG"/> 
+    <img id="map" src="/SplunkeGSD/static/map.PNG" onclick='hideDetails()';/> 
 {{ for team in modules: }}
     {{if team[3][0] == 0:}}
         {{colour = "green"}}
@@ -247,9 +240,9 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 {{ pass }}
 {{for team in modules:}}
     </div>
-        <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;' onMouseOut='hideDetails(event, "{{=team[0]}}")' hidden>
+        <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;' hidden>
             <div class='detailsHead'> 
-                {{ =team[0].capitalize() }}
+                {{ =team[0].capitalize() }} <br/>
                 Team Size : {{=team[2]}}
             </div>
         <div class='detailsBody'>
