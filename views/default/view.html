@@ -15,15 +15,19 @@
         border-radius: 5px;
         background:black;
 }
+.details{
+    width:100px;
+    height:100px;
+    border:solid yellow 2px;
+}
 .detailsHead{
     background:yellow;
-    width:100px;
+    height:20px;
     text-align:center;
 }
-.details{
+.detailsBody{
     background:white;
-    padding:5px;
-    border:solid yellow 2px;
+    height:80px;
 }
 .endGame{
     position: absolute;
@@ -146,9 +150,17 @@ function showDetails(event, loc){
     details.style.top = event.clientY + document.body.scrollTop;
     details.removeAttribute("hidden");
 }
-function hideDetails(loc){
-    details = document.getElementById(loc+"details");
-    details.setAttribute('hidden', '');
+function hideDetails(event, loc){
+    var details = document.getElementById(loc+"details");
+    var left = parseInt(details.style.left, 10);
+    var top = parseInt(details.style.top, 10);
+    var width = parseInt(window.getComputedStyle(details, "width"), 10);
+    var height = parseInt(window.getComputedStyle(details, "height"), 10);
+    var test = left + width;
+    if (event.clientX < left || event.clientX > (left + 100/*Width of details*/) ||
+        event.clientY < top || event.clientY > (top + 100/*Height of details*/)){
+        details.setAttribute('hidden', '');
+    }
 }
 function placeMarkers(){
     var locs = [
@@ -232,11 +244,11 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 {{ pass }}
 {{for team in modules:}}
     </div>
-        <div id='{{=team[0]}}details' style='z-index:500;position:absolute;' onMouseOut='hideDetails("{{=team[0]}}")' hidden>
+        <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;' onMouseOut='hideDetails(event, "{{=team[0]}}")' hidden>
             <div class='detailsHead'> 
                 {{ =team[0].capitalize() }}
             </div>
-        <div class='details'/>
+        <div class='detailsBody'/>
     </div>
 {{ pass }}
 </body>
