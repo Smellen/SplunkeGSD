@@ -148,7 +148,7 @@ Fixed Issues:
 
 Release 1
 ==========
-Released: 13/06/2014
+Released: 13/03/2014
 
 Implemented:
 - (Feature 5) Nominal Schedule Calculator calculates how long until the end of a module. The nominal schedule is done by getting the sum of all the efforts estimated for each module, divided by a default developer period effort value.
@@ -171,7 +171,7 @@ Fixed Issues:
 
 Iteration 5
 ===========
-Released: 20/06/2014
+Released: 20/03/2014
 
 Implemented:
 - (Testing) Added tests for methods in controllers/default.py
@@ -188,7 +188,7 @@ Fixed Issues:
 
 Iteration 6
 ===========
-Released: 27/06/2014
+Released: 27/03/2014
 
 Implemented:
 - (Feature 8) Module Completion. Module task completetion calculator that determines how much effort each task for each module actually takes, based on 25% variation.
@@ -202,3 +202,22 @@ Known Issues:
 
 Fixed Issues:
 - (Revenue not returning correct value) End of game report now returns the correct revenue value.
+
+
+Iteration 7
+===========
+Released: 03/04/2014
+
+Implemented:
+- (Testing) Controllers/default.py has now been fully tested. Test coverage is now at 100%.
+
+- (Hovering on Map) Hovering over a site on the map displays Location, Team Size, Module Estimate and Module Actual Effort. The display disappears when the users on the map. 
+
+Known Issues:
+- None
+
+Fixed Issues:
+- (Problem Simultator) For some games if there were too many problems it would cause the game to seemingly never end.
+
+- (Last day of game was not being counted) The last day was left out due to a rounding error. This issue is fixed and the game finishes on the correct day.
+

@@ -128,11 +128,12 @@ def problemSimulator(listOfTeams):
     config = open_conf()
     prob = config.get('Problems', 'probability')
     if len(listOfTeams) > 0:
-        for team in listOfTeams:
-            for mod in team.currentModules:
-                tmp = random.random()
-                mod.hasProblem = (tmp >= float(prob))
-        return True
+        tmp = random.random()
+        if tmp > float(prob):
+            teamNum = int(random.random()*len(listOfTeams))
+            modNum = int(random.random()*len(listOfTeams[teamNum].currentModules))
+            listOfTeams[teamNum].currentModules[modNum].hadProblem = 1
+
     return False
 
 def get_locations(): 
