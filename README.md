@@ -211,6 +211,7 @@ Released: 03/04/2014
 Implemented:
 - (Testing) Controllers/default.py has now been fully tested. Test coverage is now at 100%.
 
+- (Hovering on Map) Hovering over a site on the map displays Location, Team Size, Module Estimate and Module Actual Effort. The display disappears when the users on the map. 
 
 Known Issues:
 - None

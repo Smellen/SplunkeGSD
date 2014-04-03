@@ -129,12 +129,10 @@ def problemSimulator(listOfTeams):
     prob = config.get('Problems', 'probability')
     if len(listOfTeams) > 0:
         tmp = random.random()
-        print tmp
         if tmp > float(prob):
             teamNum = int(random.random()*len(listOfTeams))
             modNum = int(random.random()*len(listOfTeams[teamNum].currentModules))
             listOfTeams[teamNum].currentModules[modNum].hadProblem = 1
-            print 'PROBLEM'
 
     return False
 
