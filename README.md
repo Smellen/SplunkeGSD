@@ -111,12 +111,62 @@ This file contains the following configuration settings:
 		- Select any game from list
 
 6. (Feature 14 End of Game Report) End of game report comparing estimates to actual performance; report can be saved.
-
+Upon completion of any game the report will be displayed.
+	- To see the end of game report:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Select any game from list
+		- Repeat clicking 'Next Day' until the end of game report appears
+	- The end of game report will display:
+		- Each modules actual effort and estimated effort
+		- Total actual effort and total estimated effort for all modules
+		- Actual cost and estimated cost of development
+		- Actual revenue and estimated revenue
+		- Actual days and estimated days to complete development
+		- Amount over budget (Cost - Budget)
+		- Difference in 6 monthly revenue
+		- Total money made in 6 months
+		- Ability to save end of game report
 
 7. (Feature 5 Nominal Calculator) The "nominal schedule" is just the sum of all the efforts estimated for each module, divided by a default developer-period effort value. 
-
+	- To see the nominal schedule calculator running:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Select any game from list
+		- On day 0 it will display estimated days for total development and the estimated days for each module
 
 8. (Feature 3 Game Score Calculator) Calculate game score as a function of budget and revenue.
+	- To see the game score calculator running:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Select any game from list
+		- Repeat clicking 'Next Day' until the end of game report appears
+		- On the end of game report a value will be shown in the 'Total money made in 6 months' section
+	
+9. (Feature 8 Module Completion calculator) Module-task completion calculator that determines how much effort each task for each module actually takes, based on random 25% variation.
+	- This is calculated at the beginning of the game 
+	- The variation can be seen in the difference between the actual and estimated effort required to finish a module displayed in the end of game report
+	- To see the game score calculator running:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Repeat clicking 'Next Day' until end of game report appears
+	
+10. (Feature 11 Problem Simulator) Problem simulator that occasionally selects a site or module to experience a problem, with probability determined by game parameters.
+	- The probability parameter is set in the application.config file under the [Problems] section as 'probability' 
+	- The probability value is in the range 0 to 1
+	- The default value is set at '0.85'
+	- To see the problem simulator running:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Repeat clicking 'Next Day' until end of game report appears
+		- The total number of problems that occured in each module are shown in the table 
+
+11. (Feature 7 Inquiry Interface) Interface to submit inquiries to a site about their progress.
+	- To see the inquiry interface running:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Click 'Next Day' 
+		- On the map hover over any team location
+		- Select any inquiry from the location context menu 
+		- Relevant information for particular inquiry is displayed
+
+12. (Feature 16 Intervention Interface) Intervention interface that allows the player to spend resources on interventions to correct or prevent problems.
+
+13. (Feature 15 Culture Influenced Reporting) Culture-influenced reporting that causes a site's status to be displayed according to the site's culture.
 
 Download Files
 ===============
