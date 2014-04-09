@@ -18,10 +18,10 @@
 .details{
     width: 150px;
     height:200px;
-    border:solid yellow 2px;
+    border:solid black 2px;
 }
 .detailsHead{
-    background:yellow;
+    background:black;
     height:40px;
     text-align:center;
 }
@@ -48,35 +48,35 @@
 .tableSiteName{
     background:yellow;
     text-align:center;
-    width: 100px;
+    width: 110px;
     overflow: hidden;
     border:solid black 2px;
 }
 .tableEffortTotal{
     background:pink;
     text-align:center;
-    width: 100px;
+    width: 110px;
     overflow: hidden;
     border:solid black 2px;
 }
 .tableBudgetTitle{
     background:magenta;
     text-align:center;
-    width: 100px;
+    width: 110px;
     overflow: hidden;
     border:solid black 2px;
 }
 .tableRevenueTitle{
     background:green;
     text-align:center;
-    width: 100px;
+    width: 110px;
     overflow: hidden;
     border:solid black 2px;
 }
 .tableModule{
     background:white;
-    width: 100px;
-    max-width: 100px;
+    width: 110px;
+    max-width: 110px;
     overflow: hidden;
     border:solid black 2px;
 }
@@ -226,22 +226,26 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
     
 <div style="position: absolute; z-index:100">
     <img id="map" src="/SplunkeGSD/static/map.PNG" onclick='hideDetails()';/> 
-{{ for team in modules: }}
-    {{if team[3][0] == 0:}}
+{{ def getColor(status): }}
+    {{if status == 0:}}
         {{colour = "green"}}
-    {{elif team[3][0] == 1:}}
+    {{elif status == 1:}}
         {{colour = "orange"}}
-    {{elif team[3][0] == 2:}}
+    {{elif status == 2:}}
         {{colour = "red"}}
     {{else:}}
         {{colour = "blue"}}
     {{pass}}
-    <div class='block' id='{{=team[0]}}marker' style='background:{{=colour}};' onMouseOver='showDetails(event, "{{=team[0]}}")'></div> 
+    {{return colour}}
+{{pass}}
+{{ for team in modules: }}
+    {{ color = getColor(team[3][0]) }}
+    <div class='block' id='{{=team[0]}}marker' style='background:{{=color}};' onMouseOver='showDetails(event, "{{=team[0]}}")'></div> 
 {{ pass }}
 {{for team in modules:}}
     </div>
-        <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;' hidden>
-            <div class='detailsHead'> 
+        <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;border-color:{{=color}};' hidden>
+            <div class='detailsHead' style="background:{{=color}};" > 
                 {{ =team[0].capitalize() }} <br/>
                 Team Size : {{=team[2]}}
             </div>
