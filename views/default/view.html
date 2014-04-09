@@ -261,8 +261,8 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
                 {{for module in team[1]:}}
                 <u>{{=module.name}}</u> <br/>Est. Eff. <strong>{{=module.estimateEffort}}</strong> person hrs<br/><br/>
                 {{pass}}
-                <div id='{{=team[0]}}emailResult' class='requestResult'>
-                        <button name="name" class='requestButton' onclick="ajax('{{=URL("emailQuery", args=[team[0]])}}', [], '{{=team[0]}}emailResult')">Send Email</button>
+                <div id='{{=team[0].replace(" ", "_")}}emailResult' class='requestResult'>
+                        <button name="name" class='requestButton' onclick="ajax('{{=URL("emailQuery", args=[team[0]])}}', [], '{{=team[0].replace(" ", "_")}}emailResult')">Send Email</button>
                 </div>
             </div>
         </div>
