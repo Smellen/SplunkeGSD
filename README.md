@@ -56,9 +56,74 @@ Please note that this must be run with the make script outside the application d
 To Test the Application
 --------------------------
 These instructions will test the application using the definded tests. 
-1. run 'make test'
+1. run 'make test' 
+This should be called in the installed directory $home/public_html/web2py/applications/SplunkeGSD
 Files and functions not testing in these tests are included in NOT_TESTED.csv
 
+
+Features
+========
+- 1. (Feature 0 README) README file containing instructions to build, install, test, and run the product. Each feature should be documented, in order shown in the backlog, with sufficient instructions to quickly see it working from the running application.
+The README.md file can be found in the root folder of the project. 
+  
+- 2. (Feature 17 Master Config) Master configuration (file) that specifies certain global values. 
+This application.config file is located in the root folder of the project.
+This file contains the following configuration settings:
+	- Map Dimensions
+	- Each city's coordinates on the map
+	- Developer Cost per day per city
+	- Daily development period (Ideal working hours per day)
+	- Geographic distance factor between cities
+	- Graphical distance interventions
+	- Temporal distance (How many similar working hours)
+	- Temporal distance interventions
+	- Cultural distance
+	- Cultural distance interventions
+	- Problem (Probability for a problem to occur)
+	- Percentage Delay for problem in each stage of development
+	- Cost of interventions
+
+
+- 3. (Feature 9 Process Simulator) Process simulator that calculates progress on each task for each module for each simulated day in the game.
+
+To see the process simulator running:
+	- Click 'Select Pre-defined Game' from the home menu
+	- Select any game from list
+	- Click 'Next Day' 
+	- See Day increment and total cost increase
+
+- 4. (Feature 6 Status Display) Map-based status display showing which sites are making normal progress, which are behind, which are failing.
+
+To see the status display running:
+	- Click 'Select Pre-defined Game' from the home menu
+	- Select any game from list
+	- Click 'Next Day' 
+	- The status of each site is displayed by the coloured dot at each site location. 
+	- Sites can be one of three colours
+		- Green: On Schedule
+		- Orange: Behind Schedule
+		- Red: Failure
+
+- 5. (Feature 20 Default Scenarios) Default game scenarios including pre-specified product and site configuration. 
+
+	- All default scenarios are stored in JSON format located in  ./scenarios. 
+
+	- To change any game scenario edit a JSON file. 
+
+	- To create a new game scenario add a new JSON file to the ./scenarios directory.
+
+To see a default scenario running:
+	- Click 'Select Pre-defined Game' from the home menu
+	- Select any game from list
+	
+
+- 6. (Feature 14 End of Game Report) End of game report comparing estimates to actual performance; report can be saved.
+
+
+- 7. (Feature 5 Nominal Calculator) The "nominal schedule" is just the sum of all the efforts estimated for each module, divided by a default developer-period effort value. 
+
+
+- 8. (Feature 3 Game Score Calculator) Calculate game score as a function of budget and revenue.
 
 Download Files
 ===============
@@ -69,13 +134,18 @@ The application is also able to be downloaded using a tar file at each release.
 - Iteration 2: http://pub.mmcgarr.me/team_splunke_iteration2.tar.gz
 - Iteration 3: http://pub.mmcgarr.me/team_splunke_iteration3.tar.gz
 - Release 1: http://pub.mmcgarr.me/team_splunke_release1.tar.gz
+- Iteration 5: http://pub.mmcgarr.me/team_splunke_iteration5.tar.gz
+- Iteration 6: http://pub.mmcgarr.me/team_splunke_iteration6.tar.gz
+- Iteration 7: http://pub.mmcgarr.me/team_splunke_iteration7.tar.gz
+- Release 2: http://pub.mmcgarr.me/team_splunke_release2.tar.gz
+
 
 Release 0
 ===========
 Released: 05/02/2014
 
 Implemented: 
-- (Feature 17) Master configuration (file) that specifies certain global values unlikely to change from one simulation to the next. This can be a simple configuration file in any human-readable/editable format (json, xml, yaml, ...)
+- (Feature 17) Master configuration (file) that specifies certain global values unlikely to change from one simulation to the next.
 
 The config file is located at ./application.config
 
