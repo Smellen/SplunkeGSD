@@ -85,37 +85,30 @@ This file contains the following configuration settings:
 
 
 3. (Feature 9 Process Simulator) Process simulator that calculates progress on each task for each module for each simulated day in the game.
-
 	- To see the process simulator running:
-	- Click 'Select Pre-defined Game' from the home menu
-	- Select any game from list
-	- Click 'Next Day' 
-	- See Day increment and total cost increase
+		- Click 'Select Pre-defined Game' from the home menu
+		- Select any game from list
+		- Click 'Next Day' 
+		- See Day increment and total cost increase
 
 4. (Feature 6 Status Display) Map-based status display showing which sites are making normal progress, which are behind, which are failing.
-
-* To see the status display running:
-* Click 'Select Pre-defined Game' from the home menu
-* Select any game from list
-* Click 'Next Day' 
-* The status of each site is displayed by the coloured dot at each site location. 
-* Sites can be one of three colours
-* Green: On Schedule
-* Orange: Behind Schedule
-* Red: Failure
+	- To see the status display running:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Select any game from list
+		- Click 'Next Day' 
+		- The status of each site is displayed by the coloured dot at each site location. 
+	- Sites can be one of three colours
+		- Green: On Schedule
+		- Orange: Behind Schedule
+		- Red: Failure
 
 5. (Feature 20 Default Scenarios) Default game scenarios including pre-specified product and site configuration. 
-
 	- All default scenarios are stored in JSON format located in  ./scenarios. 
-
 	- To change any game scenario edit a JSON file. 
-
 	- To create a new game scenario add a new JSON file to the ./scenarios directory.
-
 	- To see a default scenario running:
 		- Click 'Select Pre-defined Game' from the home menu
 		- Select any game from list
-	
 
 6. (Feature 14 End of Game Report) End of game report comparing estimates to actual performance; report can be saved.
 
