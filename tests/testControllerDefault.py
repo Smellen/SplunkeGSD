@@ -24,6 +24,14 @@ class TestControllerDefault(unittest.TestCase):
 		fil = list( set(new_files)- set(files))		
 		self.assertFalse(os.stat('applications/SplunkeGSD/saved_game_reports/'+str(fil[0])).st_size==0) 
 		os.remove('applications/SplunkeGSD/saved_game_reports/'+str(fil[0]))
+	
+	def testcalculatepfail(self): 
+		lt = ['dublin', 'san francisco', 'bangalore']
+		temp = default.calculatepfail(lt)
+		self.assertTrue(len(temp) == len(lt))
+		self.assertIsInstance(temp['dublin'][2], int)
+		self.assertIsInstance(temp['dublin'][0], float)
+		self.assertIsInstance(temp['dublin'][1], float)
 		
 	def testload_game_cal(self):
 		blah = default.load_game_cal("game1")
@@ -51,6 +59,13 @@ class TestControllerDefault(unittest.TestCase):
 		self.assertIsInstance(temp["data"], dict)
 		self.assertIsInstance(temp["result"], list) 
 		self.assertIsInstance(temp, dict)
+	
+	def testcalculateprob(self): 
+		val = {'dublin': [0,3,4]}
+		temp = default.calculateprob(val)
+		self.assertTrue(temp['dublin'][0] != 0)
+		self.assertTrue(temp['dublin'][1] == val['dublin'][1])
+		self.assertTrue(temp['dublin'][2] == val['dublin'][2])
 
 	def testview_game_cal(self): 
 		bob = team.team(10, 'dublin', 10)
