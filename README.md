@@ -63,10 +63,10 @@ Files and functions not testing in these tests are included in NOT_TESTED.csv
 
 Features
 ========
-- 1. (Feature 0 README) README file containing instructions to build, install, test, and run the product. Each feature should be documented, in order shown in the backlog, with sufficient instructions to quickly see it working from the running application.
+1. (Feature 0 README) README file containing instructions to build, install, test, and run the product. Each feature should be documented, in order shown in the backlog, with sufficient instructions to quickly see it working from the running application.
 The README.md file can be found in the root folder of the project. 
   
-- 2. (Feature 17 Master Config) Master configuration (file) that specifies certain global values. 
+2. (Feature 17 Master Config) Master configuration (file) that specifies certain global values. 
 This application.config file is located in the root folder of the project.
 This file contains the following configuration settings:
 	- Map Dimensions
@@ -84,7 +84,7 @@ This file contains the following configuration settings:
 	- Cost of interventions
 
 
-- 3. (Feature 9 Process Simulator) Process simulator that calculates progress on each task for each module for each simulated day in the game.
+3. (Feature 9 Process Simulator) Process simulator that calculates progress on each task for each module for each simulated day in the game.
 
 To see the process simulator running:
 	- Click 'Select Pre-defined Game' from the home menu
@@ -92,7 +92,7 @@ To see the process simulator running:
 	- Click 'Next Day' 
 	- See Day increment and total cost increase
 
-- 4. (Feature 6 Status Display) Map-based status display showing which sites are making normal progress, which are behind, which are failing.
+4. (Feature 6 Status Display) Map-based status display showing which sites are making normal progress, which are behind, which are failing.
 
 To see the status display running:
 	- Click 'Select Pre-defined Game' from the home menu
@@ -104,7 +104,7 @@ To see the status display running:
 		- Orange: Behind Schedule
 		- Red: Failure
 
-- 5. (Feature 20 Default Scenarios) Default game scenarios including pre-specified product and site configuration. 
+5. (Feature 20 Default Scenarios) Default game scenarios including pre-specified product and site configuration. 
 
 	- All default scenarios are stored in JSON format located in  ./scenarios. 
 
@@ -117,13 +117,13 @@ To see a default scenario running:
 	- Select any game from list
 	
 
-- 6. (Feature 14 End of Game Report) End of game report comparing estimates to actual performance; report can be saved.
+6. (Feature 14 End of Game Report) End of game report comparing estimates to actual performance; report can be saved.
 
 
-- 7. (Feature 5 Nominal Calculator) The "nominal schedule" is just the sum of all the efforts estimated for each module, divided by a default developer-period effort value. 
+7. (Feature 5 Nominal Calculator) The "nominal schedule" is just the sum of all the efforts estimated for each module, divided by a default developer-period effort value. 
 
 
-- 8. (Feature 3 Game Score Calculator) Calculate game score as a function of budget and revenue.
+8. (Feature 3 Game Score Calculator) Calculate game score as a function of budget and revenue.
 
 Download Files
 ===============
