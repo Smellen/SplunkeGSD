@@ -143,7 +143,7 @@
             </td>
             <td>
                   <h3>
-                      Expected Revenue: ${{=the_revenue/2}}
+                      Expected Revenue: ${{=str("{:,.2f}".format(float(the_revenue/2)))}}
                 </h3>
             </td>
     </tr>
@@ -216,9 +216,9 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
         + revenueR[i][1] + '</td><td class ="tableModule"> $' + revenueR[i][2] + '</td>';
     }
     internal += '<tr><td class="tableSiteName"> Days </td><td class="tableModule"> ' +{{=day}}+'</td><td class ="tableModule"> ' +{{=esti}}+' </td>';
-    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Amount over Budget </br> (Cost - Budget) </td><td class="tableModule"> $'+{{=str("%.2f" % float(final_cost))}}+'</td>'
-    internal += '<tr><td colspan="2" class="tableRevenueTitle"> Difference in 6 Monthly Revenue </br> (Estimate - Actual) </td><td class="tableModule"> $'+{{=final_rev}}+'</td>'
-    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Total Money Made in 6 Months </br> (Revenue + Budget) - Cost </td><td class="tableModule"> $'+{{=amount}}+'</td>'
+    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Amount over Budget </br> (Cost - Budget) </td><td class="tableModule"> $'+'{{=str("{:,.2f}".format(float(final_cost)))}}'+'</td>'
+    internal += '<tr><td colspan="2" class="tableRevenueTitle"> Difference in 6 Monthly Revenue </br> (Actual - Estimate) </td><td class="tableModule"> $'+'{{=final_rev}}'+'</td>'
+    internal += '<tr><td colspan="2" class="tableBudgetTitle"> Total Money Made in 6 Months </br> (Revenue + Budget) - Cost </td><td class="tableModule"> $'+'{{=amount}}'+'</td>'
     internal += '<tr><td colspan="3" class="tableModule"><FORM METHOD="LINK" ACTION="save_game_report"><INPUT TYPE="submit" VALUE="Save Game Report"></FORM></td></tr>';
 
     if ({{=saved}}){
@@ -254,12 +254,12 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
     </div>
         <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;border-color:{{=color}};' hidden>
             <div class='detailsHead' id='{{=team[0]}}detailsHead' style="background:{{=color}};" > 
-                {{ =team[0].capitalize() }} <br/>
-                Team Size : {{=team[2]}}
+                <strong>{{ =team[0].capitalize() }} <br/>
+                Team Size : {{=team[2]}} </strong>
             </div>
             <div class='detailsBody' id='{{=team[0]}}detailsBody'>
                 {{for module in team[1]:}}
-                    {{=module.name}} <br/>Est. Eff. {{=module.estimateEffort}} person hrs<br/><br/>
+                <u>{{=module.name}}</u> <br/>Est. Eff. <strong>{{=module.estimateEffort}}</strong> person hrs<br/><br/>
                 {{pass}}
                 <div id='{{=team[0]}}emailResult' class='requestResult'>
                         <button name="name" class='requestButton' onclick="ajax('{{=URL("emailQuery", args=[team[0]])}}', [], '{{=team[0]}}emailResult')">Send Email</button>

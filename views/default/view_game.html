@@ -85,7 +85,7 @@
              </h3>
         </td>
         <td>
-             <h3> Budget: ${{=budget}}
+             <h3> Budget: ${{=str("{:,.2f}".format(float(budget)))}}
              </h3>
         </td>
             <td>
@@ -95,7 +95,7 @@
             </td>
             <td>
                   <h3>
-                      Expected Revenue: ${{=the_revenue/2}}
+                      Expected Revenue: ${{=str("{:,.2f}".format(float(the_revenue/2)))}}
                 </h3>
             </td>
     </tr>
