@@ -20,6 +20,39 @@ import random
 
 random.seed()
 
+def calculatepfail(listofteams, home="Dublin"):
+    conf = open_conf()
+    const = float(conf.get('Problems', 'probability'))
+    prob = {}
+    for team in listofteams:
+        prob[team] = []
+        if team.lower() != home.lower():
+            value = json.loads(conf.get('Global - '+home, team))
+            fail = value[0] + value[1]
+            for val in value[2]:
+                fail = fail + val
+            temp = 1 + fail
+            p_fail = fail / temp
+            p_fail = p_fail * const
+            prob[team].append(p_fail) #original p_fail
+            prob[team].append(p_fail) #original p_fail
+            prob[team].append(0) #i_j
+        else:
+            prob[team] = []
+            prob[team].append(0.85)
+            prob[team].append(0.85)
+            prob[team].append(0)
+    return prob
+
+def calculateprob(teamprob): #probablility for home? {'location':[prob, org p_fail, i_j ]}
+    for team in teamprob: #recalculates for each
+        values = teamprob[team]
+        temp = 1 + values[2]
+        i = values[2] / temp
+        temp1 = values[1]*i
+        teamprob[team][0] = temp1
+    return teamprob
+
 def new_game(): # acts like initialisation. session.variablename allows the variable to be accessed between refreshes.
     new_game_cal()
     redirect(URL('view_game'))
@@ -33,6 +66,8 @@ def new_game_cal():
     session.pre = "false"
     session.saved = "false"
     session.first = False
+    loct = [x.location for x in session.test]
+    session.prob= calculatepfail(loct)
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     new_team.calcDaysLeft()
@@ -136,7 +171,7 @@ def problemSimulator(listOfTeams):
 
     return False
 
-def get_locations(): 
+def get_locations():
     config=open_conf()
     fromFile = config.items('Location')
     locations = {}
@@ -269,6 +304,8 @@ def load_game_cal(other_file_id):
         session.first = False
         session.revenue = data['Game']['expected_revenue']
         projectType = data['Game']+['projectType']
+        loct = [x.location for x in session.test]
+        session.prob= calculatepfail(loct)
     except:
         pass
     for te in data['Game']['Teams']:
