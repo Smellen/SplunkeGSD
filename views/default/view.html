@@ -244,14 +244,14 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 {{ pass }}
 {{for team in modules:}}
     </div>
-        <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;border-color:{{=color}};' hidden>
-            <div class='detailsHead' style="background:{{=color}};" > 
+        <div class="details" id='{{=team[0]}}details' style='z-index:500;position:absolute;border-color:{{=getColor(team[3][0])}};' hidden>
+            <div class='detailsHead' style="background:{{=getColor(team[3][0])}};" > 
                 {{ =team[0].capitalize() }} <br/>
                 Team Size : {{=team[2]}}
             </div>
         <div class='detailsBody'>
             {{for module in team[1]:}}
-                {{=module.name}} <br/>Est. Eff. {{=module.estimateEffort}} person hrs<br/><br/>
+                <u>{{=module.name}}</u> <br/>Est. Eff. <strong>{{=module.estimateEffort}}</strong> person hrs<br/><br/>
             {{pass}}
         </div>
     </div>
