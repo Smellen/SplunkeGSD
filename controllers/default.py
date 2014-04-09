@@ -169,7 +169,7 @@ def view():
     complete = "true" if isComplete else "false"
     if complete == "false":
         session.day += 1
-        final = 0
+        final = [0,0]
     else:
         if session.first == False:
             session.day += 1
