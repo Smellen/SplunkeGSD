@@ -182,10 +182,10 @@ def view():
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
     amount = str("{:,.2f}".format(((float(final[1]) + float(session.budget)) - float(cost))))
-    final_rev =  float(final[1]) - (float(session.revenue/2))
+    final_rev =  str("{:,.2f}".format(float(final[1]) - (float(session.revenue/2))))
     final_cost = cost - session.budget
     problemSimulator(session.test)
-    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev= str("{:,.2f}".format(float(final_rev))), final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev= final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays):
     config=open_conf()
