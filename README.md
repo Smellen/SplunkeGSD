@@ -87,10 +87,10 @@ This file contains the following configuration settings:
 3. (Feature 9 Process Simulator) Process simulator that calculates progress on each task for each module for each simulated day in the game.
 
 	- To see the process simulator running:
-		- Click 'Select Pre-defined Game' from the home menu
-		- Select any game from list
-		- Click 'Next Day' 
-		- See Day increment and total cost increase
+	- Click 'Select Pre-defined Game' from the home menu
+	- Select any game from list
+	- Click 'Next Day' 
+	- See Day increment and total cost increase
 
 4. (Feature 6 Status Display) Map-based status display showing which sites are making normal progress, which are behind, which are failing.
 
