@@ -82,13 +82,13 @@ def getFinalRevenue(listOfTeams, revenue=None, days=None, estimate_days=None):
         rev = session.revenue
         day = session.day
         esti = session.estimate_day
-    if int(day) > int(esti):
-        num_days_late = int(day)-int(esti)
-        temp = 6 - float((num_days_late/30))
-        temp1 = float(rev/12)
-        return str("%.2f" % (float(temp*temp1)))
-    else:
-        return str(rev/2)
+    #if int(day) > int(esti):
+    num_days_late = int(day)-int(esti)
+    temp = 6 - float((num_days_late/30))
+    temp1 = float(rev/12)
+    return [str("{:,.2f}".format(float(temp*temp1))), float(temp*temp1)]
+    #else:
+    #    return str(rev/2)
 
 def getExpectedBudget(listOfTeams):
     config=open_conf()
@@ -171,21 +171,21 @@ def view():
         session.day += 1
         final = 0
     else:
-        if session.first == False: 
+        if session.first == False:
             session.day += 1
             session.first = True
         final = getFinalRevenue(session.test)
     cost = getTotalCost(session.test, session.day)
-    budgetReport = [["Cost", str("%.2f" % cost), str("%.2f" % session.budget)]];
-    revenueReport = [["Revenue", str("%.2f" % float(final)), str("%.2f" % (session.revenue/2))]];
+    budgetReport = [["Cost", str("{:,.2f}".format(float(cost))) , str("{:,.2f}".format(float(session.budget)))]]
+    revenueReport = [["Revenue", str(final[0]), str("{:,.2f}".format(float(session.revenue/2)))]]
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
-    amount = str("%.2f" % ((float(final) + float(session.budget)) - float(cost)))
-    final_rev =  float(final) - (float(session.revenue/2))
+    amount = str("{:,.2f}".format(((float(final[1]) + float(session.budget)) - float(cost))))
+    final_rev =  float(final[1]) - (float(session.revenue/2))
     final_cost = cost - session.budget
     problemSimulator(session.test)
-    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev=str("%.2f" % float(final_rev)), final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final,  cost=str("%.0f" % cost), the_revenue=session.revenue, the_budget=str("%.0f" % session.budget), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev= str("{:,.2f}".format(float(final_rev))), final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays):
     config=open_conf()

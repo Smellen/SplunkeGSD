@@ -85,11 +85,9 @@ class TestControllerDefault(unittest.TestCase):
 		bob.addModule(mod2)
 		bob.applyEffort()
 		revenue = default.getFinalRevenue([bob], 1000000, 1, 2)
-		self.assertIsInstance(revenue, str)
+		self.assertIsInstance(revenue[0], str)
+		self.assertIsInstance(revenue[1],float)
 		self.assertNotEqual(revenue, '')
-
-		tmp = float(revenue)
-		self.assertIsInstance(tmp, float)
 
 	def testgetExpectedBudget(self):
 		bob = team.team(10, 'dublin', 10)
