@@ -86,7 +86,7 @@ This file contains the following configuration settings:
 
 3. (Feature 9 Process Simulator) Process simulator that calculates progress on each task for each module for each simulated day in the game.
 
-	To see the process simulator running:
+	- To see the process simulator running:
 		- Click 'Select Pre-defined Game' from the home menu
 		- Select any game from list
 		- Click 'Next Day' 
@@ -94,7 +94,7 @@ This file contains the following configuration settings:
 
 4. (Feature 6 Status Display) Map-based status display showing which sites are making normal progress, which are behind, which are failing.
 
-	To see the status display running:
+	- To see the status display running:
 		- Click 'Select Pre-defined Game' from the home menu
 		- Select any game from list
 		- Click 'Next Day' 
@@ -112,7 +112,7 @@ This file contains the following configuration settings:
 
 	- To create a new game scenario add a new JSON file to the ./scenarios directory.
 
-	To see a default scenario running:
+	- To see a default scenario running:
 		- Click 'Select Pre-defined Game' from the home menu
 		- Select any game from list
 	
