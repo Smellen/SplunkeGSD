@@ -94,15 +94,15 @@ This file contains the following configuration settings:
 
 4. (Feature 6 Status Display) Map-based status display showing which sites are making normal progress, which are behind, which are failing.
 
-	* To see the status display running:
-		* Click 'Select Pre-defined Game' from the home menu
-		* Select any game from list
-		* Click 'Next Day' 
-		* The status of each site is displayed by the coloured dot at each site location. 
-		* Sites can be one of three colours
-			* Green: On Schedule
-			* Orange: Behind Schedule
-			* Red: Failure
+* To see the status display running:
+* Click 'Select Pre-defined Game' from the home menu
+* Select any game from list
+* Click 'Next Day' 
+* The status of each site is displayed by the coloured dot at each site location. 
+* Sites can be one of three colours
+* Green: On Schedule
+* Orange: Behind Schedule
+* Red: Failure
 
 5. (Feature 20 Default Scenarios) Default game scenarios including pre-specified product and site configuration. 
 
