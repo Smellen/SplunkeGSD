@@ -323,7 +323,8 @@ def load_game_cal(other_file_id):
     return data
 
 def emailQuery():
-    for team in [x for x in session.test if x.location == request.args[0]]:
+    tmp = request.args[0].replace("_", " ")
+    for team in [x for x in session.test if x.location == tmp]:
         if team.getStatus() == [0]:
             return "Yes"
         else:
