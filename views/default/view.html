@@ -187,9 +187,9 @@ function queryHandler(loc){
     var select = document.getElementById(loc+'queries');
     var requestType = select.options[select.selectedIndex].id;
     var thediv = document.createElement('DIV');
-    thediv.name = loc+'requestResult';
+    thediv.id = loc+'requestResult';
     thediv.innerHTML = 'HI!!'
-    ajax('{{=URL('handleQuery')}}'+'/'+requestType+'/'+loc.replace(' ','_'),[],thediv);
+    ajax('{{=URL("handleQuery")}}'+'/'+requestType+'/'+(loc.replace(' ','_')),[],thediv.id);
     document.getElementById('requestResults').appendChild(thediv);
 }
 function mapSetup()
@@ -273,9 +273,9 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
                 {{pass}}
                 <div id='{{=team[0]}}request'>
 			<select id='{{=team[0]}}queries' style='width:120px'>
-                             <option id="sendEmail1">Send Email1</option>
-                             <option id="sendEmail2">Send Email2</option>
-                             <option id="sendEmail3">Send Email3</option>
+                             <option id="email1">Send Email1</option>
+                             <option id="email2">Send Email2</option>
+                             <option id="email3">Send Email3</option>
                              <option id="holdVideoConference">Hold Video Conference</option>
                              <option id="makeSiteVisit">Make Site Visit</option>
                         </select>
