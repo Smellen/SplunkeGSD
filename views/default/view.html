@@ -34,8 +34,8 @@
 .requestResult{
     position:relative;
     left:50%;
-    width:100px;
-    margin-left:-50px;
+    width:500px;
+    margin-left:-250px;
 }
 .endGame{
     position: absolute;
@@ -183,6 +183,18 @@ function placeMarkers(){
         markers[i].style.left = locs[i][0] * scale - 5;
     }
 }
+function queryHandler(loc){
+    var select = document.getElementById(loc+'queries');
+    var requestType = select.options[select.selectedIndex].id;
+    var thediv = document.getElementById(loc.replace(' ','_')+'requestResult');
+    if (!thediv){
+        var thediv = document.createElement('DIV');
+        thediv.id = loc.replace(' ','_')+'requestResult';
+    }
+    thediv.innerHTML = 'HI!!'
+    ajax('{{=URL("handleQuery")}}'+'/'+requestType+'/'+(loc.replace(' ','_')),[],thediv.id);
+    document.getElementById('requestResults').appendChild(thediv);
+}
 function mapSetup()
 {
 var w = window.innerWidth;
@@ -232,6 +244,7 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 
 </script>
     
+<div id='requestResults' style=''></div>
 <div style="position: absolute; z-index:100">
     <img id="map" src="/SplunkeGSD/static/map.PNG" onclick='hideDetails()';/> 
 {{ def getColor(status): }}
@@ -261,8 +274,15 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
                 {{for module in team[1]:}}
                 <u>{{=module.name}}</u> <br/>Est. Eff. <strong>{{=module.estimateEffort}}</strong> person hrs<br/><br/>
                 {{pass}}
-                <div id='{{=team[0].replace(" ", "_")}}emailResult' class='requestResult'>
-                        <button name="name" class='requestButton' onclick="ajax('{{=URL("emailQuery", args=[team[0]])}}', [], '{{=team[0].replace(" ", "_")}}emailResult')">Send Email</button>
+                <div id='{{=team[0]}}request'>
+			<select id='{{=team[0]}}queries' style='width:120px'>
+                             <option id="email1">Send Email1</option>
+                             <option id="email2">Send Email2</option>
+                             <option id="email3">Send Email3</option>
+                             <option id="holdVideoConference">Hold Video Conference</option>
+                             <option id="makeSiteVisit">Make Site Visit</option>
+                        </select>
+			<input type="button" value="Inquire" onClick="queryHandler('{{=team[0]}}')"></input>
                 </div>
             </div>
         </div>
