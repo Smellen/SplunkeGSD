@@ -206,6 +206,7 @@ function queryHandler(loc){
     thediv.innerHTML = 'HI!!'
     thediv.setAttribute('onclick',"hide('"+thediv.id+"')");
     ajax('{{=URL("handleQuery")}}'+'/'+requestType+'/'+(loc.replace(' ','_')),[],thediv.id);
+    thediv.removeAttribute('hidden');
     document.getElementById('requestResults').appendChild(thediv);
 }
 function hide(id){
