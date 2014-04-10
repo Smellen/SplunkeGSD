@@ -333,10 +333,12 @@ def handleQuery():
 
 def emailQuery(location):
     tmp = location.replace("_", " ")
+    print "After replacing: " + tmp 
     lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
-    if location in lst:
+    if tmp in lst:
         return "Yes, on schedule"
     for team in [x for x in session.test if x.location == tmp]:
+
         if team.getStatus() == [0]:
             return "Yes, on schedule"
         else:
@@ -346,7 +348,7 @@ def emailModuleReport(location):
 	tmp = location.replace("_", " ")	
 	lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	outList = []
-	if location in lst:
+	if tmp in lst:
 		for team in [x for x in session.test if x.location == tmp]:
 			for mod in team.currentModules:
 				outList.append((mod.name, "Yes, on schedule"))
@@ -363,4 +365,18 @@ def emailModuleReport(location):
 
 def emailCompletedTasks(location):
 	tmp = location.replace("_", " ")
+	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
+	outList = []	
+
+	for team in [x for x in session.test if x.location == tmp]:
+		for mod in team.currentModules:
+			stage = mod.getProgress()
+			if stage != "Complete":
+				for i in range(len(tasks)):
+					if stage == tasks[i]:
+						if i == 0:
+							outList.append((mod.name, "No tasks complete"))
+						else:
+							outList.append((mod.name, tasks[1-1]))
+	return outList
 
