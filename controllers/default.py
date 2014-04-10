@@ -39,7 +39,7 @@ def calculatepfail(listofteams, home="Dublin"):
             prob[team].append(p_fail) #original p_fail
             prob[team].append(0) #i_j
         else:
-            value = int(conf.get('Problems', 'home_prob'))
+            value = float(conf.get('Problems', 'home_prob'))
             prob[team] = []
             prob[team].append(value)
             prob[team].append(value)
