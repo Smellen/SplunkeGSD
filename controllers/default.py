@@ -391,6 +391,13 @@ def load_game_cal(other_file_id):
             pass
     return data
 
+def queryCost(cost, sess_cost):
+    config=open_conf()
+    cost_of_dev = config.get('Developer', 'Cost_Per_Day')
+    number_of_devs = cost
+    return sess_cost + (number_of_devs * float(cost_of_dev))
+
+
 def handleQuery():
 	queryType = request.args[0]
 	location = request.args[1]
@@ -399,31 +406,35 @@ def handleQuery():
 	elif queryType == "email2":
 		return emailModuleReport(location)
 	elif queryType == "email3":
-		return holdVideoConfrence(location)
-
+		return emailCompletedTasks(location)
+	elif queryType == "holdVideoConference":
+		return holdVideoConference(location)
+	elif queryType == "makeSiteVisit":
+		return makeSiteVisit(location)	
 
 def emailQuery(location):
     tmp = location.replace("_", " ")
     lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
     if tmp in lst:
-        return "Yes, on schedule"
+        return location.capitalize() + "Yes, on schedule"
     for team in [x for x in session.test if x.location == tmp]:
 
         if team.getStatus() == [0]:
-            return "Yes, on schedule"
+            return location.capitalize() +": Yes, on schedule"
         else:
-            return "Not on schedule"
+            return location.capitalize() +": Not on schedule"
 
 def emailModuleReport(location):
 	tmp = location.replace("_", " ")	
 	lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	outList = []
+	session.cost = queryCost(0.1, session.cost)
 	if tmp in lst:
 		for team in [x for x in session.test if x.location == tmp]:
 			for mod in team.currentModules:
 				outList.append([mod.name, "Yes, on schedule"])
 		#return str(outList)
-	        return TABLE(*[TR(*rows) for rows in outList])
+	        return TABLE(TR(location), **[TR(*rows) for rows in outList])
 	for team in [x for x in session.test if x.location == tmp]:
 		for mod in team.currentModules:
 			if mod.progress >= mod.actualEffort:
@@ -432,13 +443,13 @@ def emailModuleReport(location):
 				outList.append([mod.name, "Behind Schedule"])
 			else:
 				outList.append([mod.name, "On schedule"])
-	#print TABLE(*[TR(*rows) for rows in outList])
-	return TABLE(*[TR(*rows) for rows in outList])
+	return TABLE(TR(location.capitalize() + ":"), *[TR(*rows) for rows in outList])
 
 def emailCompletedTasks(location):
 	tmp = location.replace("_", " ")
 	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
 	outList = []	
+	session.cost = queryCost(0.5, session.cost)
 
 	for team in [x for x in session.test if x.location == tmp]:
 		for mod in team.currentModules:
@@ -451,27 +462,46 @@ def emailCompletedTasks(location):
 						else:
 							outList.append([mod.name, tasks[i-1]])
 	#return str(outList)
-	return TABLE(*[TR(*rows) for rows in outList])
+	return TABLE(TR(location.capitalize() + ":"), *[TR(*rows) for rows in outList])
 
-def holdVideoConfrence(location):
+def holdVideoConference(location):
+	tmp = location.replace("_", " ")
 	russianAsianLocations = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
-	if location not in russianAsianLocations:
+	outList = []
+	session.cost = queryCost(2, session.cost)
+	if location in russianAsianLocations:
+		for team in [x for x in session.test if x.location == tmp]:
+			for mod in team.currentModules:
+				if random.random() > 0.5:
+					stage = mod.getProgress()
+					if stage != "Complete":
+						for i in range(len(tasks)):
+							if stage == tasks[i]:
+								if i == 0:
+									outList.append([mod.name, "No tasks complete"])
+								else:
+									outList.append([mod.name, tasks[i-1]])
+				else:
+					taskNum = int(random.random() * len(tasks))
+					outList.append([mod.name, tasks[taskNum]])
+		return TABLE(*[TR(*rows) for rows in outList])
+	else:	
 		return emailCompletedTasks(location)
+
+def makeSiteVisit(location):
+	tmp = location.replace("_", " ")
+	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
+	outList = []
 
 	for team in [x for x in session.test if x.location == tmp]:
 		for mod in team.currentModules:
-			if random.random() > 0.5:
-				stage = mod.getProgress()
-				if stage != "Complete":
-					for i in range(len(tasks)):
-						if stage == tasks[i]:
-							if i == 0:
-								outList.append([mod.name, "No tasks complete"])
-							else:
-								outList.append([mod.name, tasks[i-1]])
+			if mod.progress >= mod.actualEffort:
+				outList.append([mod.name, "Completed"])
+			elif mod.progress > mod.estimateEffort: 
+				outList.append([mod.name, "Behind Schedule"])
 			else:
-				taskNum = int(random.random() * len(tasks))
-				outList.append((mod.name, tasks[taskNum]))
-	#return str(outList)
-	return TABLE(*[TR(*rows) for rows in outList])
+				outList.append([mod.name, "On schedule"])
+	session.cost = queryCost(7, session.cost)
+
+	return TABLE(TR(location.capitalize() + ":"), *[TR(*rows) for rows in outList])
