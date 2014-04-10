@@ -399,7 +399,6 @@ def handleQuery():
 
 def emailQuery(location):
     tmp = location.replace("_", " ")
-    print "After replacing: " + tmp 
     lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
     if tmp in lst:
         return "Yes, on schedule"
@@ -417,17 +416,19 @@ def emailModuleReport(location):
 	if tmp in lst:
 		for team in [x for x in session.test if x.location == tmp]:
 			for mod in team.currentModules:
-				outList.append((mod.name, "Yes, on schedule"))
-		return outList
+				outList.append([mod.name, "Yes, on schedule"])
+		#return str(outList)
+	        return TABLE(*[TR(*rows) for rows in outList])
 	for team in [x for x in session.test if x.location == tmp]:
 		for mod in team.currentModules:
 			if mod.progress >= mod.actualEffort:
-				outList.append((mod.name, "Finished"))
+				outList.append([mod.name, "Finished"])
 			elif mod.progress > mod.estimateEffort: 
-				outList.append((mod.name, "Behind Schedule"))
+				outList.append([mod.name, "Behind Schedule"])
 			else:
-				outList.append((mod.name, "On schedule"))
-	return str(outList)
+				outList.append([mod.name, "On schedule"])
+	#print TABLE(*[TR(*rows) for rows in outList])
+	return TABLE(*[TR(*rows) for rows in outList])
 
 def emailCompletedTasks(location):
 	tmp = location.replace("_", " ")
@@ -441,10 +442,11 @@ def emailCompletedTasks(location):
 				for i in range(len(tasks)):
 					if stage == tasks[i]:
 						if i == 0:
-							outList.append((mod.name, "No tasks complete"))
+							outList.append([mod.name, "No tasks complete"])
 						else:
-							outList.append((mod.name, tasks[1-1]))
-	return str(outList)
+							outList.append([mod.name, tasks[i-1]])
+	#return str(outList)
+	return TABLE(*[TR(*rows) for rows in outList])
 
 def holdVideoConfrence(location):
 	russianAsianLocations = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
@@ -460,11 +462,12 @@ def holdVideoConfrence(location):
 					for i in range(len(tasks)):
 						if stage == tasks[i]:
 							if i == 0:
-								outList.append((mod.name, "No tasks complete"))
+								outList.append([mod.name, "No tasks complete"])
 							else:
-								outList.append((mod.name, tasks[i-1]))
+								outList.append([mod.name, tasks[i-1]])
 			else:
 				taskNum = int(random.random() * len(tasks))
 				outList.append((mod.name, tasks[taskNum]))
-	return str(outList)
+	#return str(outList)
+	return TABLE(*[TR(*rows) for rows in outList])
 
