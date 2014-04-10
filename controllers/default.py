@@ -355,7 +355,7 @@ def emailModuleReport(location):
 		for team in [x for x in session.test if x.location == tmp]:
 			for mod in team.currentModules:
 				outList.append((mod.name, "Yes, on schedule"))
-		return outList
+		return str(outList)
 	for team in [x for x in session.test if x.location == tmp]:
 		for mod in team.currentModules:
 			if mod.progress >= mod.actualEffort:
@@ -380,7 +380,7 @@ def emailCompletedTasks(location):
 						if i == 0:
 							outList.append((mod.name, "No tasks complete"))
 						else:
-							outList.append((mod.name, tasks[1-1]))
+							outList.append((mod.name, tasks[i-1]))
 	return str(outList)
 
 def holdVideoConfrence(location):
