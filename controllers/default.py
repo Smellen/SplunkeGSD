@@ -359,6 +359,7 @@ def emailModuleReport(location):
 				outList.append((mod.name, "Behind Schedule"))
 			else:
 				outList.append((mod.name, "On schedule"))
+	return outList
 
 def emailCompletedTasks(location):
 	tmp = location.replace("_", " ")
