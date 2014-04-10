@@ -403,7 +403,7 @@ def handleQuery():
 	queryType = request.args[0]
 	location = request.args[1]
 	if queryType == "email1":
-		return emailQuery(location)
+		return emailQuery(location, session.test)
 	elif queryType == "email2":
 		return emailModuleReport(location)
 	elif queryType == "email3":
@@ -413,30 +413,30 @@ def handleQuery():
 	elif queryType == "makeSiteVisit":
 		return makeSiteVisit(location)	
 
-def emailQuery(location):
+def emailQuery(location, teams):
     tmp = location.replace("_", " ")
     lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
     if tmp in lst:
         return location.capitalize() + "Yes, on schedule"
-    for team in [x for x in session.test if x.location == tmp]:
+    for team in [x for x in teams if x.location == tmp]:
 
         if team.getStatus() == [0]:
             return location.capitalize() +": Yes, on schedule"
         else:
             return location.capitalize() +": Not on schedule"
 
-def emailModuleReport(location):
+def emailModuleReport(location, teams):
 	tmp = location.replace("_", " ")	
 	lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	outList = []
 	session.cost = queryCost(0.1, session.cost)
 	if tmp in lst:
-		for team in [x for x in session.test if x.location == tmp]:
+		for team in [x for x in teams if x.location == tmp]:
 			for mod in team.currentModules:
 				outList.append([mod.name, "Yes, on schedule"])
 		#return str(outList)
 	        return TABLE(TR(location), **[TR(*rows) for rows in outList])
-	for team in [x for x in session.test if x.location == tmp]:
+	for team in [x for x in teams if x.location == tmp]:
 		for mod in team.currentModules:
 			if mod.progress >= mod.actualEffort:
 				outList.append([mod.name, "Finished"])
