@@ -180,6 +180,10 @@ Upon completion of any game the report will be displayed.
 		- From the site context menu select 'Send Email' and press 'Inquire' 
 		- The site will report back that it is on schedule
 
+
+Note: Home Problem Probablity is in (and can be changed in) the config file [Problems] -> home_prob
+		
+
 Download Files
 ===============
 
