@@ -210,16 +210,17 @@ def show_saved_reports():
     return dict (title='Saved End of Game Reports', result2=details)
 
 
-def problemSimulator(listOfTeams):
+def problemSimulator(listOfTeams, sprob):
     config = open_conf()
     prob = config.get('Problems', 'probability')
     if len(listOfTeams) > 0:
-        tmp = random.random()
-        if tmp > float(prob):
-            teamNum = int(random.random()*len(listOfTeams))
-            modNum = int(random.random()*len(listOfTeams[teamNum].currentModules))
-            listOfTeams[teamNum].currentModules[modNum].hadProblem = 1
-
+        for loc in sprob:
+            tmp = random.random()
+            if tmp < float(sprob[loc][0]):
+                print "PROBLEM - " + str(loc).upper()
+                teamNum = int(random.random()*len(listOfTeams))
+                modNum = int(random.random()*len(listOfTeams[teamNum].currentModules))
+                listOfTeams[teamNum].currentModules[modNum].hadProblem = 1
     return False
 
 def get_locations():
@@ -257,6 +258,7 @@ def view():
         session.day += 1
         final = [0,0]
         session.cost = getTotalCost(session.test, 1, session.cost)
+        problemSimulator(session.test, session.prob)
     else:
         if session.first == False:
             session.day += 1
@@ -271,7 +273,6 @@ def view():
     amount = str("{:,.2f}".format(((float(final[1]) + float(session.budget)) - float(session.cost))))
     final_rev =  str("{:,.2f}".format(float(final[1]) - (float(session.revenue/2))))
     final_cost = session.cost - session.budget
-    problemSimulator(session.test)
     return dict(title='Global Software Tycoon', saved=session.saved, the_inter = session.intervention, amount=amount, final_rev= final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(session.cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays, totalcost):
@@ -402,7 +403,7 @@ def handleQuery():
 	queryType = request.args[0]
 	location = request.args[1]
 	if queryType == "email1":
-		return emailQuery(location)
+		return emailQuery(location, session.test)
 	elif queryType == "email2":
 		return emailModuleReport(location)
 	elif queryType == "email3":
@@ -412,30 +413,30 @@ def handleQuery():
 	elif queryType == "makeSiteVisit":
 		return makeSiteVisit(location)	
 
-def emailQuery(location):
+def emailQuery(location, teams):
     tmp = location.replace("_", " ")
     lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
     if tmp in lst:
         return location.capitalize() + "Yes, on schedule"
-    for team in [x for x in session.test if x.location == tmp]:
+    for team in [x for x in teams if x.location == tmp]:
 
         if team.getStatus() == [0]:
             return location.capitalize() +": Yes, on schedule"
         else:
             return location.capitalize() +": Not on schedule"
 
-def emailModuleReport(location):
+def emailModuleReport(location, teams):
 	tmp = location.replace("_", " ")	
 	lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	outList = []
 	session.cost = queryCost(0.1, session.cost)
 	if tmp in lst:
-		for team in [x for x in session.test if x.location == tmp]:
+		for team in [x for x in teams if x.location == tmp]:
 			for mod in team.currentModules:
 				outList.append([mod.name, "Yes, on schedule"])
 		#return str(outList)
 	        return TABLE(TR(location), **[TR(*rows) for rows in outList])
-	for team in [x for x in session.test if x.location == tmp]:
+	for team in [x for x in teams if x.location == tmp]:
 		for mod in team.currentModules:
 			if mod.progress >= mod.actualEffort:
 				outList.append([mod.name, "Finished"])
