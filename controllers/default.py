@@ -47,19 +47,23 @@ def calculatepfail(listofteams, home="Dublin"):
 def generateIntervention(listoflocations):
     finaldict = {}
     intv = {}
+    the_costs = {}
     conf = open_conf()
+    costs = conf.items('Cost of Interventions')
+    for val in costs:
+        the_costs[val[0]]= val[1]
     items = conf.items('Graphical Distance Interventions')
-    for val in items: 
+    for val in items:
         code = "".join(val[0].split(' ')).lower()
-        intv[code] = ["Graphical: "+str(val[0]), val[1]]
+        intv[code] = ["Graphical: "+str(val[0]) + " Cost: $"+ str("{:,.0f}".format(int(the_costs[val[1]]))) , val[1]]
     items = conf.items('Temporal Distance Interventions')
-    for val in items: 
+    for val in items:
         code = "".join(val[0].split(' ')).lower()
-        intv[code] = ["Temporal: "+str(val[0]), val[1]]
+        intv[code] = ["Temporal: "+str(val[0])+ " Cost: $"+ str("{:,.0f}".format(int(the_costs[val[1]]))) , val[1]]
     items = conf.items('Cultural Distance Inteventions')
     for val in items: 
         code = "".join(val[0].split(' ')).lower()
-        intv[code] = ["Cultural: "+str(val[0]), val[1]]
+        intv[code] = ["Cultural: "+str(val[0])+ " Cost: $"+str("{:,.0f}".format(int(the_costs[val[1]]))) , val[1]]
     for location in listoflocations:
         finaldict[location] = intv
     return finaldict
@@ -104,7 +108,6 @@ def new_game_cal():
     new_team.calcDaysLeft()
     session.test.append(new_team)
     loct = [x.location for x in session.test]
-    print loct
     session.prob= calculatepfail(loct)
     session.intervention = generateIntervention(loct)
     session.budget = getExpectedBudget(session.test)
@@ -226,8 +229,6 @@ def get_locations():
 def view():
     modules = []
     location = get_locations()
-    print len(session.intervention['dublin'])
-    print session.prob
     isComplete = True
     teamEstimatesAndProgresses = [["", "Actual", "Estimated"]]
     totEstimate = 0
