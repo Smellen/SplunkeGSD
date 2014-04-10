@@ -57,7 +57,6 @@ To Test the Application
 --------------------------
 These instructions will test the application using the definded tests. 
 1. run 'make test' 
-This should be called in the installed directory $home/public_html/web2py/applications/SplunkeGSD
 Files and functions not testing in these tests are included in NOT_TESTED.csv
 
 
@@ -165,8 +164,21 @@ Upon completion of any game the report will be displayed.
 		- Relevant information for particular inquiry is displayed
 
 12. (Feature 16 Intervention Interface) Intervention interface that allows the player to spend resources on interventions to correct or prevent problems.
+	- To see the intervention interface running:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Click 'Next Day' 
+		- On the map hover over any team location
+		- Select any intervention from the location context menu 
+		- Once an intervention is selected it cannot be selected again
+		- Relevant information for particular intervention is displayed
 
 13. (Feature 15 Culture Influenced Reporting) Culture-influenced reporting that causes a site's status to be displayed according to the site's culture.
+	- To see the culture influenced reporting is running:
+		- Click 'Select Pre-defined Game' from the home menu
+		- Click 'Next Day' until a site in Asia becomes orange
+		- On the map hover over any team location
+		- From the site context menu select 'Send Email' and press 'Inquire' 
+		- The site will report back that it is on schedule
 
 Download Files
 ===============
@@ -333,4 +345,25 @@ Fixed Issues:
 - (Problem Simultator) For some games if there were too many problems it would cause the game to seemingly never end.
 
 - (Last day of game was not being counted) The last day was left out due to a rounding error. This issue is fixed and the game finishes on the correct day.
+
+
+Release 2
+==========
+Released: 10/04/2014
+
+Implemented:
+- (Feature 7) Inquiry Interface. Interface to submit inquiries to a site about their progress.
+
+- (Feature 16) Interventation interface. Intervention interface that allows the player to spend resources on interventions to correct or prevent problems
+
+- (Feature 15) Culture-Influence. Culture-influenced reporting that causes a site's status to be displayed according to the site's culture.
+
+- (Formatting) Changed layout on the map display. Interventions and query alerts displayed to the user.
+
+- (Testing) Added more tests for new functions. Eg New query and intervention functions.
+Known Issues:
+- None
+
+Fixed Issues:
+- None
 
