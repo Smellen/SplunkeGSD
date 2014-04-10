@@ -33,9 +33,8 @@
 }
 .requestResult{
     position:relative;
-    left:50%;
-    width:500px;
-    margin-left:-250px;
+    border:solid black 2px;
+    background:white;
 }
 .endGame{
     position: absolute;
@@ -190,10 +189,15 @@ function queryHandler(loc){
     if (!thediv){
         var thediv = document.createElement('DIV');
         thediv.id = loc.replace(' ','_')+'requestResult';
+        thediv.className = 'requestResult';
     }
     thediv.innerHTML = 'HI!!'
+    thediv.setAttribute('onclick',"hide('"+thediv.id+"')");
     ajax('{{=URL("handleQuery")}}'+'/'+requestType+'/'+(loc.replace(' ','_')),[],thediv.id);
     document.getElementById('requestResults').appendChild(thediv);
+}
+function hide(id){
+    document.getElementById(id).setAttribute('hidden','');
 }
 function mapSetup()
 {
@@ -244,8 +248,8 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
 
 </script>
     
-<div id='requestResults' style=''></div>
 <div style="position: absolute; z-index:100">
+    <div id='requestResults' style='position:absolute;bottom:0px;'></div>
     <img id="map" src="/SplunkeGSD/static/map.PNG" onclick='hideDetails()';/> 
 {{ def getColor(status): }}
     {{if status == 0:}}
