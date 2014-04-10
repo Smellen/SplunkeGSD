@@ -64,7 +64,7 @@ def generateIntervention(listoflocations):
         finaldict[location] = intv
     return finaldict
 
-def addIntervention(): #need to test
+def addIntervention():
     vention = request.args[0]
     location = request.args[1]
     value = session.intervention[location][vention][1] #i_j value
