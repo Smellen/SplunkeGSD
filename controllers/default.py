@@ -326,9 +326,9 @@ def handleQuery():
 	queryType = request.args[0]
 	location = request.args[1]
 	if queryType == "email1":
-		emailQuery(location)
+		return emailQuery(location)
 	elif queryType == "email2":
-		emailModuleReport(location)
+		return emailModuleReport(location)
 
 
 def emailQuery(location):
@@ -359,4 +359,7 @@ def emailModuleReport(location):
 				outList.append((mod.name, "Behind Schedule"))
 			else:
 				outList.append((mod.name, "On schedule"))
+
+def emailCompletedTasks(location):
+	tmp = location.replace("_", " ")
 
