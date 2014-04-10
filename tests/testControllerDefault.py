@@ -72,7 +72,7 @@ class TestControllerDefault(unittest.TestCase):
 		bob.addModule(mod1)
 		bob.addModule(mod2)
 		bob.applyEffort()
-		blah = default.view_game_cal(0, [bob], 0)
+		blah = default.view_game_cal(0, [bob], 0, 0)
 		self.assertIsInstance(blah[3], str)
 
 	def testproblemSimulator(self):
@@ -124,7 +124,7 @@ class TestControllerDefault(unittest.TestCase):
 		bob.addModule(mod2)
 		lst = [bob]*2
 		days = 5
-		cost = default.getTotalCost(lst, 5)
+		cost = default.getTotalCost(lst, days, 0)
 		self.assertEqual(cost, (20*float(cost_of_dev)*days))
 
 if __name__ == '__main__':

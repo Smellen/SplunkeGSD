@@ -40,17 +40,49 @@ def calculatepfail(listofteams, home="Dublin"):
             prob[team].append(0) #i_j
         else:
             prob[team] = []
-            prob[team].append(0.85)
-            prob[team].append(0.85)
+            prob[team].append(0.2)
+            prob[team].append(0.2)
             prob[team].append(0)
     return prob
+
+def generateIntervention(listoflocations):
+    finaldict = {}
+    intv = {}
+    conf = open_conf()
+    items = conf.items('Graphical Distance Interventions')
+    for val in items: 
+        code = "".join(val[0].split(' ')).lower()
+        intv[code] = ["Graphical: "+str(val[0]), val[1]]
+    items = conf.items('Temporal Distance Interventions')
+    for val in items: 
+        code = "".join(val[0].split(' ')).lower()
+        intv[code] = ["Temporal: "+str(val[0]), val[1]]
+    items = conf.items('Cultural Distance Inteventions')
+    for val in items: 
+        code = "".join(val[0].split(' ')).lower()
+        intv[code] = ["Cultural: "+str(val[0]), val[1]]
+    for location in listoflocations:
+        finaldict[location] = intv
+    return finaldict
+
+def addIntervention():
+    vention = request.args[0]
+    location = request.args[1]
+    value = session.intervention[location][vention][1] #i_j value
+    session.prob[location][2] = session.prob[location][2] + int(value)
+    calculateprob(session.prob)
+    conf = open_conf()
+    the_cost = conf.get('Cost of Interventions', session.intervention[location][vention][1] )
+    session.cost = session.cost + int(the_cost)
+    del session.intervention[location][vention]
+    return "Intervention Applied - Cost: $"+str("{:,.2f}".format(int(the_cost)))
 
 def calculateprob(teamprob): #probablility for home? {'location':[prob, org p_fail, i_j ]}
     for team in teamprob: #recalculates for each
         values = teamprob[team]
         temp = 1 + values[2]
         i = values[2] / temp
-        temp1 = values[1]*i
+        temp1 = values[1]*(1-i)
         teamprob[team][0] = temp1
     return teamprob
 
@@ -67,12 +99,15 @@ def new_game_cal():
     session.pre = "false"
     session.saved = "false"
     session.first = False
-    loct = [x.location for x in session.test]
-    session.prob= calculatepfail(loct)
+    session.cost = 0
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     new_team.calcDaysLeft()
     session.test.append(new_team)
+    loct = [x.location for x in session.test]
+    print loct
+    session.prob= calculatepfail(loct)
+    session.intervention = generateIntervention(loct)
     session.budget = getExpectedBudget(session.test)
     return
     
@@ -192,6 +227,8 @@ def get_locations():
 def view():
     modules = []
     location = get_locations()
+    print len(session.intervention['dublin'])
+    print session.prob
     isComplete = True
     teamEstimatesAndProgresses = [["", "Actual", "Estimated"]]
     totEstimate = 0
@@ -214,30 +251,31 @@ def view():
     if complete == "false":
         session.day += 1
         final = [0,0]
+        session.cost = getTotalCost(session.test, 1, session.cost)
     else:
         if session.first == False:
             session.day += 1
+            session.cost = getTotalCost(session.test, 1, session.cost)
             session.first = True
         final = getFinalRevenue(session.test)
-    cost = getTotalCost(session.test, session.day)
-    budgetReport = [["Cost", str("{:,.2f}".format(float(cost))) , str("{:,.2f}".format(float(session.budget)))]]
+    budgetReport = [["Cost", str("{:,.2f}".format(float(session.cost))) , str("{:,.2f}".format(float(session.budget)))]]
     revenueReport = [["Revenue", str(final[0]), str("{:,.2f}".format(float(session.revenue/2)))]]
     session.d_report = teamEstimatesAndProgresses
     session.d_budget = budgetReport
     session.d_revenue = revenueReport
-    amount = str("{:,.2f}".format(((float(final[1]) + float(session.budget)) - float(cost))))
+    amount = str("{:,.2f}".format(((float(final[1]) + float(session.budget)) - float(session.cost))))
     final_rev =  str("{:,.2f}".format(float(final[1]) - (float(session.revenue/2))))
-    final_cost = cost - session.budget
+    final_cost = session.cost - session.budget
     problemSimulator(session.test)
-    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev= final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev= final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(session.cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
-def getTotalCost(listOfTeams, numDays):
+def getTotalCost(listOfTeams, numDays, totalcost):
     config=open_conf()
     cost_of_dev = config.get('Developer', 'Cost_Per_Day')
     number_of_devs = 0
     for team in listOfTeams:
         number_of_devs = number_of_devs + team.teamSize
-    return number_of_devs * float(cost_of_dev) * numDays 
+    return totalcost + (number_of_devs * float(cost_of_dev) * numDays)
 
 def open_conf():
     config = ConfigParser.ConfigParser()
@@ -249,11 +287,11 @@ def open_conf():
     return config
 
 def view_game():
-    responses = view_game_cal(session.estimate_day, session.test, session.day)
+    responses = view_game_cal(session.estimate_day, session.test, session.day, session.cost)
     session.estimate_day = responses[3]
     return dict(title='Global Software Tycoon', esti = session.estimate_day, completed="false", budget=str("%.0f" % session.budget), cost=str("%.0f" % responses[0]),  the_revenue=session.revenue, modules=responses[2], locations=responses[1],day=session.day)
 
-def view_game_cal(estimate_day, test, day):
+def view_game_cal(estimate_day, test, day, the_cost):
     modules = []
     statuses = {}
     config=open_conf()
@@ -270,7 +308,7 @@ def view_game_cal(estimate_day, test, day):
              if int(temp[4]) >= int(estimate_day):
                     estimate_day = temp[4]
     location = list(statuses.values())
-    cost = getTotalCost(test, day)
+    cost = getTotalCost(test, 0, the_cost)
     return [cost, location, modules, estimate_day]
 
 def config_game():
@@ -326,10 +364,9 @@ def load_game_cal(other_file_id):
         session.saved = "false"
         session.pre = "true"
         session.first = False
+        session.cost = 0
         session.revenue = data['Game']['expected_revenue']
         projectType = data['Game']+['projectType']
-        loct = [x.location for x in session.test]
-        session.prob= calculatepfail(loct)
     except:
         pass
     for te in data['Game']['Teams']:
@@ -342,6 +379,9 @@ def load_game_cal(other_file_id):
         try:
             session.test.append(newTeam)
             session.budget = getExpectedBudget(session.test)
+            loct = [x.location for x in session.test]
+            session.intervention = generateIntervention(loct)
+            session.prob= calculatepfail(loct)
         except:
             pass
     return data

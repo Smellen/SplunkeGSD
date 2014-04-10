@@ -6,6 +6,7 @@ default:
 	@echo "Please run: \n1. make install \n2.  make test \n3.  make clean \n4. make install-web2py"
 
 install:
+	@clear
 	@echo "\nInstalling Application in ~/public_html/web2py/applications/"
 	@echo "This will remove any previous version with the same name - ${SplunkeApp}"
 	@echo "Please press ENTER to confirm or Ctrl-C to cancel"
@@ -19,6 +20,7 @@ install:
 	@python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p ${port}
 
 install-web2py:
+	@clear
 	@echo "Installing web2py at ~/public_html/web2py"
 	@echo "Please note this will remove any version of web2py at ~/public_html/web2py/ \nPlease press ENTER to confirm or Ctrl-C to cancel \n\n"
 	@read Confirm
@@ -29,6 +31,7 @@ install-web2py:
 	@mv ${HOME}/public_html/web2py/handlers/wsgihandler.py ${HOME}/public_html/web2py/wsgihandler.py
 
 run: 	
+	@clear
 	@echo "\n***When running, the application is available at http://localhost:8080/${SplunkeApp}\n"
 	@python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p ${port}
 
