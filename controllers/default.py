@@ -39,39 +39,43 @@ def calculatepfail(listofteams, home="Dublin"):
             prob[team].append(p_fail) #original p_fail
             prob[team].append(0) #i_j
         else:
+            value = float(conf.get('Problems', 'home_prob'))
             prob[team] = []
-            prob[team].append(0.2)
-            prob[team].append(0.2)
+            prob[team].append(value)
+            prob[team].append(value)
             prob[team].append(0)
     return prob
 
 def generateIntervention(listoflocations):
     finaldict = {}
-    intv = {}
-    the_costs = {}
     conf = open_conf()
     costs = conf.items('Cost of Interventions')
+    the_costs = {}
     for val in costs:
         the_costs[val[0]]= val[1]
-    items = conf.items('Graphical Distance Interventions')
-    for val in items:
-        code = "".join(val[0].split(' ')).lower()
-        intv[code] = ["Graphical: "+str(val[0]) + " Cost: $"+ str("{:,.0f}".format(int(the_costs[val[1]]))) , val[1]]
-    items = conf.items('Temporal Distance Interventions')
-    for val in items:
-        code = "".join(val[0].split(' ')).lower()
-        intv[code] = ["Temporal: "+str(val[0])+ " Cost: $"+ str("{:,.0f}".format(int(the_costs[val[1]]))) , val[1]]
-    items = conf.items('Cultural Distance Inteventions')
-    for val in items: 
-        code = "".join(val[0].split(' ')).lower()
-        intv[code] = ["Cultural: "+str(val[0])+ " Cost: $"+str("{:,.0f}".format(int(the_costs[val[1]]))) , val[1]]
     for location in listoflocations:
+        intv = {}
+        items = conf.items('Graphical Distance Interventions')
+        for val in items:
+            code = str(location[0:3]).upper()+"".join(val[0].split(' ')).lower()
+            intv[code] = ["Graphical: "+str(val[0]) + " Cost: $"+ str("{:,.0f}".format(int(the_costs[val[1]]))) , val[1]]
+        items = conf.items('Temporal Distance Interventions')
+        for val in items:
+            code = str(location[0:3]).upper()+"".join(val[0].split(' ')).lower()
+            intv[code] = ["Temporal: "+str(val[0])+ " Cost: $"+ str("{:,.0f}".format(int(the_costs[val[1]]))) , val[1]]
+        items = conf.items('Cultural Distance Inteventions')
+        for val in items: 
+            code = str(location[0:3]).upper()+"".join(val[0].split(' ')).lower()
+            intv[code] = [str("Cultural: "+str(val[0])+ " Cost: $"+str("{:,.0f}".format(int(the_costs[val[1]])))) , val[1]]
         finaldict[location] = intv
     return finaldict
 
 def addIntervention():
     vention = request.args[0]
     location = request.args[1]
+    location = location.replace("_", " ")
+    if vention not in session.intervention[location] :
+        return "Intervention already applied"
     value = session.intervention[location][vention][1] #i_j value
     session.prob[location][2] = session.prob[location][2] + int(value)
     calculateprob(session.prob)

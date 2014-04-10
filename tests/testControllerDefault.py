@@ -30,7 +30,13 @@ class TestControllerDefault(unittest.TestCase):
 		self.assertIsInstance(temp['dublin'][2], int)
 		self.assertIsInstance(temp['dublin'][0], float)
 		self.assertIsInstance(temp['dublin'][1], float)
-		
+	
+	def testgenerateIntervention(self): 
+		lt = ['dublin', 'san francisco', 'bangalore']
+		temp = default.generateIntervention(lt) 
+		self.assertTrue(len(lt) == len(temp))
+		self.assertTrue(len(temp['dublin']) != 0)
+
 	def testload_game_cal(self):
 		blah = default.load_game_cal("game1")
 		self.assertIsNotNone(blah)
