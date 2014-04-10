@@ -394,8 +394,9 @@ def handleQuery():
 	elif queryType == "email2":
 		return emailModuleReport(location)
 	elif queryType == "email3":
-		return holdVideoConfrence(location)
-
+		return emailCompletedTasks(location)
+	elif queryType == "holdVideoConference":
+		return holdVideoConference(location)
 
 def emailQuery(location):
     tmp = location.replace("_", " ")
@@ -448,26 +449,29 @@ def emailCompletedTasks(location):
 	#return str(outList)
 	return TABLE(*[TR(*rows) for rows in outList])
 
-def holdVideoConfrence(location):
+def holdVideoConference(location):
+	tmp = location.replace("_", " ")
 	russianAsianLocations = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
-	if location not in russianAsianLocations:
-		return emailCompletedTasks(location)
-
-	for team in [x for x in session.test if x.location == tmp]:
-		for mod in team.currentModules:
-			if random.random() > 0.5:
-				stage = mod.getProgress()
-				if stage != "Complete":
-					for i in range(len(tasks)):
-						if stage == tasks[i]:
-							if i == 0:
-								outList.append([mod.name, "No tasks complete"])
+	outList = []
+	if location in russianAsianLocations:
+		for team in [x for x in session.test if x.location == tmp]:
+			for mod in team.currentModules:
+				if random.random() > 0.5:
+					stage = mod.getProgress()
+					if stage != "Complete":
+						for i in range(len(tasks)):
+							if stage == tasks[i]:
+								if i == 0:
+									outList.append([mod.name, "No tasks complete"])
+								else:
+									outList.append([mod.name, tasks[i-1]])
 							else:
-								outList.append([mod.name, tasks[i-1]])
-			else:
-				taskNum = int(random.random() * len(tasks))
-				outList.append((mod.name, tasks[taskNum]))
-	#return str(outList)
-	return TABLE(*[TR(*rows) for rows in outList])
+								outList.append([mod.name, "SHIIIIIIIIIIIIIIIIIT"])
+				else:
+					taskNum = int(random.random() * len(tasks))
+					outList.append([mod.name, tasks[taskNum]])
+		return TABLE(*[TR(*rows) for rows in outList])
+	else:	
+		return emailCompletedTasks(location)
 
