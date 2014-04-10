@@ -80,7 +80,10 @@ def save_game_report():
     redirect(URL('view'))
 
 def save_game_report_cal(report, budget, revenue):
-    f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'.txt', 'w')
+    try:
+        f = open(strftime("applications/SplunkeGSD/saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'.txt', 'w')
+    except: 
+        f = open(strftime("saved_game_reports/%Y-%m-%d-%H:%M:%S", gmtime())+'.txt', 'w') #for testing
     f.write('\n')
     for i in report:
         f.write(str(i[0])+',')
@@ -142,14 +145,19 @@ def index():
     return dict(title='Home')
 
 def show_saved_reports():
-    result = os.popen("ls applications/SplunkeGSD/saved_game_reports").read()
-    result1 = result.splitlines()
+    try: 
+        result = os.listdir("applications/SplunkeGSD/saved_game_reports")
+    except: 
+        result = os.listdir("saved_game_reports")
     result2=[]
     details = {}
-    for i in result1:
+    for i in result:
         i = i.strip() #remove space
         filename, extension = os.path.splitext(i)
-        f = open('applications/SplunkeGSD/saved_game_reports/'+i, 'r')
+        try:
+            f = open('applications/SplunkeGSD/saved_game_reports/'+i, 'r')
+        except: 
+            f = open('saved_game_reports/'+i, 'r')
         contents = f.read()
         temp = contents.splitlines()
         details[filename]=[]
@@ -232,7 +240,11 @@ def getTotalCost(listOfTeams, numDays):
 
 def open_conf():
     config = ConfigParser.ConfigParser()
-    config.read("applications/SplunkeGSD/application.config")
+    try:
+        config.read("applications/SplunkeGSD/application.config")
+        test = config.get('Problems', 'probability') #forcing it to try it 
+    except:
+        config.read("application.config")
     return config
 
 def view_game():
@@ -261,18 +273,25 @@ def view_game_cal(estimate_day, test, day):
     return [cost, location, modules, estimate_day]
 
 def config_game():
-    result = os.popen("ls applications/SplunkeGSD/scenarios").read()
-    result1 = result.splitlines()
+    try: 
+        result = os.listdir("applications/SplunkeGSD/scenarios")
+    except:
+        result = os.listdir("scenarios/")
     result2=[]
+    data = {}
     details = {}
-    for i in result1:
+    for i in result:
         i = i.strip() #remove space
         filename, extension = os.path.splitext(i)
         result2.append(filename)
     for the_file in result2: #for file in the list
         details[the_file]=[] #to put the information
-        string = "applications/SplunkeGSD/scenarios/"+the_file+".json"
-        f=open(string)
+        try: 
+            string = "applications/SplunkeGSD/scenarios/"+the_file+".json"
+            f=open(string)
+        except: 
+            string = "scenarios/"+the_file+".json"
+            f=open(string)
         data = json.load(f)
         projectType = data['Game']['projectType']
         for te in data['Game']['Teams']:
@@ -293,8 +312,12 @@ def load_game_cal(other_file_id):
         file_id = request.args[0]
     except:
         file_id = other_file_id
-    string = "applications/SplunkeGSD/scenarios/"+file_id+".json"
-    f=open(string)
+    try: 
+        string = "applications/SplunkeGSD/scenarios/"+file_id+".json"
+        f=open(string)
+    except: 
+        string = "scenarios/"+file_id+".json"
+        f=open(string)
     data = json.load(f)
     try: #web2py functionality
         session.test = []

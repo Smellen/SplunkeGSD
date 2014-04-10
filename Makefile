@@ -1,5 +1,6 @@
 SplunkeApp = SplunkeGSD
 port = 8080
+@current_dir = $(shell pwd)
 
 default: 
 	@echo "Please run: \n1. make install \n2.  make test \n3.  make clean \n4. make install-web2py"
@@ -31,8 +32,9 @@ run:
 	@echo "\n***When running, the application is available at http://localhost:8080/${SplunkeApp}\n"
 	@python ${HOME}/public_html/web2py/web2py.py -a adminpass -i localhost -p ${port}
 
-test: 
+test:
 	@clear
+	@echo ${current_dir} 
 	@echo "Running tests...\n\n" 
 	@python tests/testTeam.py
 	@python tests/testControllerDefault.py

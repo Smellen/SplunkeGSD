@@ -9,21 +9,19 @@ default = imp.load_source('default', 'controllers/default.py')
 team = imp.load_source('team', 'controllers/classes/team.py')
 module = imp.load_source('module', 'controllers/classes/module.py')
 
-os.chdir('../..')
-
 class TestControllerDefault(unittest.TestCase):
 		
 	def testsave_game_report_cal(self):
 		report = [['', 'Actual', 'Estimated'], ['Dublin: Test Module', '234.7', '200'], ['Total Effort', '234.7', '200']]
 		budget = [['Cost', '7175.0', '8968.8']]
-		revenue = [['Revenue', '500000.0', '500000.0']]
-		files = [name for name in os.listdir('applications/SplunkeGSD/saved_game_reports/.')]
+		revenue = [['Revenue', '500000.0', '500000.0']] 
+		files = [name for name in os.listdir('saved_game_reports/.')]
 		blah = default.save_game_report_cal(report, budget, revenue)
-		new_files = [name for name in os.listdir('applications/SplunkeGSD/saved_game_reports/')]
+		new_files = [name for name in os.listdir('saved_game_reports/')]
 		self.assertTrue(len(new_files)-len(files) ==1)#check only one file is created
-		fil = list( set(new_files)- set(files))		
-		self.assertFalse(os.stat('applications/SplunkeGSD/saved_game_reports/'+str(fil[0])).st_size==0) 
-		os.remove('applications/SplunkeGSD/saved_game_reports/'+str(fil[0]))
+		fil = list( set(new_files)- set(files))
+		self.assertFalse(os.stat('saved_game_reports/'+str(fil[0])).st_size==0) 
+		os.remove('saved_game_reports/'+str(fil[0]))
 	
 	def testcalculatepfail(self): 
 		lt = ['dublin', 'san francisco', 'bangalore']
@@ -117,7 +115,7 @@ class TestControllerDefault(unittest.TestCase):
 
 	def testgetTotalCost(self):
 		config = ConfigParser.ConfigParser()
-		config.read("applications/SplunkeGSD/application.config")
+		config.read("application.config")
 		cost_of_dev = config.get('Developer', 'Cost_Per_Day')
 		bob = team.team(10, 'dublin', 10)
 		mod1 = module.module('TestModule', 50)
