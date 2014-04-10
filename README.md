@@ -161,7 +161,7 @@ Upon completion of any game the report will be displayed.
 		- Click 'Next Day' 
 		- On the map hover over any team location
 		- Select any inquiry from the location context menu 
-		- Relevant information for particular inquiry is displayed
+		- Relevant information for particular inquiry is displayed on the right hand side of the screen
 
 12. (Feature 16 Intervention Interface) Intervention interface that allows the player to spend resources on interventions to correct or prevent problems.
 	- To see the intervention interface running:
@@ -170,7 +170,7 @@ Upon completion of any game the report will be displayed.
 		- On the map hover over any team location
 		- Select any intervention from the location context menu 
 		- Once an intervention is selected it cannot be selected again
-		- Relevant information for particular intervention is displayed
+		- Relevant information for particular intervention is displayed on the right hand side of the screen
 
 13. (Feature 15 Culture Influenced Reporting) Culture-influenced reporting that causes a site's status to be displayed according to the site's culture.
 	- To see the culture influenced reporting is running:
