@@ -186,12 +186,15 @@ function placeMarkers(){
 function jsIntervention(loc){
     var select = document.getElementById(loc+'inter');
     var requestType = select.options[select.selectedIndex].id;
-    var thediv = document.getElementById(loc.replace(' ','_')+'requestResult');
+    var thediv = document.getElementById(loc.replace(' ','_')+'interventionResult');
     if (!thediv){
         var thediv = document.createElement('DIV');
-        thediv.id = loc.replace(' ','_')+'requestResult';
+        thediv.id = loc.replace(' ','_')+'interventionResult';
+        thediv.className = 'requestResult';
     }
+    thediv.setAttribute('onclick',"hide('"+thediv.id+"')");
     ajax('{{=URL("addIntervention")}}'+'/'+requestType+'/'+(loc.replace(' ','_')),[],thediv.id);
+    thediv.removeAttribute('hidden');
     document.getElementById('requestResults').appendChild(thediv);
 }
 function queryHandler(loc){
@@ -203,7 +206,6 @@ function queryHandler(loc){
         thediv.id = loc.replace(' ','_')+'requestResult';
         thediv.className = 'requestResult';
     }
-    thediv.innerHTML = 'HI!!'
     thediv.setAttribute('onclick',"hide('"+thediv.id+"')");
     ajax('{{=URL("handleQuery")}}'+'/'+requestType+'/'+(loc.replace(' ','_')),[],thediv.id);
     thediv.removeAttribute('hidden');
