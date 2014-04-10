@@ -148,8 +148,9 @@ Upon completion of any game the report will be displayed.
 	
 10. (Feature 11 Problem Simulator) Problem simulator that occasionally selects a site or module to experience a problem, with probability determined by game parameters.
 	- The probability parameter is set in the application.config file under the [Problems] section as 'probability' 
+	- Note: Home Problem Probablity is in (and can be changed in) the config file [Problems] -> home_prob
 	- The probability value is in the range 0 to 1
-	- The default value is set at '0.85'
+	- The default value is set at based on the global distance between the locations and the home location and interventions
 	- To see the problem simulator running:
 		- Click 'Select Pre-defined Game' from the home menu
 		- Repeat clicking 'Next Day' until end of game report appears
@@ -161,7 +162,7 @@ Upon completion of any game the report will be displayed.
 		- Click 'Next Day' 
 		- On the map hover over any team location
 		- Select any inquiry from the location context menu 
-		- Relevant information for particular inquiry is displayed
+		- Relevant information for particular inquiry is displayed on the right hand side of the screen
 
 12. (Feature 16 Intervention Interface) Intervention interface that allows the player to spend resources on interventions to correct or prevent problems.
 	- To see the intervention interface running:
@@ -170,7 +171,7 @@ Upon completion of any game the report will be displayed.
 		- On the map hover over any team location
 		- Select any intervention from the location context menu 
 		- Once an intervention is selected it cannot be selected again
-		- Relevant information for particular intervention is displayed
+		- Relevant information for particular intervention is displayed on the right hand side of the screen
 
 13. (Feature 15 Culture Influenced Reporting) Culture-influenced reporting that causes a site's status to be displayed according to the site's culture.
 	- To see the culture influenced reporting is running:
@@ -179,6 +180,8 @@ Upon completion of any game the report will be displayed.
 		- On the map hover over any team location
 		- From the site context menu select 'Send Email' and press 'Inquire' 
 		- The site will report back that it is on schedule
+
+		
 
 Download Files
 ===============
