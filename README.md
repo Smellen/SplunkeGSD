@@ -148,8 +148,9 @@ Upon completion of any game the report will be displayed.
 	
 10. (Feature 11 Problem Simulator) Problem simulator that occasionally selects a site or module to experience a problem, with probability determined by game parameters.
 	- The probability parameter is set in the application.config file under the [Problems] section as 'probability' 
+	- Note: Home Problem Probablity is in (and can be changed in) the config file [Problems] -> home_prob
 	- The probability value is in the range 0 to 1
-	- The default value is set at '0.85'
+	- The default value is set at based on the global distance between the locations and the home location and interventions
 	- To see the problem simulator running:
 		- Click 'Select Pre-defined Game' from the home menu
 		- Repeat clicking 'Next Day' until end of game report appears
@@ -180,8 +181,6 @@ Upon completion of any game the report will be displayed.
 		- From the site context menu select 'Send Email' and press 'Inquire' 
 		- The site will report back that it is on schedule
 
-
-Note: Home Problem Probablity is in (and can be changed in) the config file [Problems] -> home_prob
 		
 
 Download Files
