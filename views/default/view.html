@@ -262,7 +262,10 @@ if ({{=completed}} /*&& document.getElementsByClassName("endGame") == []*/){
                 <u>{{=module.name}}</u> <br/>Est. Eff. <strong>{{=module.estimateEffort}}</strong> person hrs<br/><br/>
                 {{pass}}
                 <div id='{{=team[0].replace(" ", "_")}}emailResult' class='requestResult'>
-                        <button name="name" class='requestButton' onclick="ajax('{{=URL("emailQuery", args=[team[0]])}}', [], '{{=team[0].replace(" ", "_")}}emailResult')">Send Email</button>
+					<select>
+                        <option name="name">Send Email</option>
+					<input type="button" value="Inquire" onClick="ajax('{{=URL("emailQuery", args=[team[0]])}}', [], '{{=team[0].replace(" ", "_")}}emailResult')"></input>
+					</select>
                 </div>
             </div>
         </div>
