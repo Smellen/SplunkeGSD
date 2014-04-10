@@ -3,6 +3,7 @@ from __future__ import division
 import ConfigParser
 import os
 import imp
+import ast
 try:
 	import applications.SplunkeGSD.controllers.classes.module as module
 	import applications.SplunkeGSD.controllers.classes.team as team
@@ -329,6 +330,8 @@ def handleQuery():
 		return emailQuery(location)
 	elif queryType == "email2":
 		return emailModuleReport(location)
+	elif queryType == "email3":
+		return holdVideoConfrence(location)
 
 
 def emailQuery(location):
@@ -361,7 +364,7 @@ def emailModuleReport(location):
 				outList.append((mod.name, "Behind Schedule"))
 			else:
 				outList.append((mod.name, "On schedule"))
-	return outList
+	return str(outList)
 
 def emailCompletedTasks(location):
 	tmp = location.replace("_", " ")
@@ -378,5 +381,27 @@ def emailCompletedTasks(location):
 							outList.append((mod.name, "No tasks complete"))
 						else:
 							outList.append((mod.name, tasks[1-1]))
-	return outList
+	return str(outList)
+
+def holdVideoConfrence(location):
+	russianAsianLocations = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
+	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
+	if location not in russianAsianLocations:
+		return emailCompletedTasks(location)
+
+	for team in [x for x in session.test if x.location == tmp]:
+		for mod in team.currentModules:
+			if random.random() > 0.5:
+				stage = mod.getProgress()
+				if stage != "Complete":
+					for i in range(len(tasks)):
+						if stage == tasks[i]:
+							if i == 0:
+								outList.append((mod.name, "No tasks complete"))
+							else:
+								outList.append((mod.name, tasks[i-1]))
+			else:
+				taskNum = int(random.random() * len(tasks))
+				outList.append((mod.name, tasks[taskNum]))
+	return str(outList)
 
