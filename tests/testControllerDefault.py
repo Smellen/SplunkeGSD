@@ -88,7 +88,8 @@ class TestControllerDefault(unittest.TestCase):
                 bob.addModule(mod1)
                 bob.addModule(mod2)
                 bob.applyEffort()
-		result = default.problemSimulator([bob]) 
+		jdska = {'san francisco': [0.17500000000000002, 0.17500000000000002, 0], 'bangalore': [0.0376470588235294, 0.18823529411764706, 4], 'dublin': [0.2, 0.2, 0]}
+		result = default.problemSimulator([bob], jdska) 
 		self.assertIsInstance(result, bool)
 
 	def testgetDailyDevPeriod(self):
@@ -133,13 +134,13 @@ class TestControllerDefault(unittest.TestCase):
 		cost = default.getTotalCost(lst, days, 0)
 		self.assertEqual(cost, (20*float(cost_of_dev)*days))
 
-	def testQueryCost(self):
+	def testqueryCost(self):
 		cost = default.queryCost(1, 0)
 		config=default.open_conf()
 		cost_of_dev = config.get('Developer', 'Cost_Per_Day')
 		self.assertEqual(cost, float(cost_of_dev))
 		
-	def testEmailQuery(self):
+	def testemailQuery(self):
 		bob = team.team(10, 'dublin', 10)
 		mod1 = module.module('TestModule', 50)
 		mod2 = module.module('TestModule2', 50)

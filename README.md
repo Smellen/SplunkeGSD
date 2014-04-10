@@ -153,7 +153,7 @@ Upon completion of any game the report will be displayed.
 	- To see the problem simulator running:
 		- Click 'Select Pre-defined Game' from the home menu
 		- Repeat clicking 'Next Day' until end of game report appears
-		- The total number of problems that occured in each module are shown in the table 
+		- If a problem occurs it will be displayed to the terminal and the location in which it occured 
 
 11. (Feature 7 Inquiry Interface) Interface to submit inquiries to a site about their progress.
 	- To see the inquiry interface running:
