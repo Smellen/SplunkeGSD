@@ -39,8 +39,8 @@ def calculatepfail(listofteams, home="Dublin"):
             prob[team].append(0) #i_j
         else:
             prob[team] = []
-            prob[team].append(0.85)
-            prob[team].append(0.85)
+            prob[team].append(0.2)
+            prob[team].append(0.2)
             prob[team].append(0)
     return prob
 
@@ -62,27 +62,26 @@ def generateIntervention(listoflocations):
         intv[code] = ["Cultural: "+str(val[0]), val[1]]
     for location in listoflocations:
         finaldict[location] = intv
-    #print finaldict
     return finaldict
 
 def addIntervention(): #need to test
-    intervention = request.args[0]
+    vention = request.args[0]
     location = request.args[1]
-    value = session.interventions[location][intervention][1] #i_j value
-    session.prob[location][2] = session.prob[location][2] + value
+    value = session.intervention[location][vention][1] #i_j value
+    session.prob[location][2] = session.prob[location][2] + int(value)
     calculateprob(session.prob)
     conf = open_conf()
-    the_cost = conf.get('Cost of Interventions', session.interventions[location][intervention][1] )
-    session.cost = session.cost + the_cost
-    del session.interventions[location][intevention]
-    return "Intervention Applied"
+    the_cost = conf.get('Cost of Interventions', session.intervention[location][vention][1] )
+    session.cost = session.cost + int(the_cost)
+    del session.intervention[location][vention]
+    return "Intervention Applied - Cost: $"+str("{:,.2f}".format(int(the_cost)))
 
 def calculateprob(teamprob): #probablility for home? {'location':[prob, org p_fail, i_j ]}
     for team in teamprob: #recalculates for each
         values = teamprob[team]
         temp = 1 + values[2]
         i = values[2] / temp
-        temp1 = values[1]*i
+        temp1 = values[1]*(1-i)
         teamprob[team][0] = temp1
     return teamprob
 
@@ -100,13 +99,14 @@ def new_game_cal():
     session.saved = "false"
     session.first = False
     session.cost = 0
-    session.interventions = {}
-    loct = [x.location for x in session.test]
-    session.prob= calculatepfail(loct)
     new_team = team.team(10, 'dublin', getDailyDevPeriod())
     new_team.addModule(mod)
     new_team.calcDaysLeft()
     session.test.append(new_team)
+    loct = [x.location for x in session.test]
+    print loct
+    session.prob= calculatepfail(loct)
+    session.intervention = generateIntervention(loct)
     session.budget = getExpectedBudget(session.test)
     return
     
@@ -226,7 +226,8 @@ def get_locations():
 def view():
     modules = []
     location = get_locations()
-    generateIntervention(['Dublin', 'New York'])
+    print len(session.intervention['dublin'])
+    print session.prob
     isComplete = True
     teamEstimatesAndProgresses = [["", "Actual", "Estimated"]]
     totEstimate = 0
@@ -363,11 +364,8 @@ def load_game_cal(other_file_id):
         session.pre = "true"
         session.first = False
         session.cost = 0
-        session.interventions = {}
         session.revenue = data['Game']['expected_revenue']
         projectType = data['Game']+['projectType']
-        loct = [x.location for x in session.test]
-        session.prob= calculatepfail(loct)
     except:
         pass
     for te in data['Game']['Teams']:
@@ -380,6 +378,9 @@ def load_game_cal(other_file_id):
         try:
             session.test.append(newTeam)
             session.budget = getExpectedBudget(session.test)
+            loct = [x.location for x in session.test]
+            session.intervention = generateIntervention(loct)
+            session.prob= calculatepfail(loct)
         except:
             pass
     return data
