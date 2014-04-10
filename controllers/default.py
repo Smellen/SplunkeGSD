@@ -398,6 +398,8 @@ def handleQuery():
 		return emailCompletedTasks(location)
 	elif queryType == "holdVideoConference":
 		return holdVideoConference(location)
+	elif queryType == "makeSiteVisit":
+		return makeSiteVisit(location)	
 
 def emailQuery(location):
     tmp = location.replace("_", " ")
@@ -467,12 +469,29 @@ def holdVideoConference(location):
 									outList.append([mod.name, "No tasks complete"])
 								else:
 									outList.append([mod.name, tasks[i-1]])
-							else:
-								outList.append([mod.name, "SHIIIIIIIIIIIIIIIIIT"])
 				else:
 					taskNum = int(random.random() * len(tasks))
 					outList.append([mod.name, tasks[taskNum]])
 		return TABLE(*[TR(*rows) for rows in outList])
 	else:	
 		return emailCompletedTasks(location)
+
+def makeSiteVisit(location):
+	tmp = location.replace("_", " ")
+	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
+	outList = []
+
+	for team in [x for x in session.test if x.location == tmp]:
+		for mod in team.currentModules:
+			if mod.progress >= mod.actualEffort:
+				outList.append([mod.name, "Completed"])
+			elif mod.progress > mod.estimateEffort: 
+				outList.append([mod.name, "Behind Schedule"])
+			else:
+				outList.append([mod.name, "On schedule"])
+	session.cost = getTotalCost(session.test, 7, session.cost)
+
+	return TABLE(*[TR(*rows) for rows in outList])
+
+
 
