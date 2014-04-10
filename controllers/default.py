@@ -406,9 +406,9 @@ def emailQuery(location):
     for team in [x for x in session.test if x.location == tmp]:
 
         if team.getStatus() == [0]:
-            return "Yes, on schedule"
+            return location.capitalize() +": Yes, on schedule"
         else:
-            return "Not on schedule"
+            return location.capitalize() +": Not on schedule"
 
 def emailModuleReport(location):
 	tmp = location.replace("_", " ")	
@@ -419,7 +419,7 @@ def emailModuleReport(location):
 			for mod in team.currentModules:
 				outList.append([mod.name, "Yes, on schedule"])
 		#return str(outList)
-	        return TABLE(*[TR(*rows) for rows in outList])
+	        return TABLE(TR(location), **[TR(*rows) for rows in outList])
 	for team in [x for x in session.test if x.location == tmp]:
 		for mod in team.currentModules:
 			if mod.progress >= mod.actualEffort:
@@ -428,8 +428,8 @@ def emailModuleReport(location):
 				outList.append([mod.name, "Behind Schedule"])
 			else:
 				outList.append([mod.name, "On schedule"])
-	#print TABLE(*[TR(*rows) for rows in outList])
-	return TABLE(*[TR(*rows) for rows in outList])
+	#print TABLE(TR(location.capitalize() + ":"), *[TR(*rows) for rows in outList])
+	return TABLE(TR(location.capitalize() + ":"), *[TR(*rows) for rows in outList])
 
 def emailCompletedTasks(location):
 	tmp = location.replace("_", " ")
@@ -447,7 +447,7 @@ def emailCompletedTasks(location):
 						else:
 							outList.append([mod.name, tasks[i-1]])
 	#return str(outList)
-	return TABLE(*[TR(*rows) for rows in outList])
+	return TABLE(TR(location.capitalize() + ":"), *[TR(*rows) for rows in outList])
 
 def holdVideoConfrence(location):
 	russianAsianLocations = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
@@ -470,4 +470,4 @@ def holdVideoConfrence(location):
 				taskNum = int(random.random() * len(tasks))
 				outList.append((mod.name, tasks[taskNum]))
 	#return str(outList)
-	return TABLE(*[TR(*rows) for rows in outList])
+	return TABLE(TR(location.capitalize() + ":"), *[TR(*rows) for rows in outList])
