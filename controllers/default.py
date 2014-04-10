@@ -322,13 +322,41 @@ def load_game_cal(other_file_id):
             pass
     return data
 
-def emailQuery():
-    tmp = request.args[0].replace("_", " ")
+def handleQuery():
+	queryType = request.args[0]
+	location = request.args[1]
+	if queryType == "email1":
+		emailQuery(location)
+	elif queryType == "email2":
+		emailModuleReport(location)
+
+
+def emailQuery(location):
+    tmp = location.replace("_", " ")
     lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
-    if request.args[0] in lst:
+    if location in lst:
         return "Yes, on schedule"
     for team in [x for x in session.test if x.location == tmp]:
         if team.getStatus() == [0]:
-            return "Yes"
+            return "Yes, on schedule"
         else:
-            return "No"
+            return "Not on schedule"
+
+def emailModuleReport(location):
+	tmp = location.replace("_", " ")	
+    lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
+	outList = []
+    if location in lst:
+		for team in [x for x in session.test if x.location == tmp]:
+			for mod in team.currentModules:
+				outList.append((mod.name, "Yes, on schedule"))
+		return outList
+	for team in [x for x in session.test if x.location == tmp]:
+		for mod in team.currentModules:
+			if mod.progress >= mod.actualEffort:
+				outList.append((mod.name, "Finished"))
+			elif mod.progress > mod.estimateEffort: 
+				outList.append((mod.name, "Behind Schedule"))
+			else:
+				outList.append((mod.name, "On schedule"))
+
