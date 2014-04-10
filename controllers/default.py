@@ -402,7 +402,7 @@ def emailQuery(location):
     tmp = location.replace("_", " ")
     lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
     if tmp in lst:
-        return "Yes, on schedule"
+        return location.capitalize() + "Yes, on schedule"
     for team in [x for x in session.test if x.location == tmp]:
 
         if team.getStatus() == [0]:
