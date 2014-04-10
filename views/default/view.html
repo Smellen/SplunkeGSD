@@ -186,8 +186,11 @@ function placeMarkers(){
 function queryHandler(loc){
     var select = document.getElementById(loc+'queries');
     var requestType = select.options[select.selectedIndex].id;
-    var thediv = document.createElement('DIV');
-    thediv.id = loc+'requestResult';
+    var thediv = document.getElementById(loc.replace(' ','_')+'requestResult');
+    if (!thediv){
+        var thediv = document.createElement('DIV');
+        thediv.id = loc.replace(' ','_')+'requestResult';
+    }
     thediv.innerHTML = 'HI!!'
     ajax('{{=URL("handleQuery")}}'+'/'+requestType+'/'+(loc.replace(' ','_')),[],thediv.id);
     document.getElementById('requestResults').appendChild(thediv);
