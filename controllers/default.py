@@ -268,7 +268,7 @@ def view():
     final_rev =  str("{:,.2f}".format(float(final[1]) - (float(session.revenue/2))))
     final_cost = session.cost - session.budget
     problemSimulator(session.test)
-    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev= final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(session.cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title='Global Software Tycoon', saved=session.saved, the_inter = session.intervention, amount=amount, final_rev= final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(session.cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays, totalcost):
     config=open_conf()
@@ -471,4 +471,3 @@ def holdVideoConfrence(location):
 				outList.append((mod.name, tasks[taskNum]))
 	#return str(outList)
 	return TABLE(*[TR(*rows) for rows in outList])
-
