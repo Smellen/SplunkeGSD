@@ -344,9 +344,9 @@ def emailQuery(location):
 
 def emailModuleReport(location):
 	tmp = location.replace("_", " ")	
-    lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
+	lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	outList = []
-    if location in lst:
+	if location in lst:
 		for team in [x for x in session.test if x.location == tmp]:
 			for mod in team.currentModules:
 				outList.append((mod.name, "Yes, on schedule"))
