@@ -88,7 +88,8 @@ class TestControllerDefault(unittest.TestCase):
                 bob.addModule(mod1)
                 bob.addModule(mod2)
                 bob.applyEffort()
-		result = default.problemSimulator([bob]) 
+		jdska = {'san francisco': [0.17500000000000002, 0.17500000000000002, 0], 'bangalore': [0.0376470588235294, 0.18823529411764706, 4], 'dublin': [0.2, 0.2, 0]}
+		result = default.problemSimulator([bob], jdska) 
 		self.assertIsInstance(result, bool)
 
 	def testgetDailyDevPeriod(self):
