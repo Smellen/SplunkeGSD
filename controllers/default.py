@@ -268,7 +268,7 @@ def view():
     final_rev =  str("{:,.2f}".format(float(final[1]) - (float(session.revenue/2))))
     final_cost = session.cost - session.budget
     problemSimulator(session.test)
-    return dict(title='Global Software Tycoon', saved=session.saved, amount=amount, final_rev= final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(session.cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
+    return dict(title='Global Software Tycoon', saved=session.saved, the_inter = session.intervention, amount=amount, final_rev= final_rev, final_cost=final_cost, esti = session.estimate_day, modules=modules, final=final[0],  cost= str("{:,.0f}".format(float(session.cost))), the_revenue=session.revenue, the_budget= str("{:,.2f}".format(float(session.budget))), locations=location, completed=complete, report=teamEstimatesAndProgresses, budget=budgetReport, revenue=revenueReport, day=session.day)
 
 def getTotalCost(listOfTeams, numDays, totalcost):
     config=open_conf()
@@ -387,6 +387,13 @@ def load_game_cal(other_file_id):
             pass
     return data
 
+def queryCost(cost, sess_cost):
+    config=open_conf()
+    cost_of_dev = config.get('Developer', 'Cost_Per_Day')
+    number_of_devs = cost
+    return sess_cost + (number_of_devs * float(cost_of_dev))
+
+
 def handleQuery():
 	queryType = request.args[0]
 	location = request.args[1]
@@ -417,6 +424,7 @@ def emailModuleReport(location):
 	tmp = location.replace("_", " ")	
 	lst = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	outList = []
+	session.cost = queryCost(0.1, session.cost)
 	if tmp in lst:
 		for team in [x for x in session.test if x.location == tmp]:
 			for mod in team.currentModules:
@@ -438,6 +446,7 @@ def emailCompletedTasks(location):
 	tmp = location.replace("_", " ")
 	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
 	outList = []	
+	session.cost = queryCost(0.5, session.cost)
 
 	for team in [x for x in session.test if x.location == tmp]:
 		for mod in team.currentModules:
@@ -457,6 +466,7 @@ def holdVideoConference(location):
 	russianAsianLocations = ['moscow', 'minsk', 'shanghai', 'tokyo', 'bangalore']
 	tasks = ["Design", "Implementation", "Unit Test", "Integration","System Test", "Deployment", "Acceptance Test", "Complete"]
 	outList = []
+	session.cost = queryCost(2, session.cost)
 	if location in russianAsianLocations:
 		for team in [x for x in session.test if x.location == tmp]:
 			for mod in team.currentModules:
@@ -489,9 +499,7 @@ def makeSiteVisit(location):
 				outList.append([mod.name, "Behind Schedule"])
 			else:
 				outList.append([mod.name, "On schedule"])
-	session.cost = getTotalCost(session.test, 7, session.cost)
+	session.cost = queryCost(7, session.cost)
 
 	return TABLE(*[TR(*rows) for rows in outList])
-
-
 
