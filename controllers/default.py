@@ -46,22 +46,34 @@ def calculatepfail(listofteams, home="Dublin"):
 
 def generateIntervention(listoflocations):
     finaldict = {}
-    intev = {}
+    intv = {}
     conf = open_conf()
     items = conf.items('Graphical Distance Interventions')
     for val in items: 
-        print "".join(val[0].split(' '))
+        code = "".join(val[0].split(' ')).lower()
+        intv[code] = ["Graphical: "+str(val[0]), val[1]]
+    items = conf.items('Temporal Distance Interventions')
+    for val in items: 
+        code = "".join(val[0].split(' ')).lower()
+        intv[code] = ["Temporal: "+str(val[0]), val[1]]
+    items = conf.items('Cultural Distance Inteventions')
+    for val in items: 
+        code = "".join(val[0].split(' ')).lower()
+        intv[code] = ["Cultural: "+str(val[0]), val[1]]
     for location in listoflocations:
-        finaldict[location] = intev
+        finaldict[location] = intv
+    #print finaldict
     return finaldict
 
-def addIntervention():
+def addIntervention(): #need to test
     intervention = request.args[0]
     location = request.args[1]
     value = session.interventions[location][intervention][1] #i_j value
     session.prob[location][2] = session.prob[location][2] + value
     calculateprob(session.prob)
-    #add cost
+    conf = open_conf()
+    the_cost = conf.get('Cost of Interventions', session.interventions[location][intervention][1] )
+    session.cost = session.cost + the_cost
     del session.interventions[location][intevention]
     return "Intervention Applied"
 
@@ -237,12 +249,13 @@ def view():
     if complete == "false":
         session.day += 1
         final = [0,0]
+        session.cost = getTotalCost(session.test, 1, session.cost)
     else:
         if session.first == False:
             session.day += 1
+            session.cost = getTotalCost(session.test, 1, session.cost)
             session.first = True
         final = getFinalRevenue(session.test)
-    session.cost = getTotalCost(session.test, 1, session.cost)
     budgetReport = [["Cost", str("{:,.2f}".format(float(session.cost))) , str("{:,.2f}".format(float(session.budget)))]]
     revenueReport = [["Revenue", str(final[0]), str("{:,.2f}".format(float(session.revenue/2)))]]
     session.d_report = teamEstimatesAndProgresses
