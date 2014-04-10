@@ -487,7 +487,7 @@ def holdVideoConference(location):
 					taskNum = int(random.random() * len(tasks))
 					outList.append([mod.name, tasks[taskNum]])
 		return TABLE(*[TR(*rows) for rows in outList])
-	else:	
+	else:
 		return emailCompletedTasks(location)
 
 def makeSiteVisit(location):
